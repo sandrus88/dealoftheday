@@ -14,8 +14,8 @@ public class CityEntity {
 	private String id;
 	@Column(name = "NAME")
 	private String name;
-	@Column(name = "LATE")
-	private Double late;
+	@Column(name = "LAT")
+	private Double lat;
 	@Column(name = "LNG")
 	private Double lng;
 	
@@ -31,11 +31,11 @@ public class CityEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Double getLate() {
-		return late;
+	public Double getLat() {
+		return lat;
 	}
-	public void setLate(Double late) {
-		this.late = late;
+	public void setLat(Double late) {
+		this.lat = late;
 	}
 	public Double getLng() {
 		return lng;
@@ -59,7 +59,7 @@ public class CityEntity {
 		if (name != null && !name.equals(other.name)) {
 			return false;
 		}
-		if (late != null && !late.equals(other.late)) {
+		if (lat != null && !lat.equals(other.lat)) {
 			return false;
 		}
 		if (lng != null && !lng.equals(other.lng)) {
@@ -73,7 +73,7 @@ public class CityEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((late == null) ? 0 : late.hashCode());
+		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
@@ -81,7 +81,7 @@ public class CityEntity {
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", latitude: " + late
+		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", latitude: " + lat
 				+ ", longitude: " + lng + "]";
 	}
 }

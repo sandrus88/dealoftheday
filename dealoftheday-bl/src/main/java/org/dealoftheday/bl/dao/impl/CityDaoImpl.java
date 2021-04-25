@@ -18,13 +18,8 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public CityEntity get(String id) {
-		try {
-			CityEntity cityEntity = entityManager.createQuery("select c from CityEntity c where upper(c.id) = upper('" + id + "')", CityEntity.class)
-					.getSingleResult();
-			return cityEntity;
-		} catch (Exception e) {
-			return null;
-		}
+		CityEntity cityEntity = entityManager.find(CityEntity.class, id);
+		return cityEntity;
 	}
 
 	@Override
@@ -41,15 +36,10 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public boolean delete(String id) {
-		try {
-			CityEntity cityEntity = entityManager.createQuery("select c from CityEntity c where upper(c.id) = upper('" + id + "')", CityEntity.class)
-					.getSingleResult();
-			if (cityEntity != null) {
-				entityManager.remove(cityEntity);
-				return true;
-			}
-		} catch (Exception e) {
-			id = null;
+		CityEntity cityEntity = entityManager.find(CityEntity.class, id);
+		if (cityEntity != null) {
+			entityManager.remove(cityEntity);
+			return true;
 		}
 		return false;
 	}

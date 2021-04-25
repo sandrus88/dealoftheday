@@ -5,9 +5,9 @@ insert into customer (ID, NAME, SURNAME, BIRTHDATE, EMAIL, PWD, TEL) values (3, 
 insert into customer (ID, NAME, SURNAME, BIRTHDATE, EMAIL, PWD, TEL) values (4, 'Aida', 'Xhaxho', TO_DATE('30/07/1984', 'DD/MM/YYYY'), 'aidaxhaxho@gmail.com', 'pwd4', '0604');
 insert into customer (ID, NAME, SURNAME, BIRTHDATE, EMAIL, PWD, TEL) values (5, 'Mario', 'Rossi', TO_DATE('04/10/1975', 'DD/MM/YYYY'), 'mariorossi@hotmail.it', 'pwd5', '0605');
  
-insert into city (ID, NAME, LATE, LNG) values ('MI', 'Milano', 45.46427, 9.18951);
-insert into city (ID, NAME, LATE, LNG) values ('BX', 'Bruxelles', 50.85045, 4.34878);
-insert into city (ID, NAME, LATE, LNG) values ('PA', 'Palermo', 38.13205, 13.33561);
-insert into city (ID, NAME, LATE, LNG) values ('RM', 'Roma', 41.89193, 12.51133);
-insert into city (ID, NAME, LATE, LNG) values ('BR', 'Berlino', 52.52437, 13.41053);
+insert into city (ID, NAME, LAT, LNG) values ('MI', 'Milano', 45.46427, 9.18951);
+insert into city (ID, NAME, LAT, LNG) values ('FI', 'Firenze', 43.77925, 11.24626);
+insert into city (ID, NAME, LAT, LNG) values ('PA', 'Palermo', 38.13205, 13.33561);
+insert into city (ID, NAME, LAT, LNG) values ('RM', 'Roma', 41.89193, 12.51133);
+insert into city (ID, NAME, LAT, LNG) values ('TO', 'Torino', 45.07049, 7.68682);
  

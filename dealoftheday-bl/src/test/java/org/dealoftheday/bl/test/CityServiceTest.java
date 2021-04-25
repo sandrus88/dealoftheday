@@ -31,7 +31,7 @@ public class CityServiceTest extends AbstractSpringTest {
 		// Then
 		assertNotNull(city);
 		assertEquals("Milano", city.getName());
-		assertEquals(new Double(45.46427), city.getLate());
+		assertEquals(new Double(45.46427), city.getLat());
 		assertEquals(new Double(9.18951), city.getLng());
 	}
 
@@ -43,10 +43,10 @@ public class CityServiceTest extends AbstractSpringTest {
 		// Then
 		assertNotNull(cities);
 		assertEquals(5, cities.size());
-		assertEquals("BR", cities.get(4).getId());
-		assertEquals("Berlino", cities.get(4).getName());
-		assertEquals(new Double(52.52437), cities.get(4).getLate());
-		assertEquals(new Double(13.41053), cities.get(4).getLng());
+		assertEquals("TO", cities.get(4).getId());
+		assertEquals("Torino", cities.get(4).getName());
+		assertEquals(new Double(45.07049), cities.get(4).getLat());
+		assertEquals(new Double(7.68682), cities.get(4).getLng());
 	}
 
 	@Test
@@ -77,7 +77,7 @@ public class CityServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_updateCity() {
 		// Given
-		final String cityId = "bx";
+		final String cityId = "FI";
 
 		// When
 		City city = cityService.get(cityId);
@@ -92,7 +92,7 @@ public class CityServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_deleteCity() {
 		// Given
-		final String cityId = "pa";
+		final String cityId = "PA";
 
 		// When
 		boolean deleting = cityService.delete(cityId);

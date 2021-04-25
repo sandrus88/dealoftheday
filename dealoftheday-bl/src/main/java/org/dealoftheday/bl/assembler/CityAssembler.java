@@ -16,7 +16,7 @@ public class CityAssembler {
 		City dto = new City();
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setLate(entity.getLate());
+		dto.setLat(entity.getLat());
 		dto.setLng(entity.getLng());
 		return dto;
 	}
@@ -29,7 +29,7 @@ public class CityAssembler {
 		CityEntity entity = new CityEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setLate(dto.getLate());
+		entity.setLat(dto.getLat());
 		entity.setLng(dto.getLng());
 		return entity;
 	}
