@@ -1,0 +1,10 @@
+
+@charset "ISO-8859-1";
+
+html,body {
+    margin: 0px;
+    padding: 0px;
+    background-repeat:repeat-x;
+    font-family: Arial, sans-serif;
+    font-size:12px;
+}

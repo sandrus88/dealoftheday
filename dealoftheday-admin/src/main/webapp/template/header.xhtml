@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <div class="ui-widget ui-widget-header">
+            <div id="logo">
+                <h2>#{msg['app.title']}</h2>
+            </div>
+        </div>
+
+        <h:form id="headerForm">
+            <h:panelGrid columns="2" width="100%" class="ui-widget ui-widget-header">
+                <h:panelGrid columns="2" border="0">
+                    #{msg['header.loggeduser.name']} Sandro
+                    |
+                    #{msg['header.loggeduser.role']}: Aminsitratore
+                </h:panelGrid>
+
+                <h:panelGrid columns="4" border="0">
+                    <h:outputLabel value="#{msg['header.selectLanguage']}"/>
+                    <p:selectOneMenu value="#{localeBean.language}" onchange="submit()">
+                        <f:selectItem itemValue="en" itemLabel="#{msg['header.selectLanguage.en']}"/>
+                        <f:selectItem itemValue="it" itemLabel="#{msg['header.selectLanguage.it']}"/>
+                    </p:selectOneMenu>
+                    <p:commandLink action="/index.xhtml?faces-redirect=true" id="linkHome">
+                        <i class="fa fa-fw fa-home" style="font-size: 2rem"/>
+                        <p:tooltip for="linkHome" value="#{msg['header.home']}" position="bottom"/>
+                    </p:commandLink>
+                    <a href="/dealoftheday-admin/j_spring_security_logout"> #{msg['header.logout']}</a>
+                </h:panelGrid>
+            </h:panelGrid>
+        </h:form>
+    </ui:composition>
+
+</html>
