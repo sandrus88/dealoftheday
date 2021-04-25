@@ -10,3 +10,12 @@ create table customer (
         
     PRIMARY KEY (ID)
 );
+
+create table city (	
+    ID char(2), 
+    NAME varchar2(100 byte), 
+    LATE double;
+    LNG double;
+        
+    PRIMARY KEY (ID)
+);
