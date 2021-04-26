@@ -4,7 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.dealoftheday.bl.domain.City;
+import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.CityEntity;
+import org.dealoftheday.bl.entities.PartnerEntity;
 
 public class CityAssembler {
 	
@@ -18,6 +20,11 @@ public class CityAssembler {
 		dto.setName(entity.getName());
 		dto.setLat(entity.getLat());
 		dto.setLng(entity.getLng());
+
+		for (PartnerEntity partnerEntity : entity.getPartners()) {
+			Partner partner = PartnerAssembler.getDTO(partnerEntity);
+			dto.addPartner(partner);
+		}
 		return dto;
 	}
 
@@ -31,6 +38,11 @@ public class CityAssembler {
 		entity.setName(dto.getName());
 		entity.setLat(dto.getLat());
 		entity.setLng(dto.getLng());
+
+		for (Partner partner : dto.getPartners()) {
+			PartnerEntity partnerEntity = PartnerAssembler.getEntity(partner);
+			entity.addPartner(partnerEntity);
+		}
 		return entity;
 	}
 
