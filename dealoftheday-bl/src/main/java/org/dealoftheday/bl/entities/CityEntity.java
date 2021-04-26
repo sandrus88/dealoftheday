@@ -1,8 +1,14 @@
 package org.dealoftheday.bl.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -18,6 +24,26 @@ public class CityEntity {
 	private Double lat;
 	@Column(name = "LNG")
 	private Double lng;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "CITY_ID")
+	private List<PartnerEntity> partners;
+
+	public CityEntity() {
+		partners = new ArrayList<>();
+	}
+
+	public void addPartner(PartnerEntity partnerEntity) {
+		partners.add(partnerEntity);
+	}
+
+	public void removePartner(PartnerEntity partnerEntity) {
+		partners.remove(partnerEntity);
+	}
+	
+	public void removeAllPartners() {
+		partners.clear();
+	}
 	
 	public String getId() {
 		return id;
@@ -43,7 +69,14 @@ public class CityEntity {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
-	
+	public List<PartnerEntity> getPartners() {
+		return partners;
+	}
+
+	public void setPartners(List<PartnerEntity> partners) {
+		this.partners = partners;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -65,6 +98,9 @@ public class CityEntity {
 		if (lng != null && !lng.equals(other.lng)) {
 			return false;
 		}
+		if (partners != null && !partners.equals(other.partners)) {
+			return false;
+		}
 		return true;
 	}
 
@@ -73,15 +109,16 @@ public class CityEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((partners == null) ? 0 : partners.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", latitude: " + lat
-				+ ", longitude: " + lng + "]";
+				+ ", longitude: " + lng + ", partners: " + partners + "]";
 	}
 }

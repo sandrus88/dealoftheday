@@ -6,6 +6,7 @@ import java.util.Date;
 
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Customer;
+import org.dealoftheday.bl.domain.Partner;
 
 public class TestUtils {
 
@@ -33,7 +34,7 @@ public class TestUtils {
 		customer.setTel("9999999");
 		return customer;
 	}
-	
+
 	public static City createCity() {
 		City city = new City();
 		city.setId("NC");
@@ -42,12 +43,34 @@ public class TestUtils {
 		city.setLng(0.1);
 		return city;
 	}
-	
+
 	public static City updateCity(City city) {
 		city.setId("UC");
 		city.setName("Updated City");
 		city.setLat(1.1);
 		city.setLng(1.1);
 		return city;
+	}
+
+	public static Partner createPartner() {
+		Partner partner = new Partner();
+		partner.setName("New Partner");
+		partner.setAddress("Indirizzo New Partner");
+		partner.setTel("Tel New Partner");
+		partner.setCell("Cell New Partner");
+		partner.setEmail("new_partner@hotmail.it");
+		partner.setWebSite("Sito New Partner");
+		partner.setCityId("MI");
+		return partner;
+	}
+
+	public static Partner updatePartner(Partner partner) {
+		partner.setName("Updated Partner");
+		partner.setAddress("Indirizzo Updated Partner");
+		partner.setTel("Tel Updated Partner");
+		partner.setCell("Cell Updated Partner");
+		partner.setEmail("updated_partner@hotmail.it");
+		partner.setWebSite("Sito Updated Partner");
+		return partner;
 	}
 }
