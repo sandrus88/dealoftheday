@@ -2,6 +2,7 @@ package org.dealoftheday.bl.dao;
 
 import java.util.List;
 
+import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.entities.CustomerEntity;
 
 
@@ -15,5 +16,7 @@ public interface CustomerDao {
     List<CustomerEntity> getAll();
 
     boolean delete(Integer id);
+    
+    List<CustomerEntity> searchCustomer(Customer searchDto);
 
 }

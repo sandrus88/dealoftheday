@@ -56,4 +56,11 @@ public class CustomerServiceImpl implements CustomerService {
 	public boolean delete(Integer id) {
 		return customerDao.delete(id);
 	}
+
+	@Override
+	public List<Customer> searchCustomer(Customer searchDto) {
+		List<CustomerEntity> listEntities = customerDao.searchCustomer(searchDto);
+		List<Customer> list = CustomerAssembler.getDTOList(listEntities);
+		return list;
+	}
 }
