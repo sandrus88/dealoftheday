@@ -1,19 +1,106 @@
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html"
-      xmlns:f="http://java.sun.com/jsf/core"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 <ui:composition template="/template/pageLayout.xhtml">
-    <ui:define name="content">
+	<ui:define name="content">
 
-        <h:form id="searchForm">
-        </h:form>
+		<h:form id="searchForm">
+			<h1>
+				<h:outputText value="#{msg['customer.search']}" />
+			</h1>
 
-        <h:form id="searchResultForm">
+			<h:panelGrid border="0" columns="7">
+				<p:outputLabel for="id" value="#{msg['customer.id']}" />
+				<p:inputText id="id" value="#{customerController.searchId}" />
 
-        </h:form>
+				<p:outputLabel for="name" value="#{msg['customer.name']}" />
+				<p:inputText id="name" value="#{customerController.searchName}" maxlength="20" />
 
-    </ui:define>
+				<p:outputLabel for="surname" value="#{msg['customer.surname']}" />
+				<p:inputText id="surname" value="#{customerController.searchSurname}" maxlength="20" />
+
+				<p:outputLabel for="email" value="#{msg['customer.email']}" />
+				<p:inputText id="email" value="#{customerController.searchEmail}" maxlength="20">
+					<f:validator validatorId="emailValidator" />
+				</p:inputText>
+
+				<p:outputLabel for="birthdate" value="#{msg['customer.birthdate']}" />
+				<p:inputText id="birthdate" value="#{customerController.searchBirthDate}" maxlength="20" />
+
+				<p:outputLabel for="pwd" value="#{msg['customer.pwd']}" />
+				<p:inputText id="pwd" value="#{customerController.searchPwd}" />
+
+				<p:outputLabel for="tel" value="#{msg['customer.tel']}" />
+				<p:inputText id="tel" value="#{customerController.searchTel}" />
+			</h:panelGrid>
+
+			<h:panelGrid border="0" columns="2" style="margin-left: 877px;">
+				<p:commandButton value="#{msg['search']}" actionListener="#{customerController.searchCustomer()}"
+					update="searchResultForm" styleClass="button" />
+				<p:commandButton value="#{msg['clear']}" actionListener="#{customerController.cleanSearchForm()}"
+					update="searchForm" styleClass="button" />
+			</h:panelGrid>
+		</h:form>
+
+		<h:form id="searchResultForm">
+			<h1>
+				<h:outputText value="#{msg['customer.home.table']}" />
+			</h1>
+
+			<p:dataTable value="#{customerController.customerList}" var="item" border="2" id="customersTable"
+				styleClass="fixed-size" emptyMessage="#{msg['customer.empty.table']}">
+
+				<p:column width="15">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.id']}" />
+					</f:facet>
+					<h:outputText value="#{item.id}" />
+				</p:column>
+
+				<p:column width="50">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.name']}" />
+					</f:facet>
+					<h:outputText value="#{item.name}" />
+				</p:column>
+
+				<p:column width="50">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.surname']}" />
+					</f:facet>
+					<h:outputText value="#{item.surname}" />
+				</p:column>
+
+				<p:column width="100">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.email']}" />
+					</f:facet>
+					<h:outputText value="#{item.email}" />
+				</p:column>
+
+				<p:column width="80">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.birthdate']}" />
+					</f:facet>
+					<h:outputText value="#{item.birthDate}" />
+				</p:column>
+
+				<p:column width="90">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.pwd']}" />
+					</f:facet>
+					<h:outputText value="#{item.pwd}" />
+				</p:column>
+
+				<p:column width="15">
+					<f:facet name="header">
+						<h:outputText value="#{msg['customer.tel']}" />
+					</f:facet>
+					<h:outputText value="#{item.tel}" />
+				</p:column>
+			</p:dataTable>
+		</h:form>
+
+	</ui:define>
 </ui:composition>
 </html>
