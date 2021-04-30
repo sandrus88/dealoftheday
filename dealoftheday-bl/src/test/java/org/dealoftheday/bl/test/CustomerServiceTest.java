@@ -83,9 +83,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals(new Integer(5), customers.get(4).getId());
 		assertEquals("Mario", customers.get(4).getName());
 		assertEquals("Rossi", customers.get(4).getSurname());
-		assertEquals(TestUtils.formatDate("04/10/1975"), customers.get(4).getBirthDate());
 		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
-		assertEquals("pwd5", customers.get(4).getPwd());
 		assertEquals("0605", customers.get(4).getTel());
 	}
 
@@ -95,9 +93,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		Customer searchBean = new Customer();
 		searchBean.setName("Sandro");
 		searchBean.setSurname("Gargano");
-		searchBean.setBirthDate(TestUtils.formatTimeStamp("03/05/1988"));
 		searchBean.setEmail("sandrus88@hotmail.it");
-		searchBean.setPwd("pwd1");
 		searchBean.setTel("0601");
 
 		// When
@@ -113,9 +109,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		Customer searchBean = new Customer();
 		searchBean.setName("Sand");
 		searchBean.setSurname("GargaNO");
-		searchBean.setBirthDate(TestUtils.formatTimeStamp("03/05/1988"));
 		searchBean.setEmail("sandrUS88@hotmail.it");
-		searchBean.setPwd("PWd1");
 		searchBean.setTel("0601");
 
 		// When
@@ -150,38 +144,12 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		// Then
 		assertEquals(1, list.size());
 	}
-	
-	@Test
-	public void test_searchStudents_byBirthDate() throws ParseException {
-		// Given
-		Customer searchBean = new Customer();
-		searchBean.setBirthDate(TestUtils.formatTimeStamp("03/05/1988"));
-		
-		// When
-		List<Customer> list = customerService.searchCustomer(searchBean);
-		
-		// Then
-		assertEquals(1, list.size());
-	}
 
 	@Test
 	public void test_searchCustomers_byEmail() {
 		// Given
 		Customer searchBean = new Customer();
 		searchBean.setEmail("sandrus88@hotmail.it");
-
-		// When
-		List<Customer> list = customerService.searchCustomer(searchBean);
-
-		// Then
-		assertEquals(1, list.size());
-	}
-
-	@Test
-	public void test_searchCustomers_byPassword() {
-		// Given
-		Customer searchBean = new Customer();
-		searchBean.setPwd("pwd1");
 
 		// When
 		List<Customer> list = customerService.searchCustomer(searchBean);

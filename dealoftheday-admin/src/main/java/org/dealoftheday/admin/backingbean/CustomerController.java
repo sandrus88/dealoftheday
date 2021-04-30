@@ -33,9 +33,7 @@ public class CustomerController {
 	private Integer searchId;
 	private String searchName;
 	private String searchSurname;
-	private Date searchBirthDate;
 	private String searchEmail;
-	private String searchPwd;
 	private String searchTel;
 
 	private List<Customer> customerList = new ArrayList<>();
@@ -43,14 +41,13 @@ public class CustomerController {
 
 	@PostConstruct
 	public void init() {
-		selectedCustomer = new Customer();
 		searchCustomer();
 		cleanDialogForm();
 		cleanSearchForm();
 	}
 
 	public void searchCustomer() {
-		Customer searchDto = new Customer(searchId, searchName, searchSurname, searchBirthDate, searchEmail, searchPwd, searchTel);
+		Customer searchDto = new Customer(searchId, searchName, searchSurname, null, searchEmail, null, searchTel);
 		customerList = customerService.searchCustomer(searchDto);
 	}
 
@@ -67,9 +64,7 @@ public class CustomerController {
 		searchId = null;
 		searchName = null;
 		searchSurname = null;
-		searchBirthDate = null;
 		searchEmail = null;
-		searchPwd = null;
 		searchTel = null;
 	}
 
@@ -88,8 +83,7 @@ public class CustomerController {
 	}
 
 	public void updateSelectedCustomer(Customer customer) {
-		selectedCustomer = customer;
-		customerService.update(selectedCustomer);
+		customerService.update(customer);
 		searchCustomer();
 	}
 
@@ -178,28 +172,12 @@ public class CustomerController {
 		this.searchSurname = searchSurname;
 	}
 
-	public Date getSearchBirthDate() {
-		return searchBirthDate;
-	}
-
-	public void setSearchBirthDate(Date searchBirthDate) {
-		this.searchBirthDate = searchBirthDate;
-	}
-
 	public String getSearchEmail() {
 		return searchEmail;
 	}
 
 	public void setSearchEmail(String searchEmail) {
 		this.searchEmail = searchEmail;
-	}
-
-	public String getSearchPwd() {
-		return searchPwd;
-	}
-
-	public void setSearchPwd(String searchPwd) {
-		this.searchPwd = searchPwd;
 	}
 
 	public String getSearchTel() {

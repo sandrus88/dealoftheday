@@ -1,6 +1,5 @@
 package org.dealoftheday.bl.test.util;
 
-import java.sql.Timestamp;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -69,13 +68,6 @@ public class TestUtils {
 		partner.setEmail("updated_partner@hotmail.it");
 		partner.setWebSite("Sito Updated Partner");
 		return partner;
-	}
-	
-	public static Timestamp formatTimeStamp(String str) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse(str);
-		Timestamp timeStamp = new Timestamp(date.getTime());
-		return timeStamp;
 	}
 	
 	public static Date formatDate(String str) throws ParseException {

@@ -1,0 +1,41 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui">
+
+	<h:form id="detailCustomerForm">
+		<p:dialog widgetVar="dialogViewCustomer" showEffect="fade" hideEffect="fade" modal="true" width="350" resizable="false" position="center" draggable="false">
+
+			<f:facet name="header">
+				<h:outputText value="#{msg['customer.view.title']} #{customerController.selectedCustomer.name} #{customerController.selectedCustomer.surname}" />
+			</f:facet>
+
+			<h:panelGrid columns="2" border="0" width="100%">
+				<p:outputLabel value="#{msg['customer.id']}" />
+				<h:outputText value="#{customerController.selectedCustomer.id}" />
+
+				<p:outputLabel value="#{msg['customer.name']}" />
+				<h:outputText value="#{customerController.selectedCustomer.name}" />
+
+				<p:outputLabel value="#{msg['customer.surname']}" />
+				<h:outputText value="#{customerController.selectedCustomer.surname}" />
+
+				<p:outputLabel value="#{msg['customer.birthdate']}" />
+				<h:outputText value="#{customerController.selectedCustomer.birthDate}">
+					<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+				</h:outputText>	
+
+				<p:outputLabel value="#{msg['customer.email']}" />
+				<h:outputText value="#{customerController.selectedCustomer.email}" />
+
+				<p:outputLabel value="#{msg['customer.tel']}" />
+				<h:outputText value="#{customerController.selectedCustomer.tel}" />
+			</h:panelGrid>
+			
+			<h:panelGrid columns="1" border="0" style="margin: 0 auto;">
+				<p:commandButton value="#{msg['close']}" oncomplete="PF('dialogViewCustomer').hide()" styleClass="button"/>
+			</h:panelGrid>	
+		</p:dialog>
+	</h:form>
+</html>

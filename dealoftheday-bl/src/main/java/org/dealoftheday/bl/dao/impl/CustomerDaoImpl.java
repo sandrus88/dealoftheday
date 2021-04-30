@@ -60,14 +60,8 @@ public class CustomerDaoImpl extends GenericDao implements CustomerDao {
 		if (!SGUtil.isEmpty(searchDto.getSurname())) {
 			sql += "and upper(c.surname) like upper('%" + searchDto.getSurname() + "%')";
 		}
-		if (searchDto.getBirthDate() != null) {
-			sql += "and c.birthDate = '" + searchDto.getBirthDate() + "'";
-		}
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			sql += "and upper(c.email) like upper('%" + searchDto.getEmail() + "%')";
-		}
-		if (!SGUtil.isEmpty(searchDto.getPwd())) {
-			sql += "and upper(c.pwd) like upper('%" + searchDto.getPwd() + "%')";
 		}
 		if (!SGUtil.isEmpty(searchDto.getTel())) {
 			sql += "and upper(c.tel) like upper('%" + searchDto.getTel() + "%')";

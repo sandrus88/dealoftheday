@@ -1,0 +1,63 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html" 
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets" 
+	xmlns:p="http://primefaces.org/ui">
+	
+	<h:form id="newCustomerForm">
+		<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" hideEffect="fade" modal="true" width="400" height="280" resizable="false" position="center" draggable="false">
+
+			<f:facet name="header">
+				<h:outputText value="#{msg['customer.add']}" />
+			</f:facet>
+			
+			<p:outputPanel id="panel">
+			<h:panelGrid border="0" columns="2" width="100%">
+        
+					<p:outputLabel for="name" value="#{msg['customer.name']}" />
+					<p:inputText id="name" value="#{customerController.newName}" required="true" maxlength="20">
+						<p:tooltip for="name" rendered="#{facesContext.validationFailed}">
+							<p:message for="name" style="color:red" />
+						</p:tooltip>
+					</p:inputText>
+
+					<p:outputLabel for="surname" value="#{msg['customer.surname']}" />
+					<p:inputText id="surname" value="#{customerController.newSurname}" required="true" maxlength="20">
+						<p:tooltip for="surname" rendered="#{facesContext.validationFailed}">
+							<p:message for="surname" style="color:red" />
+						</p:tooltip>
+					</p:inputText>
+					
+					<p:outputLabel for="birthdate" value="#{msg['customer.birthdate']}" />
+					<p:datePicker id="birthdate" value="#{customerController.newBirthDate}" showIcon="true" pattern="dd/MM/yyyy" timeZone="CET"/>
+					
+					<p:outputLabel for="email" value="#{msg['customer.email']}" />
+					<p:inputText id="email" value="#{customerController.newEmail}" maxlength="30">
+						<f:validator validatorId="emailValidator" />
+						<p:tooltip for="email" rendered="#{facesContext.validationFailed}">
+							<p:message for="email" style="color:red" />
+						</p:tooltip>
+					</p:inputText>
+
+					<p:outputLabel for="tel" value="#{msg['customer.tel']}" />
+					<p:inputText id="tel" value="#{customerController.newTel}"/>
+					
+					<p:outputLabel for="password" value="#{msg['customer.pwd']}" />
+					<p:password id="password" value="#{customerController.newPwd}" required="true">
+						<p:tooltip for="password" rendered="#{facesContext.validationFailed}">
+							<p:message for="password" style="color:red"/>
+						</p:tooltip>
+					</p:password>
+				</h:panelGrid>
+			</p:outputPanel>
+
+			<h:panelGrid border="0" columns="3" style="margin: 0 auto; margin-top: 70px;">
+				<p:commandButton value="#{msg['save']}" actionListener="#{customerController.addCustomer()}" update="searchResultForm panel" oncomplete="PF('dialogNewCustomer').hide()" styleClass="button"/>
+				<p:commandButton value="#{msg['clear']}" styleClass="button">
+					<p:ajax update="panel" resetValues="true"/>
+				</p:commandButton>
+				<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewCustomer').hide()" styleClass="button"/>
+			</h:panelGrid>
+		</p:dialog>
+	</h:form>
+</html>
