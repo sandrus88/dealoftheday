@@ -18,6 +18,8 @@ public class TestUtils {
 		customer.setEmail("newName_newSurname@gmail.com");
 		customer.setPwd("newPwd");
 		customer.setTel("0000000");
+		customer.setSex("F");
+		customer.setEnabled(false);
 		return customer;
 	}
 
@@ -28,6 +30,8 @@ public class TestUtils {
 		customer.setEmail("updatedName_updatedSurname@gmail.com");
 		customer.setPwd("updatedPwd");
 		customer.setTel("9999999");
+		customer.setSex("M");
+		customer.setEnabled(true);
 		return customer;
 	}
 

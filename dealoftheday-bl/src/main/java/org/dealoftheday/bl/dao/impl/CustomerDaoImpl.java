@@ -2,6 +2,7 @@ package org.dealoftheday.bl.dao.impl;
 
 import java.util.List;
 
+import org.dealoftheday.bl.assembler.CustomerAssembler;
 import org.dealoftheday.bl.dao.CustomerDao;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.domain.Customer;
@@ -65,6 +66,12 @@ public class CustomerDaoImpl extends GenericDao implements CustomerDao {
 		}
 		if (!SGUtil.isEmpty(searchDto.getTel())) {
 			sql += "and upper(c.tel) like upper('%" + searchDto.getTel() + "%')";
+		}
+		if (!SGUtil.isEmpty(searchDto.getSex())) {
+			sql += "and c.sex = '" + searchDto.getSex() + "'";
+		}
+		if(searchDto.getEnabled() != null) {
+			sql += "and c.enable = " + CustomerAssembler.getIntFromBoolean(searchDto.getEnabled());
 		}
 		List<CustomerEntity> customers = entityManager.createQuery(sql, CustomerEntity.class).getResultList();
 		return customers;

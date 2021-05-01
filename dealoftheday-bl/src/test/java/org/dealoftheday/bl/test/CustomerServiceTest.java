@@ -38,6 +38,8 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("sandrus88@hotmail.it", customer.getEmail());
 		assertEquals("pwd1", customer.getPwd());
 		assertEquals("0601", customer.getTel());
+		assertEquals("M", customer.getSex());
+		assertEquals(true, customer.getEnabled());
 	}
 
 	@Test
@@ -56,6 +58,8 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
 		assertEquals("pwd5", customers.get(4).getPwd());
 		assertEquals("0605", customers.get(4).getTel());
+		assertEquals("M", customers.get(4).getSex());
+		assertEquals(true, customers.get(4).getEnabled());
 	}
 
 	@Test
@@ -85,6 +89,8 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("Rossi", customers.get(4).getSurname());
 		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
 		assertEquals("0605", customers.get(4).getTel());
+		assertEquals("M", customers.get(4).getSex());
+		assertEquals(true, customers.get(4).getEnabled());
 	}
 
 	@Test
@@ -95,6 +101,8 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		searchBean.setSurname("Gargano");
 		searchBean.setEmail("sandrus88@hotmail.it");
 		searchBean.setTel("0601");
+		searchBean.setSex("M");
+		searchBean.setEnabled(true);
 
 		// When
 		List<Customer> list = customerService.searchCustomer(searchBean);
@@ -169,6 +177,36 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		
 		// Then
 		assertEquals(1, list.size());
+	}
+	
+	@Test
+	public void test_searchCustomers_byGender() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setSex("M");
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+		// Then
+		assertEquals(3, list.size());
+
+		searchBean.setSex("F");
+		list = customerService.searchCustomer(searchBean);
+		assertEquals(2, list.size());
+	}
+	
+	@Test
+	public void test_searchCustomers_byEnabled() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setEnabled(false);
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+		// Then
+		assertEquals(2, list.size());
+
+		searchBean.setEnabled(true);
+		list = customerService.searchCustomer(searchBean);
+		assertEquals(3, list.size());
 	}
 
 	@Test

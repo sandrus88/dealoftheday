@@ -7,7 +7,10 @@ import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.entities.CustomerEntity;
 
 public class CustomerAssembler {
-	
+
+	public static final int ENABLE_1 = 1;
+	public static final int ENABLE_0 = 0;
+
 	public static Customer getDTO(CustomerEntity entity) {
 		if (entity == null) {
 			return null;
@@ -21,6 +24,8 @@ public class CustomerAssembler {
 		dto.setEmail(entity.getEmail());
 		dto.setPwd(entity.getPwd());
 		dto.setTel(entity.getTel());
+		dto.setSex(entity.getSex());
+		dto.setEnabled(getBooleanFromInt(entity.getEnable()));
 		return dto;
 	}
 
@@ -28,7 +33,7 @@ public class CustomerAssembler {
 		if (dto == null) {
 			return null;
 		}
-		
+
 		CustomerEntity entity = new CustomerEntity();
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
@@ -37,7 +42,23 @@ public class CustomerAssembler {
 		entity.setEmail(dto.getEmail());
 		entity.setPwd(dto.getPwd());
 		entity.setTel(dto.getTel());
+		entity.setSex(dto.getSex());
+		entity.setEnable(getIntFromBoolean(dto.getEnabled()));
 		return entity;
+	}
+
+	public static boolean getBooleanFromInt(int i) {
+		if (i == ENABLE_1) {
+			return true;
+		}
+		return false;
+	}
+
+	public static int getIntFromBoolean(Boolean b) {
+		if (b != null && b) {
+			return ENABLE_1;
+		}
+		return ENABLE_0;
 	}
 
 	public static List<Customer> getDTOList(List<CustomerEntity> entityList) {

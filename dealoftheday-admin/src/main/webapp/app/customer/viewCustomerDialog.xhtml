@@ -31,6 +31,12 @@
 
 				<p:outputLabel value="#{msg['customer.tel']}" />
 				<h:outputText value="#{customerController.selectedCustomer.tel}" />
+				
+				<p:outputLabel value="#{msg['customer.sex']}" />
+				<h:outputText value="#{customerController.selectedCustomer.sex}" />
+				
+				<p:outputLabel value="#{msg['customer.enabled']}" />
+				<p:selectBooleanCheckbox value="#{customerController.selectedCustomer.enabled}" disabled="true" />
 			</h:panelGrid>
 			
 			<h:panelGrid columns="1" border="0" style="margin: 0 auto;">

@@ -7,18 +7,14 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 
-import org.dealoftheday.admin.appbean.ApplicationBean;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.service.CustomerService;
 
 @ManagedBean
-@SessionScoped
+@ViewScoped
 public class CustomerController {
-	
-	@ManagedProperty(value = "#{applicationBean}")
-	private ApplicationBean applicationBean;
 
 	@ManagedProperty(value = "#{customerService}")
 	private CustomerService customerService;
@@ -29,12 +25,16 @@ public class CustomerController {
 	private String newEmail;
 	private String newPwd;
 	private String newTel;
+	private String newSex;
+	private Boolean newEnabled;
 	
 	private Integer searchId;
 	private String searchName;
 	private String searchSurname;
 	private String searchEmail;
 	private String searchTel;
+	private String searchSex;
+	private Boolean searchEnabled;
 
 	private List<Customer> customerList = new ArrayList<>();
 	private Customer selectedCustomer;
@@ -47,7 +47,7 @@ public class CustomerController {
 	}
 
 	public void searchCustomer() {
-		Customer searchDto = new Customer(searchId, searchName, searchSurname, null, searchEmail, null, searchTel);
+		Customer searchDto = new Customer(searchId, searchName, searchSurname, null, searchEmail, null, searchTel, searchSex, searchEnabled);
 		customerList = customerService.searchCustomer(searchDto);
 	}
 
@@ -58,6 +58,8 @@ public class CustomerController {
 		newEmail = null;
 		newPwd = null;
 		newTel = null;
+		newSex = null;
+		newEnabled = null;
 	}
 
 	public void cleanSearchForm() {
@@ -66,17 +68,20 @@ public class CustomerController {
 		searchSurname = null;
 		searchEmail = null;
 		searchTel = null;
+		searchSex = null;
+		searchEnabled = null;
 	}
 
 	public void addCustomer() {
 		Customer customer = new Customer();
-		customer.setId(applicationBean.getNextInt());
 		customer.setName(newName);
 		customer.setSurname(newSurname);
 		customer.setBirthDate(newBirthDate);
 		customer.setEmail(newEmail);
 		customer.setPwd(newPwd);
 		customer.setTel(newTel);
+		customer.setSex(newSex);
+		customer.setEnabled(newEnabled);
 		customerService.insert(customer);
 		cleanDialogForm();
 		searchCustomer();
@@ -91,13 +96,13 @@ public class CustomerController {
 		customerService.delete(customer.getId());
 		searchCustomer();
 	}
-
-	public ApplicationBean getApplicationBean() {
-		return applicationBean;
+	
+	public String getGenderMale() {
+		return Customer.SEX_M;
 	}
 
-	public void setApplicationBean(ApplicationBean applicationBean) {
-		this.applicationBean = applicationBean;
+	public String getGenderFemale() {
+		return Customer.SEX_F;
 	}
 
 	public String getNewName() {
@@ -206,5 +211,37 @@ public class CustomerController {
 
 	public void setCustomerService(CustomerService customerService) {
 		this.customerService = customerService;
+	}
+
+	public String getNewSex() {
+		return newSex;
+	}
+
+	public void setNewSex(String newSex) {
+		this.newSex = newSex;
+	}
+
+	public String getSearchSex() {
+		return searchSex;
+	}
+
+	public void setSearchSex(String searchSex) {
+		this.searchSex = searchSex;
+	}
+
+	public Boolean getNewEnabled() {
+		return newEnabled;
+	}
+
+	public void setNewEnabled(Boolean newEnabled) {
+		this.newEnabled = newEnabled;
+	}
+
+	public Boolean getSearchEnabled() {
+		return searchEnabled;
+	}
+
+	public void setSearchEnabled(Boolean searchEnabled) {
+		this.searchEnabled = searchEnabled;
 	}
 }

@@ -4,6 +4,9 @@ import java.util.Date;
 
 public class Customer {
 	
+	public static final String SEX_M = "M";
+	public static final String SEX_F = "F";
+	
 	private Integer id;
 	private String name;
 	private String surname;
@@ -11,12 +14,14 @@ public class Customer {
 	private String email;
 	private String pwd;
 	private String tel;
+	private String sex;
+	private Boolean enabled;
 
 	public Customer() {
 
 	}
 
-	public Customer(Integer id, String name, String surname, Date birthDate, String email, String pwd, String tel) {
+	public Customer(Integer id, String name, String surname, Date birthDate, String email, String pwd, String tel, String sex, Boolean enabled) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -24,6 +29,8 @@ public class Customer {
 		this.email = email;
 		this.pwd = pwd;
 		this.tel = tel;
+		this.sex = sex;
+		this.enabled = enabled;
 	}
 
 	public Integer getId() {
@@ -82,6 +89,22 @@ public class Customer {
 		this.tel = tel;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public Boolean getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Boolean enabled) {
+		this.enabled = enabled;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -112,6 +135,12 @@ public class Customer {
 		if (tel != null && !tel.equals(other.tel)) {
 			return false;
 		}
+		if (sex != null && !sex.equals(other.sex)) {
+			return false;
+		}
+		if (enabled != null && !enabled.equals(other.enabled)) {
+			return false;
+		}
 		return true;
 	}
 
@@ -124,6 +153,8 @@ public class Customer {
 		result = result + ((email == null) ? 0 : email.hashCode());
 		result = result + ((pwd == null) ? 0 : pwd.hashCode());
 		result = result + ((tel == null) ? 0 : tel.hashCode());
+		result = result + ((sex == null) ? 0 : sex.hashCode());
+		result = result + ((enabled == null) ? 0 : enabled.hashCode());
 		return result;
 	}
 
@@ -131,6 +162,6 @@ public class Customer {
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", surname: " + surname
 				+ ", birthDate: " + birthDate + ", email: " + email + ", password: " + pwd + ", phone: " + tel
-				+ "]";
+				+ ", sex: " + sex + ", enabled: " + enabled + "]";
 	}
 }
