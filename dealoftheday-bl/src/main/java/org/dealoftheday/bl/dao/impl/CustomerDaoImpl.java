@@ -70,8 +70,8 @@ public class CustomerDaoImpl extends GenericDao implements CustomerDao {
 		if (!SGUtil.isEmpty(searchDto.getSex())) {
 			sql += "and c.sex = '" + searchDto.getSex() + "'";
 		}
-		if(searchDto.getEnabled() != null) {
-			sql += "and c.enable = " + CustomerAssembler.getIntFromBoolean(searchDto.getEnabled());
+		if(searchDto.getActive() != null) {
+			sql += "and c.active = " + CustomerAssembler.getIntFromBoolean(searchDto.getActive());
 		}
 		List<CustomerEntity> customers = entityManager.createQuery(sql, CustomerEntity.class).getResultList();
 		return customers;

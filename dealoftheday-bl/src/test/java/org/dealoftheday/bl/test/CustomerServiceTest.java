@@ -39,7 +39,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("pwd1", customer.getPwd());
 		assertEquals("0601", customer.getTel());
 		assertEquals("M", customer.getSex());
-		assertEquals(true, customer.getEnabled());
+		assertEquals(true, customer.getActive());
 	}
 
 	@Test
@@ -59,7 +59,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("pwd5", customers.get(4).getPwd());
 		assertEquals("0605", customers.get(4).getTel());
 		assertEquals("M", customers.get(4).getSex());
-		assertEquals(true, customers.get(4).getEnabled());
+		assertEquals(true, customers.get(4).getActive());
 	}
 
 	@Test
@@ -90,7 +90,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
 		assertEquals("0605", customers.get(4).getTel());
 		assertEquals("M", customers.get(4).getSex());
-		assertEquals(true, customers.get(4).getEnabled());
+		assertEquals(true, customers.get(4).getActive());
 	}
 
 	@Test
@@ -102,7 +102,7 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		searchBean.setEmail("sandrus88@hotmail.it");
 		searchBean.setTel("0601");
 		searchBean.setSex("M");
-		searchBean.setEnabled(true);
+		searchBean.setActive(true);
 
 		// When
 		List<Customer> list = customerService.searchCustomer(searchBean);
@@ -195,16 +195,16 @@ public class CustomerServiceTest extends AbstractSpringTest {
 	}
 	
 	@Test
-	public void test_searchCustomers_byEnabled() {
+	public void test_searchCustomers_byActive() {
 		// Given
 		Customer searchBean = new Customer();
-		searchBean.setEnabled(false);
+		searchBean.setActive(false);
 		// When
 		List<Customer> list = customerService.searchCustomer(searchBean);
 		// Then
 		assertEquals(2, list.size());
 
-		searchBean.setEnabled(true);
+		searchBean.setActive(true);
 		list = customerService.searchCustomer(searchBean);
 		assertEquals(3, list.size());
 	}

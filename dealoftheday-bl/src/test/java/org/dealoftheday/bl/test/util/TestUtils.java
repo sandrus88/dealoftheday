@@ -19,7 +19,7 @@ public class TestUtils {
 		customer.setPwd("newPwd");
 		customer.setTel("0000000");
 		customer.setSex("F");
-		customer.setEnabled(false);
+		customer.setActive(false);
 		return customer;
 	}
 
@@ -31,7 +31,7 @@ public class TestUtils {
 		customer.setPwd("updatedPwd");
 		customer.setTel("9999999");
 		customer.setSex("M");
-		customer.setEnabled(true);
+		customer.setActive(true);
 		return customer;
 	}
 

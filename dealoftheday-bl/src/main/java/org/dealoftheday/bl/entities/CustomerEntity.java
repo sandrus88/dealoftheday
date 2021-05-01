@@ -34,7 +34,7 @@ public class CustomerEntity {
 	@Column(name = "SEX")
 	private String sex;
 	@Column(name = "ACTIVE")
-	private int enable;
+	private int active;
 	
 	public Integer getId() {
 		return id;
@@ -100,12 +100,12 @@ public class CustomerEntity {
 		this.sex = sex;
 	}
 
-	public int getEnable() {
-		return enable;
+	public int getActive() {
+		return active;
 	}
 
-	public void setEnable(int enable) {
-		this.enable = enable;
+	public void setActive(int active) {
+		this.active = active;
 	}
 
 	@Override
@@ -161,6 +161,6 @@ public class CustomerEntity {
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", surname: " + surname
 				+ ", birthDate: " + birthDate + ", email: " + email + ", password: " + pwd + ", phone: " + tel 
-				+ ", sex: " + sex + ", enable: " + enable + "]";
+				+ ", sex: " + sex + ", active: " + active + "]";
 	}
 }

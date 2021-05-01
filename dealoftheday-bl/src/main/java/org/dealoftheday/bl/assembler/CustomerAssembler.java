@@ -25,7 +25,7 @@ public class CustomerAssembler {
 		dto.setPwd(entity.getPwd());
 		dto.setTel(entity.getTel());
 		dto.setSex(entity.getSex());
-		dto.setEnabled(getBooleanFromInt(entity.getEnable()));
+		dto.setActive(getBooleanFromInt(entity.getActive()));
 		return dto;
 	}
 
@@ -43,7 +43,7 @@ public class CustomerAssembler {
 		entity.setPwd(dto.getPwd());
 		entity.setTel(dto.getTel());
 		entity.setSex(dto.getSex());
-		entity.setEnable(getIntFromBoolean(dto.getEnabled()));
+		entity.setActive(getIntFromBoolean(dto.getActive()));
 		return entity;
 	}
 

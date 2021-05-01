@@ -26,7 +26,7 @@ public class CustomerController {
 	private String newPwd;
 	private String newTel;
 	private String newSex;
-	private Boolean newEnabled;
+	private Boolean newActive;
 	
 	private Integer searchId;
 	private String searchName;
@@ -34,7 +34,7 @@ public class CustomerController {
 	private String searchEmail;
 	private String searchTel;
 	private String searchSex;
-	private Boolean searchEnabled;
+	private Boolean searchActive;
 
 	private List<Customer> customerList = new ArrayList<>();
 	private Customer selectedCustomer;
@@ -47,7 +47,7 @@ public class CustomerController {
 	}
 
 	public void searchCustomer() {
-		Customer searchDto = new Customer(searchId, searchName, searchSurname, null, searchEmail, null, searchTel, searchSex, searchEnabled);
+		Customer searchDto = new Customer(searchId, searchName, searchSurname, null, searchEmail, null, searchTel, searchSex, searchActive);
 		customerList = customerService.searchCustomer(searchDto);
 	}
 
@@ -59,7 +59,7 @@ public class CustomerController {
 		newPwd = null;
 		newTel = null;
 		newSex = null;
-		newEnabled = null;
+		newActive = null;
 	}
 
 	public void cleanSearchForm() {
@@ -69,7 +69,7 @@ public class CustomerController {
 		searchEmail = null;
 		searchTel = null;
 		searchSex = null;
-		searchEnabled = null;
+		searchActive = null;
 	}
 
 	public void addCustomer() {
@@ -81,7 +81,7 @@ public class CustomerController {
 		customer.setPwd(newPwd);
 		customer.setTel(newTel);
 		customer.setSex(newSex);
-		customer.setEnabled(newEnabled);
+		customer.setActive(newActive);
 		customerService.insert(customer);
 		cleanDialogForm();
 		searchCustomer();
@@ -229,19 +229,19 @@ public class CustomerController {
 		this.searchSex = searchSex;
 	}
 
-	public Boolean getNewEnabled() {
-		return newEnabled;
+	public Boolean getNewActive() {
+		return newActive;
 	}
 
-	public void setNewEnabled(Boolean newEnabled) {
-		this.newEnabled = newEnabled;
+	public void setNewActive(Boolean newActive) {
+		this.newActive = newActive;
 	}
 
-	public Boolean getSearchEnabled() {
-		return searchEnabled;
+	public Boolean getSearchActive() {
+		return searchActive;
 	}
 
-	public void setSearchEnabled(Boolean searchEnabled) {
-		this.searchEnabled = searchEnabled;
+	public void setSearchActive(Boolean searchActive) {
+		this.searchActive = searchActive;
 	}
 }

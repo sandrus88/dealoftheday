@@ -15,13 +15,13 @@ public class Customer {
 	private String pwd;
 	private String tel;
 	private String sex;
-	private Boolean enabled;
+	private Boolean active;
 
 	public Customer() {
 
 	}
 
-	public Customer(Integer id, String name, String surname, Date birthDate, String email, String pwd, String tel, String sex, Boolean enabled) {
+	public Customer(Integer id, String name, String surname, Date birthDate, String email, String pwd, String tel, String sex, Boolean active) {
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
@@ -30,7 +30,7 @@ public class Customer {
 		this.pwd = pwd;
 		this.tel = tel;
 		this.sex = sex;
-		this.enabled = enabled;
+		this.active = active;
 	}
 
 	public Integer getId() {
@@ -97,12 +97,12 @@ public class Customer {
 		this.sex = sex;
 	}
 
-	public Boolean getEnabled() {
-		return enabled;
+	public Boolean getActive() {
+		return active;
 	}
 
-	public void setEnabled(Boolean enabled) {
-		this.enabled = enabled;
+	public void setActive(Boolean active) {
+		this.active = active;
 	}
 
 	@Override
@@ -138,7 +138,7 @@ public class Customer {
 		if (sex != null && !sex.equals(other.sex)) {
 			return false;
 		}
-		if (enabled != null && !enabled.equals(other.enabled)) {
+		if (active != null && !active.equals(other.active)) {
 			return false;
 		}
 		return true;
@@ -154,7 +154,7 @@ public class Customer {
 		result = result + ((pwd == null) ? 0 : pwd.hashCode());
 		result = result + ((tel == null) ? 0 : tel.hashCode());
 		result = result + ((sex == null) ? 0 : sex.hashCode());
-		result = result + ((enabled == null) ? 0 : enabled.hashCode());
+		result = result + ((active == null) ? 0 : active.hashCode());
 		return result;
 	}
 
@@ -162,6 +162,6 @@ public class Customer {
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", surname: " + surname
 				+ ", birthDate: " + birthDate + ", email: " + email + ", password: " + pwd + ", phone: " + tel
-				+ ", sex: " + sex + ", enabled: " + enabled + "]";
+				+ ", sex: " + sex + ", active: " + active + "]";
 	}
 }
