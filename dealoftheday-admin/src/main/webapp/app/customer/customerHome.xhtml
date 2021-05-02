@@ -3,7 +3,7 @@
 
 <ui:composition template="/template/pageLayout.xhtml">
 	<ui:define name="content">
-
+    	
 		<h:form id="searchForm">
 			<p:growl id="message" showDetail="true"/>
 			<!--<p:messages id="message" showDetail="true" closable="true">-->
@@ -59,16 +59,14 @@
 
 			<h:panelGrid border="0" columns="4" width="50%" >
 				<h:panelGrid border="0" columns="2" styleClass="right">
-					<p:commandButton value="#{msg['search']}" actionListener="#{customerController.searchCustomer()}" update="searchResultForm message"
-									 styleClass="button" icon="ui-icon ui-icon-search">
-					</p:commandButton>
+					<p:commandButton value="#{msg['search']}" actionListener="#{customerController.searchCustomer()}" update="searchResultForm message" styleClass="button" icon="ui-icon ui-icon-search"/>
 					<p:commandButton value="#{msg['clear']}" actionListener="#{customerController.cleanSearchForm()}" update="searchForm" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
 						<p:ajax update="searchForm" resetValues="true"/>
 					</p:commandButton>
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:form>
-
+	
 		<h:form id="searchResultForm">
 			<h:panelGrid border="0" columns="2" >
 				<h:outputText value="#{msg['customer.home.table']}" styleClass="searchTitle"/>
@@ -138,6 +136,13 @@
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>
+		
+		<!-- <h:form>
+		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">	
+       		<p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"/>
+       		<i class="fa fa-spinner fa-spin" style="font-size: 2rem"/>
+    	</p:dialog>
+		</h:form> -->
 		
 		<ui:include src="editCustomerDialog.xhtml" />
 		<ui:include src="newCustomerDialog.xhtml" />

@@ -1,53 +1,53 @@
 @charset "ISO-8859-1";
 
 html, body {
-    margin: 0px;
-    padding: 0px;
-    background-repeat: repeat-x;
-    font-family: Arial, sans-serif;
-    font-size: 12px;
+	margin: 0px;
+	padding: 0px;
+	background-repeat: repeat-x;
+	font-family: Arial, sans-serif;
+	font-size: 12px;
 }
 
 .button {
-    width: 85px;
+	width: 85px;
 }
 
 .addIcon {
-    font-size: 2rem;
-    color: #4f4f4f;
+	font-size: 2rem;
+	color: #4f4f4f;
 }
 
 .searchTitle {
-    font-size: 24px;
-    font-weight: bold;
-    display: block;
+	font-size: 24px;
+	font-weight: bold;
+	display: block;
 }
 
 .center {
-    margin: 0 auto;
+	margin: 0 auto;
 }
 
 .right {
-    float: right;
+	float: right;
 }
 
 .left {
-    float: left;
+	float: left;
 }
 
 .dropDownYNWidth {
-    min-width: 36px !important;
+	min-width: 36px !important;
 }
 
 .ui-message {
-    z-index: 1000;
+	z-index: 1000;
 }
 
 /*primefaces re-write properties*/
 a:link {
-    text-decoration: none;
+	text-decoration: none;
 }
 
 .ui-datatable thead th {
-    padding-left: inherit !important;
+	padding-left: inherit !important;
 }
