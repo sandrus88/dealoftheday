@@ -1,5 +1,18 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
+
+<ui:define name="headResources">
+	<script type="text/javascript">
+        function handleSaveRequest(args, dialogWidgetVar) {
+            if (!args.validationFailed) {
+                PF(dialogWidgetVar).hide();
+            }
+        }
+	</script>
+</ui:define>
 
 <h:form id="newCustomerForm">
 	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="280"
@@ -56,7 +69,7 @@
 			<p:message for="active" display="icon"/>
 		</h:panelGrid>
 
-		<h:panelGrid border="0" columns="3" style="margin: 0 auto; margin-top: 15px;">
+		<h:panelGrid border="0" columns="3" styleClass="center paddDiv10_10">
 			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.addCustomer()}" oncomplete="handleSaveRequest(args, 'dialogNewCustomer');"
 							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
 			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
@@ -67,11 +80,4 @@
 		</h:panelGrid>
 	</p:dialog>
 </h:form>
-<script type="text/javascript">
-	function handleSaveRequest(args, dialogWidgetVar) {
-		if (!args.validationFailed) {
-			PF(dialogWidgetVar).hide();
-		}
-	}
-</script>
 </html>

@@ -35,12 +35,20 @@ html, body {
     float: left;
 }
 
+.paddDiv5_10 {
+    padding: 5px 10px;
+}
+
+.paddDiv10_10 {
+    padding: 10px 10px;
+}
+
 .dropDownYNWidth {
     min-width: 36px !important;
 }
 
-.ui-message {
-    z-index: 1000;
+.headerIcon {
+    font-size: 2rem;
 }
 
 /*primefaces re-write properties*/
@@ -51,3 +59,5 @@ a:link {
 .ui-datatable thead th {
     padding-left: inherit !important;
 }
+
+
