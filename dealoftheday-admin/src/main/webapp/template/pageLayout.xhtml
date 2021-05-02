@@ -15,6 +15,10 @@
         <link rel="icon" type="image/x-icon" href="/dayofthedeal-admin/images/ozone-icon.png"/>
         <link rel="shortcut icon" type="image/x-icon" href="/dayofthedeal-admin/images/ozone-icon.png"/>
 
+        <ui:insert name="headResources">
+
+        </ui:insert>
+
         <title>
             <ui:insert name="title">
                 <h:outputText value="#{msg['app.title']}"/>
@@ -23,7 +27,7 @@
     </h:head>
 
     <h:body>
-        <div id="page">
+        <div id="pageDotD">
 
             <div id="header">
                 <ui:insert name="header">

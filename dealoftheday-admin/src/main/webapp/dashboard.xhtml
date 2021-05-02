@@ -5,7 +5,7 @@
 <h:form id="dashboardForm">
     <p:poll interval="10" listener="#{dashboardController.createBarModel()}" update="dashboardForm"/>
     <p:panel>
-        <p:barChart model="#{dashboardController.barModel}" style="width: 100%; height: 400px;"/>
+        <p:barChart id="chart" model="#{dashboardController.barModel}" style="width: 100%; height: 400px;"/>
     </p:panel>
 </h:form>
 </html>	

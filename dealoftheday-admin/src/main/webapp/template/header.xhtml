@@ -19,7 +19,7 @@
         <h:form id="headerForm">
             <h:panelGrid columns="2" width="100%" class="ui-widget ui-widget-header">
                 <h:panelGrid columns="2" border="0">
-                    #{msg['header.loggeduser.name']} Sandro
+                    #{msg['header.loggeduser.name']}: Sandro
                     |
                     #{msg['header.loggeduser.role']}: Amministratore
                 </h:panelGrid>
@@ -31,10 +31,13 @@
                         <f:selectItem itemValue="it" itemLabel="#{msg['header.selectLanguage.it']}"/>
                     </p:selectOneMenu>
                     <p:commandLink action="/index.xhtml?faces-redirect=true" id="linkHome">
-                        <i class="fa fa-fw fa-home" style="font-size: 2rem"/>
+                        <i class="fa fa-fw fa-home headerIcon"/>
                         <p:tooltip for="linkHome" value="#{msg['header.home']}" position="bottom"/>
                     </p:commandLink>
-                    <a href="/dealoftheday-admin/j_spring_security_logout"> #{msg['header.logout']}</a>
+                    <p:commandLink onclick="alert('TO BE implemented!')" id="linkLogout">
+                        <i class="fa fa-fw fa-user-times headerIcon"/>
+                        <p:tooltip for="linkLogout" value="#{msg['header.logout']}" position="bottom"/>
+                    </p:commandLink>
                 </h:panelGrid>
             </h:panelGrid>
         </h:form>
