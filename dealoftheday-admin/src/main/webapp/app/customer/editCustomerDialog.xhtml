@@ -1,0 +1,70 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="customerEditForm">
+	<p:dialog widgetVar="dialogEditCustomer" showEffect="fade" modal="true" width="400" height="280"
+		resizable="true" position="center" draggable="true">
+
+		<f:facet name="header">
+			<h:outputText
+				value="#{msg['customer.edit.title']} #{customerController.selectedCustomer.name} #{customerController.selectedCustomer.surname}" />
+		</f:facet>
+
+		<h:panelGrid columns="3" border="0" width="100%" id="panel">
+			<p:outputLabel for="name" value="#{msg['customer.name']}" />
+			<p:inputText id="name" value="#{customerController.selectedCustomer.name}" required="true" maxlength="20">
+				<p:ajax event="blur" update="nameMsg name"/>
+			</p:inputText>
+			<p:message id="nameMsg" for="name" display="icon" />
+
+			<p:outputLabel for="surname" value="#{msg['customer.surname']}" />
+			<p:inputText id="surname" value="#{customerController.selectedCustomer.surname}" required="true" maxlength="20">
+				<p:ajax event="blur" update="surnameMsg surname" />
+			</p:inputText>
+			<p:message id="surnameMsg" for="name" display="icon" />
+
+			<p:outputLabel for="birthdate" value="#{msg['customer.birthdate']}" />
+			<p:datePicker id="birthdate" value="#{customerController.selectedCustomer.birthDate}" showIcon="true"
+				pattern="dd/MM/yyyy" timeZone="CET" />
+			<p:message id="birthdateMsg" for="birthdate" />
+
+			<p:outputLabel for="email" value="#{msg['customer.email']}" />
+			<p:inputText id="email" value="#{customerController.selectedCustomer.email}" maxlength="30">
+				<f:validator validatorId="emailValidator" />
+				<p:ajax event="blur" update="emailMsg email" />
+			</p:inputText>
+			<p:message id="emailMsg" for="email" display="icon" />
+
+			<p:outputLabel for="tel" value="#{msg['customer.tel']}" />
+			<p:inputText id="tel" value="#{customerController.selectedCustomer.tel}" />
+			<p:message for="tel" display="icon" />
+
+			<p:outputLabel for="password" value="#{msg['customer.pwd']}" />
+			<p:password id="password" value="#{customerController.selectedCustomer.pwd}" required="true" redisplay="true">
+				<p:ajax event="blur" update="passwordMsg" />
+			</p:password>
+			<p:message id="passwordMsg" for="password" display="icon" />
+
+			<p:outputLabel for="sex" value="#{msg['customer.sex']}" />
+			<p:selectOneRadio id="sex" value="#{customerController.selectedCustomer.sex}" required="true">
+				<f:selectItem itemValue="#{customerController.getGenderMale()}" itemLabel="M" />
+				<f:selectItem itemValue="#{customerController.getGenderFemale()}" itemLabel="F" />
+			</p:selectOneRadio>
+			<p:message id="sexMsg" for="sex" display="icon" />
+
+			<p:outputLabel for="active" value="#{msg['customer.active']}" />
+			<p:selectBooleanCheckbox id="active" value="#{customerController.selectedCustomer.active}" />
+			<p:message for="active" display="icon" />
+		</h:panelGrid>
+
+		<h:panelGrid border="0" columns="2" style="margin: 0 auto; margin-top: 15px;">
+			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.updateSelectedCustomer(customerController.selectedCustomer)}" oncomplete="handleSaveRequest(args, 'dialogEditCustomer');" update="searchResultForm searchForm panel" styleClass="button"/>			
+			<p:ajax event="click" update="panel"/>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCustomer').hide()" styleClass="button" />
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

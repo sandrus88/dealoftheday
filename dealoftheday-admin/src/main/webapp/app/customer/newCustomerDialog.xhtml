@@ -1,0 +1,73 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="newCustomerForm">
+	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="280"
+		resizable="true" position="center" draggable="true">
+
+		<f:facet name="header">
+			<h:outputText value="#{msg['customer.add']}" />
+		</f:facet>
+
+		<h:panelGrid border="0" columns="3" width="100%" id="panel2">
+			<p:outputLabel for="name" value="#{msg['customer.name']}"/>
+			<p:inputText id="name" value="#{customerController.newName}" required="true" maxlength="20">
+				<p:ajax event="blur" update="nameMsg name"/>
+			</p:inputText>
+			<p:message id="nameMsg" for="name" display="icon"/>
+
+			<p:outputLabel for="surname" value="#{msg['customer.surname']}"/>
+			<p:inputText id="surname" value="#{customerController.newSurname}" required="true" maxlength="20">
+				<p:ajax event="blur" update="surnameMsg surname"/>
+			</p:inputText>
+			<p:message id="surnameMsg" for="name" display="icon"/>
+
+			<p:outputLabel for="birthdate" value="#{msg['customer.birthdate']}"/>
+			<p:datePicker id="birthdate" value="#{customerController.newBirthDate}" showIcon="true"
+						  pattern="dd/MM/yyyy" timeZone="CET"/>
+			<p:message id="birthdateMsg" for="birthdate"/>
+
+			<p:outputLabel for="email" value="#{msg['customer.email']}"/>
+			<p:inputText id="email" value="#{customerController.newEmail}" maxlength="30">
+				<f:validator validatorId="emailValidator"/>
+				<p:ajax event="blur" update="emailMsg email"/>
+			</p:inputText>
+			<p:message id="emailMsg" for="email" display="icon"/>
+
+			<p:outputLabel for="tel" value="#{msg['customer.tel']}"/>
+			<p:inputText id="tel" value="#{customerController.newTel}"/>
+			<p:message for="tel" display="icon"/>
+
+			<p:outputLabel for="password" value="#{msg['customer.pwd']}"/>
+			<p:password id="password" value="#{customerController.newPwd}" required="true">
+				<p:ajax event="blur" update="passwordMsg"/>
+			</p:password>
+			<p:message id="passwordMsg" for="password" display="icon"/>
+
+			<p:outputLabel for="sex" value="#{msg['customer.sex']}"/>
+			<p:selectOneRadio id="sex" value="#{customerController.newSex}" required="true">
+				<f:selectItem itemValue="#{customerController.getGenderMale()}" itemLabel="M"/>
+				<f:selectItem itemValue="#{customerController.getGenderFemale()}" itemLabel="F"/>
+			</p:selectOneRadio>
+			<p:message id="sexMsg" for="sex" display="icon"/>
+
+			<p:outputLabel for="active" value="#{msg['customer.active']}"/>
+			<p:selectBooleanCheckbox id="active" value="#{customerController.newActive}"/>
+			<p:message for="active" display="icon"/>
+		</h:panelGrid>
+
+		<h:panelGrid border="0" columns="3" styleClass="center paddDiv10_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.addCustomer()}" oncomplete="handleSaveRequest(args, 'dialogNewCustomer');"
+							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
+			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+				<p:ajax update="panel2" resetValues="true" />
+			</p:commandButton>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewCustomer').hide();"
+							 styleClass="button" icon="ui-icon ui-icon-close" />
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

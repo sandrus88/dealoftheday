@@ -7,6 +7,8 @@ create table customer (
     EMAIL varchar2(100 byte),
     PWD varchar2(100 byte),
     TEL varchar2(100 byte),
+    SEX	varchar2(1 byte),
+    ACTIVE number(1),
         
     PRIMARY KEY (ID)
 );

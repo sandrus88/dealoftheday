@@ -31,6 +31,10 @@ public class CustomerEntity {
 	private String pwd;
 	@Column(name = "TEL")
 	private String tel;
+	@Column(name = "SEX")
+	private String sex;
+	@Column(name = "ACTIVE")
+	private int active;
 	
 	public Integer getId() {
 		return id;
@@ -88,6 +92,22 @@ public class CustomerEntity {
 		this.tel = tel;
 	}
 
+	public String getSex() {
+		return sex;
+	}
+
+	public void setSex(String sex) {
+		this.sex = sex;
+	}
+
+	public int getActive() {
+		return active;
+	}
+
+	public void setActive(int active) {
+		this.active = active;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (o == null) {
@@ -118,6 +138,9 @@ public class CustomerEntity {
 		if (tel != null && !tel.equals(other.tel)) {
 			return false;
 		}
+		if (sex != null && !sex.equals(other.sex)) {
+			return false;
+		}
 		return true;
 	}
 
@@ -130,6 +153,7 @@ public class CustomerEntity {
 		result = result + ((email == null) ? 0 : email.hashCode());
 		result = result + ((pwd == null) ? 0 : pwd.hashCode());
 		result = result + ((tel == null) ? 0 : tel.hashCode());
+		result = result + ((sex == null) ? 0 : sex.hashCode());
 		return result;
 	}
 
@@ -137,6 +161,6 @@ public class CustomerEntity {
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", surname: " + surname
 				+ ", birthDate: " + birthDate + ", email: " + email + ", password: " + pwd + ", phone: " + tel 
-				+ "]";
+				+ ", sex: " + sex + ", active: " + active + "]";
 	}
 }

@@ -9,12 +9,11 @@ import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.service.CustomerService;
+import org.dealoftheday.bl.test.util.TestUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -26,8 +25,6 @@ public class CustomerServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_getCustomer() throws ParseException {
 		// Given
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("03/05/1988");
 		final Integer customerId = 1;
 
 		// When
@@ -37,17 +34,16 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertNotNull(customer);
 		assertEquals("Sandro", customer.getName());
 		assertEquals("Gargano", customer.getSurname());
-		assertEquals(date, customer.getBirthDate());
+		assertEquals(TestUtils.formatDate("03/05/1988"), customer.getBirthDate());
 		assertEquals("sandrus88@hotmail.it", customer.getEmail());
 		assertEquals("pwd1", customer.getPwd());
 		assertEquals("0601", customer.getTel());
+		assertEquals("M", customer.getSex());
+		assertEquals(true, customer.getActive());
 	}
 
 	@Test
 	public void test_getAllCustomers() throws ParseException {
-		// Given
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("04/10/1975");
 
 		// When
 		List<Customer> customers = customerService.getAll();
@@ -58,10 +54,12 @@ public class CustomerServiceTest extends AbstractSpringTest {
 		assertEquals(new Integer(5), customers.get(4).getId());
 		assertEquals("Mario", customers.get(4).getName());
 		assertEquals("Rossi", customers.get(4).getSurname());
-		assertEquals(date, customers.get(4).getBirthDate());
+		assertEquals(TestUtils.formatDate("04/10/1975"), customers.get(4).getBirthDate());
 		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
 		assertEquals("pwd5", customers.get(4).getPwd());
 		assertEquals("0605", customers.get(4).getTel());
+		assertEquals("M", customers.get(4).getSex());
+		assertEquals(true, customers.get(4).getActive());
 	}
 
 	@Test
@@ -74,6 +72,141 @@ public class CustomerServiceTest extends AbstractSpringTest {
 
 		// Then
 		assertNull(customer);
+	}
+	
+	@Test
+	public void test_searchAllCustomers() throws ParseException {
+		// Given
+		Customer searchBean = new Customer();
+
+		// When
+		List<Customer> customers = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(5, customers.size());
+		assertEquals(new Integer(5), customers.get(4).getId());
+		assertEquals("Mario", customers.get(4).getName());
+		assertEquals("Rossi", customers.get(4).getSurname());
+		assertEquals("mariorossi@hotmail.it", customers.get(4).getEmail());
+		assertEquals("0605", customers.get(4).getTel());
+		assertEquals("M", customers.get(4).getSex());
+		assertEquals(true, customers.get(4).getActive());
+	}
+
+	@Test
+	public void test_searchCustomers_fullMatch() throws ParseException {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setName("Sandro");
+		searchBean.setSurname("Gargano");
+		searchBean.setEmail("sandrus88@hotmail.it");
+		searchBean.setTel("0601");
+		searchBean.setSex("M");
+		searchBean.setActive(true);
+
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void test_searchCustomers_fullSearch_partialMatch() throws ParseException {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setName("Sand");
+		searchBean.setSurname("GargaNO");
+		searchBean.setEmail("sandrUS88@hotmail.it");
+		searchBean.setTel("0601");
+
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void test_searchCustomers_byName() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setName("Sandro");
+
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void test_searchCustomers_bySurname() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setSurname("Gargano");
+		
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void test_searchCustomers_byEmail() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setEmail("sandrus88@hotmail.it");
+
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+
+		// Then
+		assertEquals(1, list.size());
+	}
+
+	@Test
+	public void test_searchCustomers_byTel() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setTel("0601");;
+		
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+		
+		// Then
+		assertEquals(1, list.size());
+	}
+	
+	@Test
+	public void test_searchCustomers_byGender() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setSex("M");
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+		// Then
+		assertEquals(3, list.size());
+
+		searchBean.setSex("F");
+		list = customerService.searchCustomer(searchBean);
+		assertEquals(2, list.size());
+	}
+	
+	@Test
+	public void test_searchCustomers_byActive() {
+		// Given
+		Customer searchBean = new Customer();
+		searchBean.setActive(false);
+		// When
+		List<Customer> list = customerService.searchCustomer(searchBean);
+		// Then
+		assertEquals(2, list.size());
+
+		searchBean.setActive(true);
+		list = customerService.searchCustomer(searchBean);
+		assertEquals(3, list.size());
 	}
 
 	@Test

@@ -11,27 +11,27 @@ import org.dealoftheday.bl.domain.Partner;
 public class TestUtils {
 
 	public static Customer createCustomer() throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("01/01/2000");
 		Customer customer = new Customer();
 		customer.setName("newName");
 		customer.setSurname("newSurname");
-		customer.setBirthDate(date);
+		customer.setBirthDate(formatDate("01/01/2000"));
 		customer.setEmail("newName_newSurname@gmail.com");
 		customer.setPwd("newPwd");
 		customer.setTel("0000000");
+		customer.setSex("F");
+		customer.setActive(false);
 		return customer;
 	}
 
 	public static Customer updateCustomer(Customer customer) throws ParseException {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-		Date date = sdf.parse("31/12/2000");
 		customer.setName("updatedName");
 		customer.setSurname("updatedSurname");
-		customer.setBirthDate(date);
+		customer.setBirthDate(formatDate("31/12/2000"));
 		customer.setEmail("updatedName_updatedSurname@gmail.com");
 		customer.setPwd("updatedPwd");
 		customer.setTel("9999999");
+		customer.setSex("M");
+		customer.setActive(true);
 		return customer;
 	}
 
@@ -72,5 +72,11 @@ public class TestUtils {
 		partner.setEmail("updated_partner@hotmail.it");
 		partner.setWebSite("Sito Updated Partner");
 		return partner;
+	}
+	
+	public static Date formatDate(String str) throws ParseException {
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = sdf.parse(str);
+		return date;
 	}
 }

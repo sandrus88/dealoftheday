@@ -9,5 +9,4 @@
 	</parent>
 	<artifactId>dealoftheday-bl</artifactId>
 	<packaging>jar</packaging>
-
 </project>
