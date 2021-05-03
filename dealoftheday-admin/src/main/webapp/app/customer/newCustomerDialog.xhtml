@@ -4,16 +4,6 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-<ui:define name="headResources">
-	<script type="text/javascript">
-        function handleSaveRequest(args, dialogWidgetVar) {
-            if (!args.validationFailed) {
-                PF(dialogWidgetVar).hide();
-            }
-        }
-	</script>
-</ui:define>
-
 <h:form id="newCustomerForm">
 	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="280"
 		resizable="true" position="center" draggable="true">

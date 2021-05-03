@@ -10,14 +10,10 @@
 
 <f:view locale="#{localeBean.locale}">
     <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <!--<link rel="shortcut icon" type="image/x-icon" href="#{request.contextPath}/images/ozone-icon.png"/>--> <!-- JSP -->
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/ozone-icon.png']}"/>  <!-- if JSF recourses: webapp/recources/images-->
         <h:outputStylesheet library="css" name="style.css"/>
-        <!--<link href="/OZoneAdmin/css/OZoneStyles.css" rel="stylesheet" type="text/css"/>-->
-        <link rel="icon" type="image/x-icon" href="/dayofthedeal-admin/images/ozone-icon.png"/>
-        <link rel="shortcut icon" type="image/x-icon" href="/dayofthedeal-admin/images/ozone-icon.png"/>
-
-        <ui:insert name="headResources">
-
-        </ui:insert>
 
         <title>
             <ui:insert name="title">

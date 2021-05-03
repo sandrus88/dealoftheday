@@ -1,5 +1,8 @@
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="customerEditForm">
 	<p:dialog widgetVar="dialogEditCustomer" showEffect="fade" modal="true" width="400" height="280"
@@ -64,11 +67,4 @@
 		</h:panelGrid>
 	</p:dialog>
 </h:form>
-<script type="text/javascript">
-	function handleSaveRequest(args, dialogWidgetVar) {
-		if (!args.validationFailed) {
-			PF(dialogWidgetVar).hide();
-		}
-	}
-</script>
 </html>

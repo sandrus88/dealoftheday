@@ -4,10 +4,10 @@
 	  xmlns:ui="http://java.sun.com/jsf/facelets"
 	  xmlns:p="http://primefaces.org/ui">
 
-
 <ui:composition template="/template/pageLayout.xhtml">
 	<ui:define name="content">
-    	
+		<h:outputScript library="javascript" name="customer.js"/>
+
 		<h:form id="searchForm">
 			<p:growl id="message" showDetail="true"/>
 
@@ -20,9 +20,8 @@
 						<f:convertNumber />
 						<p:ajax event="blur" update="id"/>
 					</p:inputText>
-
-					<p:outputLabel value="" />
-					<p:outputLabel value="" />
+					<p:spacer width="1" height="20"/>
+					<p:spacer width="80" height="20"/>
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
@@ -48,7 +47,6 @@
 						<f:selectItem itemLabel="M" itemValue="#{customerController.getGenderMale()}"/>
 						<f:selectItem itemLabel="F" itemValue="#{customerController.getGenderFemale()}"/>
 					</p:selectOneMenu>
-
 					<p:outputLabel for="active" value="#{msg['customer.active']}" />
 					<p:selectOneMenu id="active" value="#{customerController.searchActive}" styleClass="dropDownYNWidth">
 						<f:selectItem itemLabel="" />
@@ -60,22 +58,26 @@
 
 			<h:panelGrid border="0" columns="4" width="50%" >
 				<h:panelGrid border="0" columns="2" styleClass="right">
-					<p:commandButton value="#{msg['search']}" actionListener="#{customerController.searchCustomer()}" update="searchResultForm message" styleClass="button" icon="ui-icon ui-icon-search"/>
-					<p:commandButton value="#{msg['clear']}" actionListener="#{customerController.cleanSearchForm()}" update="searchForm" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+					<p:commandButton value="#{msg['search']}" actionListener="#{customerController.searchCustomer()}" update="searchResultForm message"
+									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
+					<p:commandButton value="#{msg['clear']}" actionListener="#{customerController.cleanSearchForm()}" update="searchForm"
+									 styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
 						<p:ajax update="searchForm" resetValues="true"/>
 					</p:commandButton>
 				</h:panelGrid>
 			</h:panelGrid>
 		</h:form>
-	
+
 		<h:form id="searchResultForm">
-			<h:panelGrid border="0" columns="2" >
+			<h:panelGrid border="0" columns="3" >
 				<h:outputText value="#{msg['customer.home.table']}" styleClass="searchTitle"/>
 
 				<p:commandLink oncomplete="PF('dialogNewCustomer').show()" id="linkAddCustomer" >
 					<i class="fa fa-fw fa-plus addIcon"/>
 					<p:tooltip for="linkAddCustomer" value="#{msg['add']}" position="bottom"/>
 				</p:commandLink>
+
+				<ui:include src="../ajaxStatus.xhtml" />
 			</h:panelGrid>
 
 			<p:dataTable value="#{customerController.customerList}" var="item" id="customersTable" emptyMessage="#{msg['customer.empty.table']}"
@@ -129,22 +131,17 @@
 				</p:column>
 			</p:dataTable>
 
-			<p:dialog widgetVar="dialog" showEffect="fade" hideEffect="fade" modal="true" width="350" resizable="false" header="#{msg['popup.confirm']}" position="center" draggable="false">
+			<p:dialog widgetVar="dialog" showEffect="fade" hideEffect="fade" modal="true" width="350" resizable="false"
+					  header="#{msg['popup.confirm']}" position="center" draggable="false">
 				<h:outputText value="#{msg['popup.message.delete']}"/>
 				<h:panelGrid columns="2" border="0" styleClass="center paddDiv5_10">
-					<p:commandButton value="#{msg['popup.delete.yes']}" actionListener="#{customerController.deleteCustomer(customerController.selectedCustomer)}" update="searchResultForm" oncomplete="PF('dialog').hide()" styleClass="button"/>
+					<p:commandButton value="#{msg['popup.delete.yes']}" actionListener="#{customerController.deleteCustomer(customerController.selectedCustomer)}"
+									 update="searchResultForm" oncomplete="PF('dialog').hide()" styleClass="button"/>
 					<p:commandButton value="#{msg['popup.delete.no']}" styleClass="button" onclick="PF('dialog').hide()"/>
 				</h:panelGrid>
 			</p:dialog>
 		</h:form>
-		
-		<!-- <h:form>
-		<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">	
-       		<p:ajaxStatus onstart="PF('statusDialog').show()" oncomplete="PF('statusDialog').hide()"/>
-       		<i class="fa fa-spinner fa-spin" style="font-size: 2rem"/>
-    	</p:dialog>
-		</h:form> -->
-		
+
 		<ui:include src="editCustomerDialog.xhtml" />
 		<ui:include src="newCustomerDialog.xhtml" />
 	</ui:define>
