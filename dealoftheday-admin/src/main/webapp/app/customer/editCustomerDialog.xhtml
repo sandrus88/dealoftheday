@@ -60,7 +60,7 @@
 			<p:message for="active" display="icon" />
 		</h:panelGrid>
 
-		<h:panelGrid border="0" columns="2" style="margin: 0 auto; margin-top: 15px;">
+		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
 			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.updateSelectedCustomer(customerController.selectedCustomer)}" oncomplete="handleSaveRequest(args, 'dialogEditCustomer');" update="searchResultForm searchForm panel" styleClass="button"/>			
 			<p:ajax event="click" update="panel"/>
 			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCustomer').hide()" styleClass="button" />

@@ -73,7 +73,7 @@
 				<h:outputText value="#{msg['customer.home.table']}" styleClass="searchTitle"/>
 
 				<p:commandLink oncomplete="PF('dialogNewCustomer').show()" id="linkAddCustomer" >
-					<i class="fa fa-fw fa-plus addIcon"/>
+					<i class="fa fa-fw fa-plus bigIcon"/>
 					<p:tooltip for="linkAddCustomer" value="#{msg['add']}" position="bottom"/>
 				</p:commandLink>
 
@@ -81,7 +81,7 @@
 			</h:panelGrid>
 
 			<p:dataTable value="#{customerController.customerList}" var="item" id="customersTable" emptyMessage="#{msg['customer.empty.table']}"
-						 paginator="true" rows="50" rowsPerPageTemplate="10,50,100"
+						 paginator="true" rows="2" rowsPerPageTemplate="10,50,100"
 						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{customerController.customerList.size()}">
 				<p:column width="5%" headerText="#{msg['customer.id']}" sortBy="#{item.id}">
 					<h:outputText value="#{item.id}" />

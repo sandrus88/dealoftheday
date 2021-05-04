@@ -12,7 +12,7 @@ html, body {
 	width: 85px;
 }
 
-.addIcon {
+.bigIcon {
 	font-size: 2rem;
 	color: #4f4f4f;
 }
@@ -51,10 +51,6 @@ html, body {
 	z-index: 1000;
 
 }
-	
-.headerIcon {
-    font-size: 2rem;
-}
 
 /*primefaces re-write properties*/
 a:link {
@@ -63,5 +59,12 @@ a:link {
 
 .ui-datatable thead th {
 	padding-left: inherit !important;
+	white-space: nowrap;
 }
+
+.ui-datatable .ui-sortable-column-icon {
+	margin-right: -1px;
+}
+
+/*END primefaces re-write properties*/
 
