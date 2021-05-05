@@ -1,0 +1,52 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="cityEditForm">
+	<p:dialog widgetVar="dialogEditCity" showEffect="fade" modal="true" width="400" height="170"
+		resizable="true" position="center" draggable="true">
+
+		<f:facet name="header">
+			<h:outputText
+				value="#{msg['city.edit.title']} #{cityController.selectedCity.name}"/>
+		</f:facet>
+
+		<h:panelGrid columns="3" border="0" width="100%" id="panel">
+			<p:outputLabel for="id" value="#{msg['city.id']}"/>
+			<p:inputText id="id" value="#{cityController.selectedCity.id}" required="true" maxlength="2" styleClass="idCity">
+				<f:validator validatorId="cityIdValidator"/>
+				<p:ajax event="blur" update="IdMsg id"/>
+			</p:inputText>
+			<p:message id="IdMsg" for="id" display="icon"/>
+			
+			<p:outputLabel for="name" value="#{msg['city.name']}"/>
+			<p:inputText id="name" value="#{cityController.selectedCity.name}" required="true" maxlength="20">
+				<p:ajax event="blur" update="nameMsg name"/>
+			</p:inputText>
+			<p:message id="nameMsg" for="name" display="icon"/>
+
+			<p:outputLabel for="latitude" value="#{msg['city.latitude']}"/>
+			<p:inputText id="latitude" value="#{cityController.selectedCity.lat}" styleClass="latLng" maxlength="10">
+				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
+				<p:ajax event="blur" update="latitudeMsg latitude"/>
+			</p:inputText>
+			<p:message id="latitudeMsg" for="latitude" display="icon"/>
+
+			<p:outputLabel for="longitude" value="#{msg['city.longitude']}"/>
+			<p:inputText id="longitude" value="#{cityController.selectedCity.lng}" styleClass="latLng" maxlength="10">
+				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
+				<p:ajax event="blur" update="longitudeMsg longitude"/>
+			</p:inputText>
+			<p:message id="longitudeMsg" for="longitude" display="icon"/>
+		</h:panelGrid>
+
+		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{cityController.updateSelectedCity(cityController.selectedCity)}" oncomplete="handleSaveRequest(args, 'dialogEditCity');" update="searchResultForm searchForm panel" styleClass="button" icon="ui-icon ui-icon-disk"/>			
+			<p:ajax event="click" update="panel"/>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCity').hide()" styleClass="button" icon="ui-icon ui-icon-close"/>
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

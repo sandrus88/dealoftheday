@@ -5,7 +5,7 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="newCustomerForm">
-	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="280"
+	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="290"
 		resizable="true" position="center" draggable="true">
 
 		<f:facet name="header">
@@ -63,10 +63,11 @@
 			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.addCustomer()}" oncomplete="handleSaveRequest(args, 'dialogNewCustomer');"
 							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
 			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
-				<p:ajax update="panel2" resetValues="true" />
+				<p:ajax update="panel2" resetValues="true" listener="#{customerController.cleanDialogForm()}"/>
 			</p:commandButton>
-			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewCustomer').hide();"
-							 styleClass="button" icon="ui-icon ui-icon-close" />
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewCustomer').hide();" styleClass="button" icon="ui-icon ui-icon-close">
+				<p:ajax update="panel2" resetValues="true" listener="#{customerController.cleanDialogForm()}"/>
+			</p:commandButton>	
 		</h:panelGrid>
 	</p:dialog>
 </h:form>

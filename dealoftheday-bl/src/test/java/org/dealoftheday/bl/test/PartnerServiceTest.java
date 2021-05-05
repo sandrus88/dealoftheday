@@ -51,9 +51,9 @@ public class PartnerServiceTest extends AbstractSpringTest {
 
         // Then
         assertNotNull(partners);
-        assertEquals(15, partners.size());
-        assertEquals(new Integer(15), partners.get(14).getId());
-        assertEquals("Partner15", partners.get(14).getName());
+        assertEquals(30, partners.size());
+        assertEquals(new Integer(30), partners.get(29).getId());
+        assertEquals("Partner30", partners.get(29).getName());
     }
 
     @Test

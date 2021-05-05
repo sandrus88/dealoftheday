@@ -3,9 +3,12 @@ package org.dealoftheday.bl.service.impl;
 import java.util.List;
 
 import org.dealoftheday.bl.assembler.CityAssembler;
+import org.dealoftheday.bl.assembler.CustomerAssembler;
 import org.dealoftheday.bl.dao.CityDao;
 import org.dealoftheday.bl.domain.City;
+import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.entities.CityEntity;
+import org.dealoftheday.bl.entities.CustomerEntity;
 import org.dealoftheday.bl.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,5 +58,12 @@ public class CityServiceImpl implements CityService {
 	@Override
 	public boolean delete(String id) {
 		return cityDao.delete(id);
+	}
+
+	@Override
+	public List<City> searchCity(City searchDto) {
+		List<CityEntity> listEntities = cityDao.searchCity(searchDto);
+		List<City> list = CityAssembler.getDTOList(listEntities);
+		return list;
 	}
 }

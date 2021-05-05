@@ -31,7 +31,7 @@ public class PartnerEntity {
 	private String webSite;
 	@Column(name = "CITY_ID")
 	private String cityId;
-
+ 	
 	public Integer getId() {
 		return id;
 	}

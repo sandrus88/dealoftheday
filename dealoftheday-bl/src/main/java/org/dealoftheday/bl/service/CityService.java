@@ -16,4 +16,6 @@ public interface CityService {
 
 	boolean delete(String id);
 
+	List<City> searchCity(City searchDto);
+
 }

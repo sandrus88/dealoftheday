@@ -1,6 +1,6 @@
 package org.dealoftheday.bl.domain;
 
-import java.util.List;
+import org.dealoftheday.bl.util.SGUtil;
 
 public class Partner {
 
@@ -12,6 +12,7 @@ public class Partner {
 	private String email;
 	private String webSite;
 	private String cityId;
+	private boolean checked;
 
 	public Partner() {
 
@@ -91,6 +92,21 @@ public class Partner {
 
 	public void setCityId(String cityId) {
 		this.cityId = cityId;
+	}
+	
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	
+	public boolean isChecked() {
+		return checked;
+	}
+	
+	public boolean isDisabled(City city) {
+		if(!SGUtil.isEmpty(cityId) && !cityId.equals(city.getId())) {
+			return true;
+		}
+		return false;
 	}
 
 	@Override

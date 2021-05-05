@@ -1,0 +1,56 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="newCityForm">
+	<p:dialog widgetVar="dialogNewCity" showEffect="fade" modal="true" width="400" height="170"
+		resizable="true" position="center" draggable="true">
+
+		<f:facet name="header">
+			<h:outputText value="#{msg['city.add']}" />
+		</f:facet>
+
+		<h:panelGrid border="0" columns="3" width="100%" id="panel2">
+			<p:outputLabel for="id" value="#{msg['city.id']}"/>
+			<p:inputText id="id" value="#{cityController.newId}" required="true" maxlength="2" styleClass="idCity">
+				<f:validator validatorId="cityIdValidator"/>
+				<p:ajax event="blur" update="IdMsg id"/>
+			</p:inputText>
+			<p:message id="IdMsg" for="id" display="icon"/>
+			
+			<p:outputLabel for="name" value="#{msg['city.name']}"/>
+			<p:inputText id="name" value="#{cityController.newName}" required="true" maxlength="20">
+				<p:ajax event="blur" update="nameMsg name"/>
+			</p:inputText>
+			<p:message id="nameMsg" for="name" display="icon"/>
+
+			<p:outputLabel for="latitude" value="#{msg['city.latitude']}"/>
+			<p:inputText id="latitude" value="#{cityController.newLat}" styleClass="latLng" maxlength="10">
+				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
+				<p:ajax event="blur" update="latitudeMsg latitude"/>
+			</p:inputText>
+			<p:message id="latitudeMsg" for="latitude" display="icon"/>
+
+			<p:outputLabel for="longitude" value="#{msg['city.longitude']}"/>
+			<p:inputText id="longitude" value="#{cityController.newLng}" styleClass="latLng" maxlength="10">
+				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
+				<p:ajax event="blur" update="longitudeMsg longitude"/>
+			</p:inputText>
+			<p:message id="longitudeMsg" for="longitude" display="icon"/>
+		</h:panelGrid>
+
+		<h:panelGrid border="0" columns="3" styleClass="center paddDiv10_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{cityController.addCity()}" oncomplete="handleSaveRequest(args, 'dialogNewCity');"
+							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
+			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+				<p:ajax update="panel2" resetValues="true" listener="#{cityController.cleanDialogForm()}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewCity').hide();" styleClass="button" icon="ui-icon ui-icon-close">
+				<p:ajax update="panel2" resetValues="true" listener="#{cityController.cleanDialogForm()}"/>
+			</p:commandButton>	
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

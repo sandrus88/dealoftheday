@@ -2,6 +2,7 @@ package org.dealoftheday.bl.dao;
 
 import java.util.List;
 
+import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.entities.CityEntity;
 
 public interface CityDao {
@@ -14,4 +15,6 @@ public interface CityDao {
 	List<CityEntity> getAll();
 
 	boolean delete(String id);
+
+	List<CityEntity> searchCity(City searchDto);
 }
