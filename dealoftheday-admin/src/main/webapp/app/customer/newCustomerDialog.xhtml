@@ -5,9 +5,9 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="newCustomerForm">
-	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="290"
-		resizable="true" position="center" draggable="true">
-
+	<p:dialog widgetVar="dialogNewCustomer" showEffect="fade" modal="true" width="400" height="290" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel2" resetValues="true" listener="#{customerController.cleanDialogForm()}"/>
+		
 		<f:facet name="header">
 			<h:outputText value="#{msg['customer.add']}" />
 		</f:facet>

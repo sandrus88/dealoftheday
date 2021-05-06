@@ -5,9 +5,9 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="newCityForm">
-	<p:dialog widgetVar="dialogNewCity" showEffect="fade" modal="true" width="400" height="170"
-		resizable="true" position="center" draggable="true">
-
+	<p:dialog widgetVar="dialogNewCity" showEffect="fade" modal="true" width="400" height="170" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel2" resetValues="true" listener="#{cityController.cleanDialogForm()}"/>
+		
 		<f:facet name="header">
 			<h:outputText value="#{msg['city.add']}" />
 		</f:facet>
