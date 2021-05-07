@@ -5,7 +5,8 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="newPartnerForm">
-	<p:dialog widgetVar="dialogNewPartner" showEffect="fade" modal="true" width="900" height="290" resizable="true" position="center" draggable="true">
+	<p:dialog widgetVar="dialogNewPartner" width="600" height="290" position="center"
+			  showEffect="fade" modal="true" resizable="true" draggable="true">
 		<p:ajax event="close" update="panel2" resetValues="true" listener="#{partnerController.cleanDialogForm()}"/>
 		
 		<f:facet name="header">
@@ -14,13 +15,13 @@
 
 		<h:panelGrid border="0" columns="3" width="100%" id="panel2">
 			<p:outputLabel for="name" value="#{msg['partner.name']}" />
-			<p:inputText id="name" value="#{partnerController.newName}" required="true" maxlength="200" styleClass="namePartner">
+			<p:inputText id="name" value="#{partnerController.newName}" required="true" maxlength="200" size="50">
 				<p:ajax event="blur" update="nameMsg name"/>
 			</p:inputText>
 			<p:message id="nameMsg" for="name" display="icon" />
 
 			<p:outputLabel for="address" value="#{msg['partner.address']}" />
-			<p:inputText id="address" value="#{partnerController.newAddress}" required="true" maxlength="50" styleClass="addressPartner">
+			<p:inputText id="address" value="#{partnerController.newAddress}" required="true" maxlength="50" size="50">
 				<p:ajax event="blur" update="addressMsg address" />
 			</p:inputText>
 			<p:message id="addressMsg" for="address" display="icon" />
@@ -45,7 +46,7 @@
 			<p:message id="emailMsg" for="email" display="icon" />
 
 			<p:outputLabel for="webSite" value="#{msg['partner.webSite']}" />
-			<p:inputText id="webSite" value="#{partnerController.newWebSite}">
+			<p:inputText id="webSite" value="#{partnerController.newWebSite}" size="50">
 				<p:ajax event="blur" update="webSiteMsg" />
 			</p:inputText>
 			<p:message id="webSiteMsg" for="webSite" display="icon" />

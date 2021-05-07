@@ -10,6 +10,8 @@ import org.dealoftheday.bl.entities.CustomerEntity;
 import org.dealoftheday.bl.util.SGUtil;
 import org.springframework.stereotype.Repository;
 
+import javax.persistence.Query;
+
 @Repository
 public class CityDaoImpl extends GenericDao implements CityDao {
 
@@ -39,7 +41,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public boolean delete(String id) {
-		CityEntity cityEntity = entityManager.find(CityEntity.class, id);
+		CityEntity cityEntity = get(id);
 		if (cityEntity != null) {
 			entityManager.remove(cityEntity);
 			return true;
@@ -49,15 +51,27 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public List<CityEntity> searchCity(City searchDto) {
-		String sql = "select c from CityEntity c ";
-		sql += "where 1=1";
+		StringBuilder sql = new StringBuilder();
+		sql.append("select c from CityEntity c");
+		sql.append(" where 1=1");
+
 		if (!SGUtil.isEmpty(searchDto.getId())) {
-			sql += "and c.id = '" + searchDto.getId() + "'";
+			sql.append(" and c.id = ':id'");
 		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
-			sql += "and upper(c.name) like upper('%" + searchDto.getName() + "%')";
+			sql.append(" and upper(c.name) like upper('%:name%')");
 		}
-		List<CityEntity> cities = entityManager.createQuery(sql, CityEntity.class).getResultList();
+		
+		Query query = entityManager.createQuery(sql.toString());
+		
+		if (!SGUtil.isEmpty(searchDto.getId())) {
+			query = query.setParameter("id", searchDto.getId());
+		}
+		if (!SGUtil.isEmpty(searchDto.getName())) {
+			query = query.setParameter("name", searchDto.getName());
+		}
+		
+		List<CityEntity> cities = query.getResultList();
 		return cities;
 	}
 }

@@ -38,15 +38,22 @@ public class TestUtils {
 
 	public static City createCity() {
 		City city = new City();
-		city.setId("NC");
+		city.setId("FI");
 		city.setName("New City");
 		city.setLat(0.1);
 		city.setLng(0.1);
 		return city;
 	}
+	
+	public static City getDefaultCity() {
+		City city = new City();
+		city.setId("FI");
+		city.setName("Firenze");
+		return city;
+	}
 
 	public static City updateCity(City city) {
-		city.setId("UC");
+		city.setId("MI");
 		city.setName("Updated City");
 		city.setLat(1.1);
 		city.setLng(1.1);
@@ -62,7 +69,7 @@ public class TestUtils {
 		partner.setEmail("new_partner@hotmail.it");
 		partner.setWebSite("Sito New Partner");
 		partner.setCategory(Category.ADVENTURE);
-		partner.setCity(createCity());
+		partner.setCity(getDefaultCity());
 		return partner;
 	}
 

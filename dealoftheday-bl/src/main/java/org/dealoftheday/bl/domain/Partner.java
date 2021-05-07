@@ -157,7 +157,7 @@ public class Partner {
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", address: " + address + ", tel: "
-				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", category: " + category + ", city: " + city.getName() + "]";
+				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", category: " + category + ", city: " + city.getId() + "-" + city.getName() + "]";
 	}
 
 }

@@ -186,7 +186,6 @@ public class PartnerServiceTest extends AbstractSpringTest {
 		// Then
 		assertEquals(2, list.size());
 	}
-
     
     @Test
     public void test_insertPartner() {

@@ -60,6 +60,7 @@ public class PartnerDaoImpl extends GenericDao implements PartnerDao {
 		if (searchDto.getCity() != null) {
 			sql += "and city_id = '" + searchDto.getCity().getId() + "'";
 		}
+		sql += " order by p.id ";
 		List<PartnerEntity> partners = entityManager.createQuery(sql, PartnerEntity.class).getResultList();
 		return partners;
 	}

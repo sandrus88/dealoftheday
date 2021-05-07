@@ -59,8 +59,8 @@ html, body {
 	width: 70px !important;
 }
 
-.namePartner {
-	width: 700px;
+.dropDownCategory {
+	width: 183px !important;
 }
 
 .addressPartner {
@@ -84,6 +84,5 @@ a:link {
 .ui-datatable .ui-sortable-column-icon {
     margin: -3px 0 -3px -1px !important;
 }
-
 /*END primefaces re-write properties*/
 

@@ -40,7 +40,7 @@ public class CustomerDaoImpl extends GenericDao implements CustomerDao {
 
 	@Override
 	public boolean delete(Integer id) {
-		CustomerEntity customerEntity = entityManager.find(CustomerEntity.class, id);
+		CustomerEntity customerEntity = get(id);
 		if (customerEntity != null) {
 			entityManager.remove(customerEntity);
 			return true;

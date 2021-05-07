@@ -1,8 +1,5 @@
 package org.dealoftheday.bl.domain;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class City {
 	
 	private String id;
@@ -68,12 +65,6 @@ public class City {
 		if (name != null && !name.equals(other.name)) {
 			return false;
 		}
-		if (lat != null && !lat.equals(other.lat)) {
-			return false;
-		}
-		if (lng != null && !lng.equals(other.lng)) {
-			return false;
-		}
 		return true;
 	}
 
@@ -83,8 +74,6 @@ public class City {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
-		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
 		return result;
 	}
 
