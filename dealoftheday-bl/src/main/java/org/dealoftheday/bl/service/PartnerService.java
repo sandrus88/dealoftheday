@@ -15,4 +15,6 @@ public interface PartnerService {
     List<Partner> getAll();
 
     boolean delete(Integer id);
+    
+    List<Partner> searchPartner(Partner searchDto);
 }

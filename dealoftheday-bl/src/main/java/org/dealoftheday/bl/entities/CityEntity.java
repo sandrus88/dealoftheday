@@ -25,26 +25,6 @@ public class CityEntity {
 	@Column(name = "LNG")
 	private Double lng;
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "CITY_ID")
-	private List<PartnerEntity> partners;
-
-	public CityEntity() {
-		partners = new ArrayList<>();
-	}
-
-	public void addPartner(PartnerEntity partnerEntity) {
-		partners.add(partnerEntity);
-	}
-
-	public void removePartner(PartnerEntity partnerEntity) {
-		partners.remove(partnerEntity);
-	}
-	
-	public void removeAllPartners() {
-		partners.clear();
-	}
-	
 	public String getId() {
 		return id;
 	}
@@ -69,13 +49,6 @@ public class CityEntity {
 	public void setLng(Double lng) {
 		this.lng = lng;
 	}
-	public List<PartnerEntity> getPartners() {
-		return partners;
-	}
-
-	public void setPartners(List<PartnerEntity> partners) {
-		this.partners = partners;
-	}
 
 	@Override
 	public boolean equals(Object o) {
@@ -98,9 +71,6 @@ public class CityEntity {
 		if (lng != null && !lng.equals(other.lng)) {
 			return false;
 		}
-		if (partners != null && !partners.equals(other.partners)) {
-			return false;
-		}
 		return true;
 	}
 
@@ -112,13 +82,12 @@ public class CityEntity {
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((lat == null) ? 0 : lat.hashCode());
 		result = prime * result + ((lng == null) ? 0 : lng.hashCode());
-		result = prime * result + ((partners == null) ? 0 : partners.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", latitude: " + lat
-				+ ", longitude: " + lng + ", partners: " + partners + "]";
+				+ ", longitude: " + lng + "]";
 	}
 }

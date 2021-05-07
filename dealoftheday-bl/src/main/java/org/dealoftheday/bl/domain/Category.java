@@ -1,0 +1,6 @@
+package org.dealoftheday.bl.domain;
+
+public enum Category {
+	FOOD_AND_RESTAURANTS, BAR_AND_DRINKS, CINEMA_THEATER_CONCERT, 
+	VISIT_TOURS, ADVENTURE, BEAUTY_CARE, HEALTH_CARE 
+}

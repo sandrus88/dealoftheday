@@ -1,7 +1,5 @@
 package org.dealoftheday.bl.domain;
 
-import org.dealoftheday.bl.util.SGUtil;
-
 public class Partner {
 
 	private Integer id;
@@ -11,15 +9,15 @@ public class Partner {
 	private String cell;
 	private String email;
 	private String webSite;
-	private String cityId;
-	private boolean checked;
-
+	private Category category;
+	private City city;
+	
 	public Partner() {
 
 	}
 
-	public Partner(Integer id, String name, String address, String tel, String cell, String email, String webSite,
-			String cityId) {
+	public Partner(Integer id, String name, String address, String tel, String cell, String email, String webSite, Category category,
+			City city) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -27,7 +25,8 @@ public class Partner {
 		this.cell = cell;
 		this.email = email;
 		this.webSite = webSite;
-		this.cityId = cityId;
+		this.category = category;
+		this.city = city;
 	}
 
 	public Integer getId() {
@@ -86,27 +85,20 @@ public class Partner {
 		this.webSite = webSite;
 	}
 
-	public String getCityId() {
-		return cityId;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 	
-	public void setChecked(boolean checked) {
-		this.checked = checked;
+	public City getCity() {
+		return city;
 	}
-	
-	public boolean isChecked() {
-		return checked;
-	}
-	
-	public boolean isDisabled(City city) {
-		if(!SGUtil.isEmpty(cityId) && !cityId.equals(city.getId())) {
-			return true;
-		}
-		return false;
+
+	public void setCity(City city) {
+		this.city = city;
 	}
 
 	@Override
@@ -139,7 +131,10 @@ public class Partner {
 		if (webSite != null && !webSite.equals(other.webSite)) {
 			return false;
 		}
-		if (cityId != null && !cityId.equals(other.cityId)) {
+		if (category != null && !category.equals(other.category)) {
+			return false;
+		}
+		if (city != null && !city.equals(other.city)) {
 			return false;
 		}
 		return true;
@@ -154,14 +149,15 @@ public class Partner {
 		result = result + ((cell == null) ? 0 : cell.hashCode());
 		result = result + ((email == null) ? 0 : email.hashCode());
 		result = result + ((webSite == null) ? 0 : webSite.hashCode());
-		result = result + ((cityId == null) ? 0 : cityId.hashCode());
+		result = result + ((category == null) ? 0 : category.hashCode());
+		result = result + ((city == null) ? 0 : city.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", address: " + address + ", tel: "
-				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", cityId: " + cityId + "]";
+				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", category: " + category + ", city: " + city.getName() + "]";
 	}
 
 }

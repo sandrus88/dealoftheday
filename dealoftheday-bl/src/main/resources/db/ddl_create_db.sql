@@ -30,6 +30,7 @@ create table partner (
     CELL varchar2(100 byte),
     EMAIL varchar2(100 byte),
     WEB_SITE varchar2(100 byte),
+    CATEGORY varchar2(100 byte),
     CITY_ID char(2),
         
     PRIMARY KEY (ID),

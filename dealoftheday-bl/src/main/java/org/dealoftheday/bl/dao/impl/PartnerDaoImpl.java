@@ -4,8 +4,9 @@ import java.util.List;
 
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.dao.PartnerDao;
-import org.dealoftheday.bl.entities.CityEntity;
+import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.PartnerEntity;
+import org.dealoftheday.bl.util.SGUtil;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -42,14 +43,24 @@ public class PartnerDaoImpl extends GenericDao implements PartnerDao {
 		if (partnerEntity == null) {
 			return false;
 		}
-
-		if (partnerEntity.getCityId() != null || !partnerEntity.getCityId().equals("")) {
-			CityEntity cityEntity = entityManager.find(CityEntity.class, partnerEntity.getCityId());
-			if (cityEntity.getPartners().contains(partnerEntity)) {
-				cityEntity.removePartner(partnerEntity);
-			}
-		}
 		entityManager.remove(partnerEntity);
 		return true;
+	}
+	
+	@Override
+	public List<PartnerEntity> searchPartner(Partner searchDto) {
+		String sql = "select p from PartnerEntity p ";
+		sql += "where 1=1";
+		if (!SGUtil.isEmpty(searchDto.getName())) {
+			sql += "and upper(p.name) like upper('%" + searchDto.getName() + "%')";
+		}
+		if (searchDto.getCategory() != null) {
+			sql += "and p.category = '" + searchDto.getCategory() + "'";
+		}
+		if (searchDto.getCity() != null) {
+			sql += "and city_id = '" + searchDto.getCity().getId() + "'";
+		}
+		List<PartnerEntity> partners = entityManager.createQuery(sql, PartnerEntity.class).getResultList();
+		return partners;
 	}
 }

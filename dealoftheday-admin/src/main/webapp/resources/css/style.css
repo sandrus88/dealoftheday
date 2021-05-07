@@ -51,9 +51,20 @@ html, body {
 	min-width: 36px !important;
 }
 
-.ui-message {
-	z-index: 1000;
+.idCityClass {
+	width: 30px;
+}
 
+.latLongClass {
+	width: 70px !important;
+}
+
+.namePartner {
+	width: 700px;
+}
+
+.addressPartner {
+	width: 300px;
 }
 
 /*primefaces re-write properties*/
@@ -71,15 +82,7 @@ a:link {
 }
 
 .ui-datatable .ui-sortable-column-icon {
-    margin: -3px 0 -3px -4px !important;
-}
-
-.ui-inputfield.idCity {
-	width: 20px !important;
-}
-
-.ui-inputfield.latLng {
-	width: 70px !important;
+    margin: -3px 0 -3px -1px !important;
 }
 
 /*END primefaces re-write properties*/

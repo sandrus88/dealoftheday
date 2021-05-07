@@ -11,7 +11,6 @@ import javax.faces.bean.ViewScoped;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.service.CityService;
-import org.dealoftheday.bl.service.PartnerService;
 
 @ManagedBean
 @ViewScoped
@@ -19,9 +18,6 @@ public class CityController {
 	
 	@ManagedProperty(value = "#{cityService}")
 	private CityService cityService;
-	
-	@ManagedProperty(value = "#{partnerService}")
-	private PartnerService partnerService;
 
 	private String newId;
 	private String newName;
@@ -43,7 +39,7 @@ public class CityController {
 	}
 
 	public void searchCity() {
-		City searchDto = new City(searchId, searchName, null, null, null);
+		City searchDto = new City(searchId, searchName, null, null);
 		cityList = cityService.searchCity(searchDto);
 	}
 
@@ -80,39 +76,6 @@ public class CityController {
 		searchCity();
 	}
 	
-	public void viewPartners(City city) {
-		selectedCity = city;
-		allPartners = partnerService.getAll();
-		List<Partner> selectedCityPartners = city.getPartners();
-
-		for (int i = 0; i < allPartners.size(); i++) {
-			Partner partner = allPartners.get(i);
-			if (selectedCityPartners.contains(partner)) {
-				partner.setChecked(true);
-				partner.isDisabled(selectedCity);
-			}
-		}
-		searchCity();
-	}
-
-	public void updateCityPartners(City city) {
-		for (int i = 0; i < allPartners.size(); i++) {
-			final Partner partner = allPartners.get(i);
-			if (partner.isChecked()) {
-				city.addPartner(partner);
-			} else {
-				city.removePartner(partner);
-			}
-		}
-		city = cityService.update(city);
-		searchCity();
-	}
-	
-	public int partnersNumber(City city) {
-		int partners = city.getPartners().size();
-		return partners;
-	}
-
 	public String getNewId() {
 		return newId;
 	}
@@ -187,9 +150,5 @@ public class CityController {
 
 	public void setCityService(CityService cityService) {
 		this.cityService = cityService;
-	}
-
-	public void setPartnerService(PartnerService partnerService) {
-		this.partnerService = partnerService;
 	}
 }

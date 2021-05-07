@@ -1,0 +1,140 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/pageLayout.xhtml">
+	<ui:define name="content">
+		<h:outputScript library="javascript" name="customer.js"/>
+
+		<h:form id="searchForm">
+			<p:growl id="message" showDetail="true"/>
+
+			<h:outputText value="#{msg['partner.search']}" styleClass="searchTitle"/>
+
+			<h:panelGrid border="0" columns="4" width="100%" >
+				<h:panelGrid columns="2">
+					<p:outputLabel for="id" value="#{msg['partner.id']}" />
+					<p:inputText id="id" value="#{partnerController.searchId}" maxlength="7" size="3">
+						<f:convertNumber />
+						<p:ajax event="blur" update="id"/>
+					</p:inputText>
+					<p:spacer width="1" height="20"/>
+					<p:spacer width="80" height="20"/>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:outputLabel for="name" value="#{msg['partner.name']}" />
+					<p:inputText id="name" value="#{partnerController.searchName}" maxlength="200" styleClass="namePartner"/>
+					<p:spacer width="1" height="20"/>
+					<p:spacer width="80" height="20"/>
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:outputLabel for="city" value="#{msg['partner.city']}" />
+					<p:selectOneMenu id="city" value="#{partnerController.searchCity}" converter="partnerCityConverter">
+						<f:selectItem itemLabel="" />
+						<f:selectItems value="#{partnerController.allCities}" var="city" itemValue="#{city}" itemLabel="#{city.id} - #{city.name}"/>
+					</p:selectOneMenu>
+					<p:outputLabel for="category" value="#{msg['partner.category']}" />
+					<p:selectOneMenu id="category" value="#{partnerController.searchCategory}">
+						<f:selectItem itemLabel="" />
+						<f:selectItems value="#{partnerController.getEnumValues()}" var="category" itemValue="#{category}" itemLabel="#{partnerController.showCategory(category)}" />
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid border="0" columns="4" width="100%">
+				<h:panelGrid border="0" columns="2" styleClass="right margin-right7">
+					<p:commandButton value="#{msg['search']}" actionListener="#{partnerController.searchPartner()}" update="searchResultForm message"
+									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
+					<p:commandButton value="#{msg['clear']}" actionListener="#{partnerController.cleanSearchForm()}" update="searchForm"
+									 styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+						<p:ajax update="searchForm" resetValues="true"/>
+					</p:commandButton>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+
+		<h:form id="searchResultForm">
+			<h:panelGrid border="0" columns="3" >
+				<h:outputText value="#{msg['partner.home.table']}" styleClass="searchTitle"/>
+
+				<p:commandLink oncomplete="PF('dialogNewPartner').show()" id="linkAddPartner" >
+					<i class="fa fa-fw fa-plus bigIcon"/>
+					<p:tooltip for="linkAddPartner" value="#{msg['add']}" position="bottom"/>
+				</p:commandLink>
+
+				<ui:include src="../ajaxStatus.xhtml" />
+			</h:panelGrid>
+
+			<p:dataTable value="#{partnerController.partnerList}" var="item" id="partnersTable" emptyMessage="#{msg['partner.empty.table']}"
+						 paginator="true" rows="10" rowsPerPageTemplate="10,50,100"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{partnerController.partnerList.size()}">
+				<p:column width="5%" headerText="#{msg['partner.id']}" sortBy="#{item.id}">
+					<h:outputText value="#{item.id}" />
+				</p:column>
+
+				<p:column width="30%" headerText="#{msg['partner.name']}" sortBy="#{item.name}">
+					<h:outputText value="#{item.name}" />
+				</p:column>
+
+				<p:column width="20%" headerText="#{msg['partner.address']}">
+					<h:outputText value="#{item.address}" />
+				</p:column>
+				
+				<p:column width="15%" headerText="#{msg['partner.tel']}">
+					<h:outputText value="#{item.tel}" />
+				</p:column>
+				
+				<p:column width="15%" headerText="#{msg['partner.cell']}">
+					<h:outputText value="#{item.cell}"/>
+				</p:column>
+
+				<p:column width="20%" headerText="#{msg['partner.email']}">
+					<h:outputText value="#{item.email}" />
+				</p:column>
+
+				<p:column width="15%" headerText="#{msg['partner.webSite']}">
+					<h:outputText value="#{item.webSite}" />
+				</p:column>
+
+				<p:column width="25%" headerText="#{msg['partner.category']}" sortBy="#{item.category}">
+					<h:outputText value="#{partnerController.showCategory(item.category)}"/>
+				</p:column>
+				
+				<p:column width="10%" headerText="#{msg['partner.city']}" sortBy="#{item.city}">
+					<h:outputText value="#{item.city.name}"/>
+				</p:column>
+
+				<p:column width="7%">
+					<p:commandLink oncomplete="PF('dialogEditPartner').show()" update="partnerEditForm" id="linkEdit">
+						<i class="fa fa-fw fa-pencil"/>
+						<p:tooltip for="linkEdit" value="#{msg['action.edit']}" position="bottom"/>
+						<f:setPropertyActionListener value="#{item}" target="#{partnerController.selectedPartner}" />
+					</p:commandLink>
+					<p:commandLink oncomplete="PF('dialog').show()" id="linkRemove">
+						<i class="fa fa-fw fa-remove"/>
+						<p:tooltip for="linkRemove" value="#{msg['action.delete']}" position="bottom"/>
+						<f:setPropertyActionListener value="#{item}" target="#{partnerController.selectedPartner}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog widgetVar="dialog" showEffect="fade" hideEffect="fade" modal="true" width="350" resizable="false"
+					  header="#{msg['popup.confirm']}" position="center" draggable="false">
+				<h:outputText value="#{msg['popup.message.delete']}"/>
+				<h:panelGrid columns="2" border="0" styleClass="center paddDiv5_10">
+					<p:commandButton value="#{msg['popup.delete.yes']}" actionListener="#{partnerController.deletePartner(partnerController.selectedPartner)}"
+									 update="searchResultForm" oncomplete="PF('dialog').hide()" styleClass="button"/>
+					<p:commandButton value="#{msg['popup.delete.no']}" styleClass="button" onclick="PF('dialog').hide()"/>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<ui:include src="editPartnerDialog.xhtml" />
+		<ui:include src="newPartnerDialog.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

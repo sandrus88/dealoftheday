@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="newPartnerForm">
+	<p:dialog widgetVar="dialogNewPartner" showEffect="fade" modal="true" width="900" height="290" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel2" resetValues="true" listener="#{partnerController.cleanDialogForm()}"/>
+		
+		<f:facet name="header">
+			<h:outputText value="#{msg['partner.add']}" />
+		</f:facet>
+
+		<h:panelGrid border="0" columns="3" width="100%" id="panel2">
+			<p:outputLabel for="name" value="#{msg['partner.name']}" />
+			<p:inputText id="name" value="#{partnerController.newName}" required="true" maxlength="200" styleClass="namePartner">
+				<p:ajax event="blur" update="nameMsg name"/>
+			</p:inputText>
+			<p:message id="nameMsg" for="name" display="icon" />
+
+			<p:outputLabel for="address" value="#{msg['partner.address']}" />
+			<p:inputText id="address" value="#{partnerController.newAddress}" required="true" maxlength="50" styleClass="addressPartner">
+				<p:ajax event="blur" update="addressMsg address" />
+			</p:inputText>
+			<p:message id="addressMsg" for="address" display="icon" />
+			
+			<p:outputLabel for="tel" value="#{msg['partner.tel']}" />
+			<p:inputText id="tel" value="#{partnerController.newTel}">
+				<p:ajax event="blur" update="telMsg tel" />
+			</p:inputText>
+			<p:message id="telMsg" for="tel" display="icon" />
+
+			<p:outputLabel for="cell" value="#{msg['partner.cell']}" />
+			<p:inputText id="cell" value="#{partnerController.newCell}" required="true">
+				<p:ajax event="blur" update="cellMsg cell" />
+			</p:inputText>
+			<p:message id="cellMsg" for="cell" display="icon"/>
+			
+			<p:outputLabel for="email" value="#{msg['partner.email']}" />
+			<p:inputText id="email" value="#{partnerController.newEmail}" maxlength="30">
+				<f:validator validatorId="emailValidator" />
+				<p:ajax event="blur" update="emailMsg email" />
+			</p:inputText>
+			<p:message id="emailMsg" for="email" display="icon" />
+
+			<p:outputLabel for="webSite" value="#{msg['partner.webSite']}" />
+			<p:inputText id="webSite" value="#{partnerController.newWebSite}">
+				<p:ajax event="blur" update="webSiteMsg" />
+			</p:inputText>
+			<p:message id="webSiteMsg" for="webSite" display="icon" />
+
+			<p:outputLabel for="category" value="#{msg['partner.category']}" />
+			<p:selectOneMenu id="category" value="#{partnerController.newCategory}">
+				<f:selectItem itemLabel=""/>
+				<f:selectItems value="#{partnerController.getEnumValues()}" var="category" itemValue="#{category}" itemLabel="#{partnerController.showCategory(category)}" />
+			</p:selectOneMenu>
+			<p:message id="categoryMsg" for="category" display="icon" />
+
+			<p:outputLabel for="city" value="#{msg['partner.city']}" />
+			<p:selectOneMenu id="city" value="#{partnerController.newCity}" converter="partnerCityConverter">
+				<f:selectItem itemLabel="" />
+				<f:selectItems value="#{partnerController.allCities}" var="city" itemValue="#{city}" itemLabel="#{city.id} - #{city.name}" />
+			</p:selectOneMenu>
+			<p:message id="cityMsg" for="city" display="icon" />
+		</h:panelGrid>
+
+		<h:panelGrid border="0" columns="3" styleClass="center paddDiv10_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{partnerController.addPartner()}" oncomplete="handleSaveRequest(args, 'dialogNewPartner');"
+							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
+			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+				<p:ajax update="panel2" resetValues="true" listener="#{partnerController.cleanDialogForm()}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewPartner').hide();" styleClass="button" icon="ui-icon ui-icon-close">
+				<p:ajax update="panel2" resetValues="true" listener="#{partnerController.cleanDialogForm()}"/>
+			</p:commandButton>	
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

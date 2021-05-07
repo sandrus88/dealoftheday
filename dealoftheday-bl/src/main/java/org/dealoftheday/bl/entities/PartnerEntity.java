@@ -2,9 +2,12 @@ package org.dealoftheday.bl.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -29,8 +32,12 @@ public class PartnerEntity {
 	private String email;
 	@Column(name = "WEB_SITE")
 	private String webSite;
-	@Column(name = "CITY_ID")
-	private String cityId;
+	@Column(name = "CATEGORY")
+	private String category;
+	
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "CITY_ID")
+	private CityEntity cityEntity;
  	
 	public Integer getId() {
 		return id;
@@ -88,12 +95,20 @@ public class PartnerEntity {
 		this.webSite = webSite;
 	}
 
-	public String getCityId() {
-		return cityId;
+	public String getCategory() {
+		return category;
 	}
 
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public CityEntity getCityEntity() {
+		return cityEntity;
+	}
+
+	public void setCityEntity(CityEntity cityEntity) {
+		this.cityEntity = cityEntity;
 	}
 
 	@Override
@@ -126,7 +141,10 @@ public class PartnerEntity {
 		if (webSite != null && !webSite.equals(other.webSite)) {
 			return false;
 		}
-		if (cityId != null && !cityId.equals(other.cityId)) {
+		if (category != null && !category.equals(other.category)) {
+			return false;
+		}
+		if (cityEntity != null && !cityEntity.equals(other.cityEntity)) {
 			return false;
 		}
 		return true;
@@ -141,13 +159,14 @@ public class PartnerEntity {
 		result = result + ((cell == null) ? 0 : cell.hashCode());
 		result = result + ((email == null) ? 0 : email.hashCode());
 		result = result + ((webSite == null) ? 0 : webSite.hashCode());
-		result = result + ((cityId == null) ? 0 : cityId.hashCode());
+		result = result + ((category == null) ? 0 : category.hashCode());
+		result = result + ((cityEntity == null) ? 0 : cityEntity.hashCode());
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", address: " + address + ", tel: "
-				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", cityId: " + cityId + "]";
+				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", category: " + category + ", city: " + cityEntity.getName() + "]";
 	}
 }

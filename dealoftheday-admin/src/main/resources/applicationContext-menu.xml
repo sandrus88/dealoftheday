@@ -14,6 +14,11 @@
 		p:id="cityMenu"
 		p:label="Cities" 
 		p:link="app/city/cityHome.xhtml" />
+		
+	<bean id="partnerMenu" class="org.dealoftheday.admin.menu.MenuItem" 
+		p:id="partnerMenu"
+		p:label="Partners" 
+		p:link="app/partner/partnerHome.xhtml" />	
 
 	<bean id="menu" class="org.dealoftheday.admin.menu.MenuItem"
 		p:id="root">
@@ -26,6 +31,7 @@
 						<list>
 							<ref bean="customerMenu" />
 							<ref bean="cityMenu" />
+							<ref bean="partnerMenu" />
 						</list>
 					</property>
 				</bean>

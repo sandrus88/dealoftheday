@@ -56,4 +56,11 @@ public class PartnerServiceImpl implements PartnerService{
 	public boolean delete(Integer id) {
 		return partnerDao.delete(id);
 	}
+
+	@Override
+	public List<Partner> searchPartner(Partner searchDto) {
+		List<PartnerEntity> listEntities = partnerDao.searchPartner(searchDto);
+		List<Partner> list = PartnerAssembler.getDTOList(listEntities);
+		return list;
+	}
 }

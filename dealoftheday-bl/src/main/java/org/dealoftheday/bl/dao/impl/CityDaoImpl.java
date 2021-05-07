@@ -41,7 +41,6 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 	public boolean delete(String id) {
 		CityEntity cityEntity = entityManager.find(CityEntity.class, id);
 		if (cityEntity != null) {
-			cityEntity.setPartners(null);
 			entityManager.remove(cityEntity);
 			return true;
 		}

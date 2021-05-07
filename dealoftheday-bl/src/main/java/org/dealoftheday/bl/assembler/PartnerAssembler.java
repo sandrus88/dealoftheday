@@ -21,7 +21,8 @@ public class PartnerAssembler {
 		dto.setCell(entity.getCell());
 		dto.setEmail(entity.getEmail());
 		dto.setWebSite(entity.getWebSite());
-		dto.setCityId(entity.getCityId());
+		dto.setCategory(CategoryAssembler.getEnum(entity.getCategory()));
+		dto.setCity(CityAssembler.getDTO(entity.getCityEntity()));
 		return dto;
 	}
 
@@ -38,7 +39,8 @@ public class PartnerAssembler {
 		entity.setCell(dto.getCell());
 		entity.setEmail(dto.getEmail());
 		entity.setWebSite(dto.getWebSite());
-		entity.setCityId(dto.getCityId());
+		entity.setCategory(CategoryAssembler.getString(dto.getCategory()));
+		entity.setCityEntity(CityAssembler.getEntity(dto.getCity()));
 		return entity;
 	}
 

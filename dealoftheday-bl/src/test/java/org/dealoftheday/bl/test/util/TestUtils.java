@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.domain.Partner;
@@ -60,7 +61,8 @@ public class TestUtils {
 		partner.setCell("Cell New Partner");
 		partner.setEmail("new_partner@hotmail.it");
 		partner.setWebSite("Sito New Partner");
-		partner.setCityId("MI");
+		partner.setCategory(Category.ADVENTURE);
+		partner.setCity(createCity());
 		return partner;
 	}
 
@@ -71,6 +73,7 @@ public class TestUtils {
 		partner.setCell("Cell Updated Partner");
 		partner.setEmail("updated_partner@hotmail.it");
 		partner.setWebSite("Sito Updated Partner");
+		partner.setCategory(Category.BAR_AND_DRINKS);
 		return partner;
 	}
 	

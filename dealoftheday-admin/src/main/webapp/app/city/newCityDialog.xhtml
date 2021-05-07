@@ -14,8 +14,9 @@
 
 		<h:panelGrid border="0" columns="3" width="100%" id="panel2">
 			<p:outputLabel for="id" value="#{msg['city.id']}"/>
-			<p:inputText id="id" value="#{cityController.newId}" required="true" maxlength="2" styleClass="idCity">
+			<p:inputText id="id" value="#{cityController.newId}" required="true" maxlength="2" styleClass="idCityClass">
 				<f:validator validatorId="cityIdValidator"/>
+				<f:validateLength minimum="2"/>
 				<p:ajax event="blur" update="IdMsg id"/>
 			</p:inputText>
 			<p:message id="IdMsg" for="id" display="icon"/>
@@ -27,14 +28,14 @@
 			<p:message id="nameMsg" for="name" display="icon"/>
 
 			<p:outputLabel for="latitude" value="#{msg['city.latitude']}"/>
-			<p:inputText id="latitude" value="#{cityController.newLat}" styleClass="latLng" maxlength="10">
+			<p:inputText id="latitude" value="#{cityController.newLat}" styleClass="latLongClass" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="latitudeMsg latitude"/>
 			</p:inputText>
 			<p:message id="latitudeMsg" for="latitude" display="icon"/>
 
 			<p:outputLabel for="longitude" value="#{msg['city.longitude']}"/>
-			<p:inputText id="longitude" value="#{cityController.newLng}" styleClass="latLng" maxlength="10">
+			<p:inputText id="longitude" value="#{cityController.newLng}" styleClass="latLongClass" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="longitudeMsg longitude"/>
 			</p:inputText>
