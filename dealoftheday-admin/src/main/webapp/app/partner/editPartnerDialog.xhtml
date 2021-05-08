@@ -5,9 +5,9 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="partnerEditForm">
-	<p:dialog widgetVar="dialogEditPartner" showEffect="fade" modal="true" width="900" height="280"
-		resizable="true" position="center" draggable="true">
-
+	<p:dialog widgetVar="dialogEditPartner" showEffect="fade" modal="true" width="900" height="280" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel" resetValues="true"/>
+		
 		<f:facet name="header">
 			<h:outputText
 				value="#{msg['partner.edit.title']} #{partnerController.selectedPartner.name}" />
@@ -15,13 +15,13 @@
 
 		<h:panelGrid columns="3" border="0" width="100%" id="panel">
 			<p:outputLabel for="name" value="#{msg['partner.name']}" />
-			<p:inputText id="name" value="#{partnerController.selectedPartner.name}" required="true" maxlength="200" styleClass="namePartner">
+			<p:inputText id="name" value="#{partnerController.selectedPartner.name}" required="true" maxlength="200" size="50">
 				<p:ajax event="blur" update="nameMsg name"/>
 			</p:inputText>
 			<p:message id="nameMsg" for="name" display="icon" />
 
 			<p:outputLabel for="address" value="#{msg['partner.address']}" />
-			<p:inputText id="address" value="#{partnerController.selectedPartner.address}" required="true" maxlength="50" styleClass="addressPartner">
+			<p:inputText id="address" value="#{partnerController.selectedPartner.address}" required="true" maxlength="50" size="50">
 				<p:ajax event="blur" update="addressMsg address" />
 			</p:inputText>
 			<p:message id="addressMsg" for="address" display="icon" />
@@ -39,14 +39,14 @@
 			<p:message id="cellMsg" for="cell" display="icon"/>
 			
 			<p:outputLabel for="email" value="#{msg['partner.email']}" />
-			<p:inputText id="email" value="#{partnerController.selectedPartner.email}" maxlength="30">
+			<p:inputText id="email" value="#{partnerController.selectedPartner.email}" maxlength="30" required="true">
 				<f:validator validatorId="emailValidator" />
 				<p:ajax event="blur" update="emailMsg email" />
 			</p:inputText>
 			<p:message id="emailMsg" for="email" display="icon" />
 
 			<p:outputLabel for="webSite" value="#{msg['partner.webSite']}" />
-			<p:inputText id="webSite" value="#{partnerController.selectedPartner.webSite}">
+			<p:inputText id="webSite" value="#{partnerController.selectedPartner.webSite}" size="50">
 				<p:ajax event="blur" update="webSiteMsg" />
 			</p:inputText>
 			<p:message id="webSiteMsg" for="webSite" display="icon" />
@@ -59,7 +59,7 @@
 			<p:message id="categoryMsg" for="category" display="icon" />
 
 			<p:outputLabel for="city" value="#{msg['partner.city']}" />
-			<p:selectOneMenu id="city" value="#{partnerController.selectedPartner.city}" converter="partnerCityConverter">
+			<p:selectOneMenu id="city" value="#{partnerController.selectedPartner.city}" converter="partnerCityConverter" required="true">
 				<f:selectItem />
 				<f:selectItems value="#{partnerController.allCities}" var="city" itemValue="#{city}" itemLabel="#{city.id} - #{city.name}" />
 			</p:selectOneMenu>
@@ -67,9 +67,12 @@
 		</h:panelGrid>
 
 		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
-			<p:commandButton value="#{msg['save']}" actionListener="#{partnerController.updateSelectedPartner(partnerController.selectedPartner)}" oncomplete="handleSaveRequest(args, 'dialogEditPartner');" update="searchResultForm searchForm panel" styleClass="button"/>			
-			<p:ajax event="click" update="panel"/>
-			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditPartner').hide()" styleClass="button" />
+			<p:commandButton value="#{msg['save']}" actionListener="#{partnerController.updateSelectedPartner(partnerController.selectedPartner)}" oncomplete="handleSaveRequest(args, 'dialogEditPartner');" update="searchResultForm searchForm panel" styleClass="button">			
+				<p:ajax listener="#{partnerController.updateSelectedPartner(partnerController.selectedPartner)}"/>
+			</p:commandButton>	
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditPartner').hide()" styleClass="button" >
+				<p:ajax update="panel" resetValues="true"/>
+			</p:commandButton>	
 		</h:panelGrid>
 	</p:dialog>
 </h:form>

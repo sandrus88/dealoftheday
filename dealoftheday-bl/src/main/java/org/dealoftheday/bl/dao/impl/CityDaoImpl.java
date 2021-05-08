@@ -2,15 +2,14 @@ package org.dealoftheday.bl.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
 import org.dealoftheday.bl.dao.CityDao;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.entities.CityEntity;
-import org.dealoftheday.bl.entities.CustomerEntity;
 import org.dealoftheday.bl.util.SGUtil;
 import org.springframework.stereotype.Repository;
-
-import javax.persistence.Query;
 
 @Repository
 public class CityDaoImpl extends GenericDao implements CityDao {
@@ -56,11 +55,12 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 		sql.append(" where 1=1");
 
 		if (!SGUtil.isEmpty(searchDto.getId())) {
-			sql.append(" and c.id = ':id'");
+			sql.append(" and c.id = :id");
 		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
-			sql.append(" and upper(c.name) like upper('%:name%')");
+			sql.append(" and upper(c.name) like upper(:name)");
 		}
+		sql.append(" order by c.id desc");
 		
 		Query query = entityManager.createQuery(sql.toString());
 		
@@ -68,9 +68,10 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 			query = query.setParameter("id", searchDto.getId());
 		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
-			query = query.setParameter("name", searchDto.getName());
+			query = query.setParameter("name", "%"+searchDto.getName()+"%");
 		}
 		
+		@SuppressWarnings("unchecked")
 		List<CityEntity> cities = query.getResultList();
 		return cities;
 	}

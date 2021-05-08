@@ -5,9 +5,9 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="customerEditForm">
-	<p:dialog widgetVar="dialogEditCustomer" showEffect="fade" modal="true" width="400" height="280"
-		resizable="true" position="center" draggable="true">
-
+	<p:dialog widgetVar="dialogEditCustomer" showEffect="fade" modal="true" width="400" height="280" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel" resetValues="true"/>
+		
 		<f:facet name="header">
 			<h:outputText
 				value="#{msg['customer.edit.title']} #{customerController.selectedCustomer.name} #{customerController.selectedCustomer.surname}" />
@@ -58,12 +58,15 @@
 			<p:outputLabel for="active" value="#{msg['customer.active']}" />
 			<p:selectBooleanCheckbox id="active" value="#{customerController.selectedCustomer.active}" />
 			<p:message for="active" display="icon" />
-		</h:panelGrid>
+		</h:panelGrid>	
 
 		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
-			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.updateSelectedCustomer(customerController.selectedCustomer)}" oncomplete="handleSaveRequest(args, 'dialogEditCustomer');" update="searchResultForm searchForm panel" styleClass="button"/>			
-			<p:ajax event="click" update="panel"/>
-			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCustomer').hide()" styleClass="button" />
+			<p:commandButton value="#{msg['save']}" actionListener="#{customerController.updateSelectedCustomer(customerController.selectedCustomer)}" oncomplete="handleSaveRequest(args, 'dialogEditCustomer');" update="searchResultForm searchForm panel" styleClass="button">			
+				<p:ajax listener="#{customerController.updateSelectedCustomer(customerController.selectedCustomer)}"/>
+			</p:commandButton>	
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCustomer').hide()" styleClass="button">
+				<p:ajax update="panel" resetValues="true"/>
+			</p:commandButton>	
 		</h:panelGrid>
 	</p:dialog>
 </h:form>

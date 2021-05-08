@@ -2,6 +2,10 @@ package org.dealoftheday.bl.dao.impl;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
+import org.dealoftheday.bl.assembler.CategoryAssembler;
+import org.dealoftheday.bl.assembler.CityAssembler;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.dao.PartnerDao;
 import org.dealoftheday.bl.domain.Partner;
@@ -49,19 +53,52 @@ public class PartnerDaoImpl extends GenericDao implements PartnerDao {
 	
 	@Override
 	public List<PartnerEntity> searchPartner(Partner searchDto) {
-		String sql = "select p from PartnerEntity p ";
-		sql += "where 1=1";
+		StringBuilder sql = new StringBuilder();
+		sql.append("select p from PartnerEntity p");
+		sql.append(" where 1=1");
+		if (searchDto.getId() != null) {
+			sql.append(" and p.id = :id");
+		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
-			sql += "and upper(p.name) like upper('%" + searchDto.getName() + "%')";
+			sql.append(" and upper(p.name) like upper(:name)");
+		}
+		if (!SGUtil.isEmpty(searchDto.getEmail())) {
+			sql.append(" and upper(p.email) like upper(:email)");
+		}
+		if (!SGUtil.isEmpty(searchDto.getCell())) {
+			sql.append(" and p.cell like :cell");
 		}
 		if (searchDto.getCategory() != null) {
-			sql += "and p.category = '" + searchDto.getCategory() + "'";
+			sql.append(" and p.category = :category");
 		}
 		if (searchDto.getCity() != null) {
-			sql += "and city_id = '" + searchDto.getCity().getId() + "'";
+			sql.append(" and p.cityEntity = :city_id");
 		}
-		sql += " order by p.id ";
-		List<PartnerEntity> partners = entityManager.createQuery(sql, PartnerEntity.class).getResultList();
+		sql.append(" order by p.id desc");
+		
+		Query query = entityManager.createQuery(sql.toString());
+		
+		if (searchDto.getId() != null) {
+			query = query.setParameter("id", searchDto.getId());
+		}
+		if (!SGUtil.isEmpty(searchDto.getName())) {
+			query = query.setParameter("name", "%"+searchDto.getName()+"%");
+		}
+		if (!SGUtil.isEmpty(searchDto.getEmail())) {
+			query = query.setParameter("email", "%"+searchDto.getEmail()+"%");
+		}
+		if (!SGUtil.isEmpty(searchDto.getCell())) {
+			query = query.setParameter("cell", "%"+searchDto.getCell()+"%");
+		}
+		if (searchDto.getCategory() != null) {
+			query = query.setParameter("category", CategoryAssembler.getString(searchDto.getCategory()));
+		}
+		if (searchDto.getCity() != null) {
+			query = query.setParameter("city_id", CityAssembler.getEntity(searchDto.getCity()));
+		}
+		
+		@SuppressWarnings("unchecked")
+		List<PartnerEntity> partners = query.getResultList();
 		return partners;
 	}
 }

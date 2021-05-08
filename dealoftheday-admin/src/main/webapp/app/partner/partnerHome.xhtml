@@ -13,7 +13,7 @@
 
 			<h:outputText value="#{msg['partner.search']}" styleClass="searchTitle"/>
 
-			<h:panelGrid border="0" columns="2" width="50%" >
+			<h:panelGrid border="0" columns="3" width="50%" >
 				<h:panelGrid columns="2">
 					<p:outputLabel for="id" value="#{msg['partner.id']}" />
 					<p:inputText id="id" value="#{partnerController.searchId}" maxlength="7" size="3">
@@ -22,11 +22,20 @@
 					</p:inputText>
 
 					<p:outputLabel for="name" value="#{msg['partner.name']}" />
-					<p:inputText id="name" value="#{partnerController.searchName}" maxlength="200" size="40" styleClass="namePartner"/>
+					<p:inputText id="name" value="#{partnerController.searchName}" maxlength="200" size="40"/>
 				</h:panelGrid>
 
+				<h:panelGrid columns="2">
+					<p:outputLabel for="cell" value="#{msg['partner.cell']}" styleClass="searchNoWrap"/>
+					<p:inputText id="cell" value="#{partnerController.searchCell}"/>
 
-				<h:panelGrid columns="2" styleClass="right">
+					<p:outputLabel for="email" value="#{msg['partner.email']}"/>
+					<p:inputText id="email" value="#{partnerController.searchEmail}">
+						<f:validator validatorId="emailValidator" />
+					</p:inputText>	
+				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
 					<p:outputLabel for="city" value="#{msg['partner.city']}" />
 					<p:selectOneMenu id="city" value="#{partnerController.searchCity}" converter="partnerCityConverter" styleClass="dropDownCategory">
 						<f:selectItem itemLabel="" />
@@ -40,8 +49,9 @@
 				</h:panelGrid>
 			</h:panelGrid>
 
-			<h:panelGrid border="0" columns="2" width="50%">
-				<h:panelGrid border="0" columns="2" styleClass="right margin-right7">
+			<h:panelGrid border="0" columns="1" width="50%">
+				<h:panelGrid border="0" columns="3" styleClass="right">
+					<p:spacer width="725" height="20"/>
 					<p:commandButton value="#{msg['search']}" actionListener="#{partnerController.searchPartner()}" update="searchResultForm message"
 									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
 					<p:commandButton value="#{msg['clear']}" actionListener="#{partnerController.cleanSearchForm()}" update="searchForm"
@@ -65,45 +75,45 @@
 			</h:panelGrid>
 
 			<p:dataTable value="#{partnerController.partnerList}" var="item" id="partnersTable" emptyMessage="#{msg['partner.empty.table']}"
-						 paginator="true" rows="10" rowsPerPageTemplate="10,50,100"
+						 paginator="true" rows="5" rowsPerPageTemplate="5,50,100"
 						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{partnerController.partnerList.size()}">
-				<p:column width="5%" headerText="#{msg['partner.id']}" sortBy="#{item.id}">
+				<p:column width="5%" headerText="#{msg['partner.id']}" sortBy="#{item.id}" styleClass="data">
 					<h:outputText value="#{item.id}" />
 				</p:column>
 
-				<p:column width="40%" headerText="#{msg['partner.name']}" sortBy="#{item.name}">
+				<p:column width="16%" headerText="#{msg['partner.name']}" sortBy="#{item.name}" styleClass="data">
 					<h:outputText value="#{item.name}" />
 				</p:column>
 
-				<p:column width="25%" headerText="#{msg['partner.address']}">
+				<p:column width="15%" headerText="#{msg['partner.address']}" styleClass="data">
 					<h:outputText value="#{item.address}" />
 				</p:column>
 				
-				<p:column width="10%" headerText="#{msg['partner.tel']}">
+				<p:column width="6%" headerText="#{msg['partner.tel']}" styleClass="data">
 					<h:outputText value="#{item.tel}" />
 				</p:column>
 				
-				<p:column width="10%" headerText="#{msg['partner.cell']}">
+				<p:column width="8%" headerText="#{msg['partner.cell']}" styleClass="data">
 					<h:outputText value="#{item.cell}"/>
 				</p:column>
 
-				<p:column width="20%" headerText="#{msg['partner.email']}">
+				<p:column width="15%" headerText="#{msg['partner.email']}" styleClass="data">
 					<h:outputText value="#{item.email}" />
 				</p:column>
 
-				<p:column width="25%" headerText="#{msg['partner.webSite']}">
+				<p:column width="8%" headerText="#{msg['partner.webSite']}" styleClass="data">
 					<h:outputText value="#{item.webSite}" />
 				</p:column>
 
-				<p:column width="15%" headerText="#{msg['partner.category']}" sortBy="#{item.category}">
+				<p:column width="15%" headerText="#{msg['partner.category']}" sortBy="#{item.category}" styleClass="data">
 					<h:outputText value="#{partnerController.showCategory(item.category)}"/>
 				</p:column>
 				
-				<p:column width="10%" headerText="#{msg['partner.city']}" sortBy="#{item.city}">
+				<p:column width="7%" headerText="#{msg['partner.city']}" sortBy="#{item.city}" styleClass="data">
 					<h:outputText value="#{item.city.name}"/>
 				</p:column>
 
-				<p:column width="7%">
+				<p:column width="5%" styleClass="actions">
 					<p:commandLink oncomplete="PF('dialogEditPartner').show()" update="partnerEditForm" id="linkEdit">
 						<i class="fa fa-fw fa-pencil"/>
 						<p:tooltip for="linkEdit" value="#{msg['action.edit']}" position="bottom"/>

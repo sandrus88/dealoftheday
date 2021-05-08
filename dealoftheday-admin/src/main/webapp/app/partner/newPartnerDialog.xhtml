@@ -7,7 +7,7 @@
 <h:form id="newPartnerForm">
 	<p:dialog widgetVar="dialogNewPartner" width="600" height="290" position="center"
 			  showEffect="fade" modal="true" resizable="true" draggable="true">
-		<p:ajax event="close" update="panel2" resetValues="true" listener="#{partnerController.cleanDialogForm()}"/>
+		<p:ajax event="close" resetValues="true" update="panel2" listener="#{partnerController.cleanDialogForm()}"/>
 		
 		<f:facet name="header">
 			<h:outputText value="#{msg['partner.add']}" />
@@ -39,7 +39,7 @@
 			<p:message id="cellMsg" for="cell" display="icon"/>
 			
 			<p:outputLabel for="email" value="#{msg['partner.email']}" />
-			<p:inputText id="email" value="#{partnerController.newEmail}" maxlength="30">
+			<p:inputText id="email" value="#{partnerController.newEmail}" maxlength="30" required="true">
 				<f:validator validatorId="emailValidator" />
 				<p:ajax event="blur" update="emailMsg email" />
 			</p:inputText>
@@ -59,7 +59,7 @@
 			<p:message id="categoryMsg" for="category" display="icon" />
 
 			<p:outputLabel for="city" value="#{msg['partner.city']}" />
-			<p:selectOneMenu id="city" value="#{partnerController.newCity}" converter="partnerCityConverter">
+			<p:selectOneMenu id="city" value="#{partnerController.newCity}" converter="partnerCityConverter" required="true">
 				<f:selectItem itemLabel="" />
 				<f:selectItems value="#{partnerController.allCities}" var="city" itemValue="#{city}" itemLabel="#{city.id} - #{city.name}" />
 			</p:selectOneMenu>

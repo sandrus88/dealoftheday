@@ -28,14 +28,14 @@
 			<p:message id="nameMsg" for="name" display="icon"/>
 
 			<p:outputLabel for="latitude" value="#{msg['city.latitude']}"/>
-			<p:inputText id="latitude" value="#{cityController.newLat}" styleClass="latLongClass" maxlength="10">
+			<p:inputText id="latitude" value="#{cityController.newLat}" size="7" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="latitudeMsg latitude"/>
 			</p:inputText>
 			<p:message id="latitudeMsg" for="latitude" display="icon"/>
 
 			<p:outputLabel for="longitude" value="#{msg['city.longitude']}"/>
-			<p:inputText id="longitude" value="#{cityController.newLng}" styleClass="latLongClass" maxlength="10">
+			<p:inputText id="longitude" value="#{cityController.newLng}" size="7" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="longitudeMsg longitude"/>
 			</p:inputText>

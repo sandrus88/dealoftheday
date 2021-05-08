@@ -5,9 +5,9 @@
 	  xmlns:p="http://primefaces.org/ui">
 
 <h:form id="cityEditForm">
-	<p:dialog widgetVar="dialogEditCity" showEffect="fade" modal="true" width="400" height="170"
-		resizable="true" position="center" draggable="true">
-
+	<p:dialog widgetVar="dialogEditCity" showEffect="fade" modal="true" width="400" height="170" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel" resetValues="true"/>
+		
 		<f:facet name="header">
 			<h:outputText
 				value="#{msg['city.edit.title']} #{cityController.selectedCity.name}"/>
@@ -29,14 +29,14 @@
 			<p:message id="nameMsg" for="name" display="icon"/>
 
 			<p:outputLabel for="latitude" value="#{msg['city.latitude']}"/>
-			<p:inputText id="latitude" value="#{cityController.selectedCity.lat}" styleClass="latLongClass" maxlength="10">
+			<p:inputText id="latitude" value="#{cityController.selectedCity.lat}" size="7" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="latitudeMsg latitude"/>
 			</p:inputText>
 			<p:message id="latitudeMsg" for="latitude" display="icon"/>
 
 			<p:outputLabel for="longitude" value="#{msg['city.longitude']}"/>
-			<p:inputText id="longitude" value="#{cityController.selectedCity.lng}" styleClass="latLongClass" maxlength="10">
+			<p:inputText id="longitude" value="#{cityController.selectedCity.lng}" size="7" maxlength="10">
 				<f:convertNumber minFractionDigits="5" maxFractionDigits="5"/>
 				<p:ajax event="blur" update="longitudeMsg longitude"/>
 			</p:inputText>
@@ -44,9 +44,12 @@
 		</h:panelGrid>
 
 		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
-			<p:commandButton value="#{msg['save']}" actionListener="#{cityController.updateSelectedCity(cityController.selectedCity)}" oncomplete="handleSaveRequest(args, 'dialogEditCity');" update="searchResultForm searchForm panel" styleClass="button" icon="ui-icon ui-icon-disk"/>			
-			<p:ajax event="click" update="panel"/>
-			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCity').hide()" styleClass="button" icon="ui-icon ui-icon-close"/>
+			<p:commandButton value="#{msg['save']}" actionListener="#{cityController.updateSelectedCity(cityController.selectedCity)}" oncomplete="handleSaveRequest(args, 'dialogEditCity');" update="searchResultForm searchForm panel" styleClass="button" icon="ui-icon ui-icon-disk">			
+				<p:ajax listener="#{cityController.updateSelectedCity(cityController.selectedCity)}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditCity').hide()" styleClass="button" icon="ui-icon ui-icon-close">
+				<p:ajax update="panel" resetValues="true"/>
+			</p:commandButton>	
 		</h:panelGrid>
 	</p:dialog>
 </h:form>

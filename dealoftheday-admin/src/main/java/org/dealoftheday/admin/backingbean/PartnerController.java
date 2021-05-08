@@ -38,6 +38,8 @@ public class PartnerController {
 	
 	private Integer searchId;
 	private String searchName;
+	private String searchEmail;
+	private String searchCell;
 	private Category searchCategory;
 	private City searchCity;
 	
@@ -55,7 +57,7 @@ public class PartnerController {
 	}
 
 	public void searchPartner() {
-		Partner searchDto = new Partner(searchId, searchName, null, null, null, null, null, searchCategory, searchCity);
+		Partner searchDto = new Partner(searchId, searchName, null, null, searchCell, searchEmail, null, searchCategory, searchCity);
 		partnerList = partnerService.searchPartner(searchDto);
 	}
 
@@ -73,6 +75,8 @@ public class PartnerController {
 	public void cleanSearchForm() {
 		searchId = null;
 		searchName = null;
+		searchCell = null;
+		searchEmail = null;
 		searchCategory = null;
 		searchCity = null;
 	}
@@ -195,6 +199,22 @@ public class PartnerController {
 
 	public void setSearchName(String searchName) {
 		this.searchName = searchName;
+	}
+	
+	public String getSearchEmail() {
+		return searchEmail;
+	}
+
+	public void setSearchEmail(String searchEmail) {
+		this.searchEmail = searchEmail;
+	}
+
+	public String getSearchCell() {
+		return searchCell;
+	}
+
+	public void setSearchCell(String searchCell) {
+		this.searchCell = searchCell;
 	}
 
 	public Category getSearchCategory() {

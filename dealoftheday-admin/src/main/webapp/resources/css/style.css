@@ -55,16 +55,12 @@ html, body {
 	width: 30px;
 }
 
-.latLongClass {
-	width: 70px !important;
-}
-
 .dropDownCategory {
 	width: 183px !important;
 }
 
-.addressPartner {
-	width: 300px;
+.searchNoWrap {
+	white-space: nowrap;
 }
 
 /*primefaces re-write properties*/
@@ -77,7 +73,13 @@ a:link {
 	white-space: nowrap;
 }
 
-.ui-datatable tbody td {
+.ui-datatable tbody td.actions {
+	white-space: nowrap !important;
+}
+
+.ui-datatable tbody td.data {
+  	overflow: hidden !important;
+  	text-overflow: ellipsis !important;
 	white-space: nowrap !important;
 }
 
