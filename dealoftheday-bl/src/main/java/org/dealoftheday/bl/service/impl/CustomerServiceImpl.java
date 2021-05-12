@@ -2,6 +2,8 @@ package org.dealoftheday.bl.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.assembler.CustomerAssembler;
 import org.dealoftheday.bl.dao.CustomerDao;
 import org.dealoftheday.bl.domain.Customer;
@@ -16,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CustomerServiceImpl implements CustomerService {
 	
 	final private CustomerDao customerDao;
+	private static Logger logger = LogManager.getLogger(CustomerServiceImpl.class);
 	
 	@Autowired
 	public CustomerServiceImpl(CustomerDao customerDao) {

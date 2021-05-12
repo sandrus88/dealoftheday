@@ -5,20 +5,29 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-2.0.xsd"
 	default-lazy-init="true">
 
-	<bean id="customerMenu" class="org.dealoftheday.admin.menu.MenuItem" 
+	<bean id="customerMenu"
+		class="org.dealoftheday.admin.menu.MenuItem" 
 		p:id="customerMenu"
 		p:label="Customers" 
 		p:link="app/customer/customerHome.xhtml" />
 
-	<bean id="cityMenu" class="org.dealoftheday.admin.menu.MenuItem" 
-		p:id="cityMenu"
+	<bean id="cityMenu" 
+		class="org.dealoftheday.admin.menu.MenuItem"
+		p:id="cityMenu" 
 		p:label="Cities" 
 		p:link="app/city/cityHome.xhtml" />
-		
-	<bean id="partnerMenu" class="org.dealoftheday.admin.menu.MenuItem" 
+
+	<bean id="partnerMenu"
+		class="org.dealoftheday.admin.menu.MenuItem" 
 		p:id="partnerMenu"
 		p:label="Partners" 
-		p:link="app/partner/partnerHome.xhtml" />	
+		p:link="app/partner/partnerHome.xhtml" />
+
+	<bean id="userMenu"
+		class="org.dealoftheday.admin.menu.MenuItem" 
+		p:id="userMenu"
+		p:label="Users" 
+		p:link="app/user/userHome.xhtml" />
 
 	<bean id="menu" class="org.dealoftheday.admin.menu.MenuItem"
 		p:id="root">
@@ -32,6 +41,7 @@
 							<ref bean="customerMenu" />
 							<ref bean="cityMenu" />
 							<ref bean="partnerMenu" />
+							<ref bean="userMenu" />
 						</list>
 					</property>
 				</bean>

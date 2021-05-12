@@ -26,3 +26,23 @@ insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CI
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (8, 'Clinica dentistica dott. Lo Varco', 'Largo Alinari, 6', '080', '+39333', 'clinica_lovarco@hotmail.it', null, 'HEALTH_CARE', 'BA');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (9, 'Acquario Di Genova', 'Ponte Spinola', '010', '+39356', 'acquario_genova@hotmail.it', 'www.acquariogenova.it', 'ADVENTURE', 'GE');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (10, 'Ristorante La vie en rose', 'Via delle rose, 4', '055', '+39343', 'lavienrose@hotmail.it', 'www.lavieenrose.com', 'FOOD_AND_RESTAURANTS', 'FI');
+
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin', 'Admin', 'Admin', 'sandrus88@hotmail.it', 'admin', 1, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin2', 'Admin2', 'Admin2', 'admin2@hotmail.it', 'admin2', 0, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin3', 'Admin3', 'Admin3', 'admin3@gmail.com', 'admin3', 1, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin4', 'Admin4', 'Admin4', 'admin4@hotmail.com', 'admin4', 0, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin5', 'Admin5', 'Admin5', 'admin5@hotmail.it', 'admin5', 1, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin6', 'Admin6', 'Admin6', 'admin6@gmail.it', 'admin6', 1, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin7', 'Admin7', 'Admin7', 'admin7@hotmail.it', 'admin7', 0, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin8', 'Admin8', 'Admin8', 'admin8@gmail.com', 'admin8', 1, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin9', 'Admin9', 'Admin9', 'admin9@hotmail.com', 'admin9', 0, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin10', 'Admin10', 'Admin10', 'admin10@hotmail.it', 'admin10', 1, 0, 0);
+
+insert into role (ID, NAME, DESCRIPTION) values (1, 'Administrator', 'Description of Administrator');
+insert into role (ID, NAME, DESCRIPTION) values (2, 'Editor', 'Description of Editor');
+insert into role (ID, NAME, DESCRIPTION) values (3, 'Subscriber', 'Description of Subscriber');
+insert into role (ID, NAME, DESCRIPTION) values (4, 'Contributor', 'Description of Contributor');
+insert into role (ID, NAME, DESCRIPTION) values (5, 'Viewer', 'Description of Viewer');
+insert into role (ID, NAME, DESCRIPTION) values (6, 'Support', 'Description of Support');
+
+insert into user_role (USER_ID, ROLE_ID) values ('admin', 1);

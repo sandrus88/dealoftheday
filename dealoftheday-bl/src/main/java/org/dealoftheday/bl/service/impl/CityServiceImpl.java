@@ -2,13 +2,12 @@ package org.dealoftheday.bl.service.impl;
 
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.assembler.CityAssembler;
-import org.dealoftheday.bl.assembler.CustomerAssembler;
 import org.dealoftheday.bl.dao.CityDao;
 import org.dealoftheday.bl.domain.City;
-import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.entities.CityEntity;
-import org.dealoftheday.bl.entities.CustomerEntity;
 import org.dealoftheday.bl.service.CityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,6 +18,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class CityServiceImpl implements CityService {
 
 	final private CityDao cityDao;
+	private static Logger logger = LogManager.getLogger(CityServiceImpl.class);
 
 	@Autowired
 	public CityServiceImpl(CityDao cityDao) {
