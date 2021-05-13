@@ -158,7 +158,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [User Name: " + userName + ", name: " + name + ", surname: " + surname
+		return this.getClass().getSimpleName() + " [Username: " + userName + ", name: " + name + ", surname: " + surname
 				+ ", email: " + email + ", password: " + pwd + ", roles: " + roles + "]";
 	}
 }
