@@ -86,5 +86,18 @@ a:link {
 .ui-datatable .ui-sortable-column-icon {
     margin: -3px 0 -3px -1px !important;
 }
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend.leftSight{
+	width:70%;
+	height:220px;
+	white-space: nowrap !important;
+}
+
+.ui-fieldset, .ui-fieldset .ui-fieldset-legend.rightSight{
+	width:30%;
+	height:220px;
+	white-space: nowrap !important;
+}
+
 /*END primefaces re-write properties*/
 

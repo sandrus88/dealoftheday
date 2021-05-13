@@ -1,0 +1,80 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="newUserForm">
+	<p:dialog widgetVar="dialogNewUser" showEffect="fade" modal="true" width="550" height="300" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel2" resetValues="true" listener="#{userController.cleanDialogForm()}"/>
+		
+		<f:facet name="header">
+			<h:outputText value="#{msg['user.add']}" />
+		</f:facet>
+
+		<h:panelGrid border="0" columns="2" width="100%" id="panel2">
+			<p:fieldset legend="#{msg['user.data']}" styleClass="leftSight">
+				<h:panelGrid border="0" columns="3">
+					<p:outputLabel for="username" value="#{msg['user.username']}"/>
+					<p:inputText id="username" value="#{userController.newUserName}" required="true" maxlength="20">
+						<p:ajax event="blur" update="usernameMsg username"/>
+					</p:inputText>
+					<p:message id="usernameMsg" for="username" display="icon"/>
+					
+					<p:outputLabel for="name" value="#{msg['user.name']}"/>
+					<p:inputText id="name" value="#{userController.newName}" required="true" maxlength="20">
+						<p:ajax event="blur" update="nameMsg name"/>
+					</p:inputText>
+					<p:message id="nameMsg" for="name" display="icon"/>
+
+					<p:outputLabel for="surname" value="#{msg['user.surname']}"/>
+					<p:inputText id="surname" value="#{userController.newSurname}" required="true" maxlength="20">
+						<p:ajax event="blur" update="surnameMsg surname"/>
+					</p:inputText>
+					<p:message id="surnameMsg" for="name" display="icon"/>
+
+					<p:outputLabel for="email" value="#{msg['user.email']}"/>
+					<p:inputText id="email" value="#{userController.newEmail}" required="true" maxlength="30">
+						<f:validator validatorId="emailValidator"/>
+						<p:ajax event="blur" update="emailMsg email"/>
+					</p:inputText>
+					<p:message id="emailMsg" for="email" display="icon"/>
+
+					<p:outputLabel for="password" value="#{msg['user.pwd']}"/>
+					<p:password id="password" value="#{userController.newPwd}" required="true">
+						<p:ajax event="blur" update="passwordMsg"/>
+					</p:password>
+					<p:message id="passwordMsg" for="password" display="icon"/>
+
+					<p:outputLabel for="enabled" value="#{msg['user.enabled']}"/>
+					<p:selectBooleanCheckbox id="enabled" value="#{userController.newEnabled}"/>
+					<p:message for="enabled" display="icon"/>
+
+					<p:outputLabel for="locked" value="#{msg['user.locked']}"/>
+					<p:selectBooleanCheckbox id="locked" value="#{userController.newLocked}"/>
+					<p:message for="locked" display="icon"/>
+				</h:panelGrid>
+			</p:fieldset>
+		
+			<p:fieldset legend="#{msg['user.assRoles']}" styleClass="rightSight">
+            	<p:selectManyCheckbox id="nRoles" value="#{userController.selectedRoles}" layout="pageDirection">
+                	<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role.id}" itemLabel="#{role.name}"/>
+                		<p:ajax event="blur" update="nRolesMsg"/>	
+            	</p:selectManyCheckbox>
+            	<p:message id="nRolesMsg" for="nRoles" display="icon"/>
+        	</p:fieldset>
+        </h:panelGrid>
+
+		<h:panelGrid border="0" columns="3" styleClass="center paddDiv10_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{userController.addUser()}" oncomplete="handleSaveRequest(args, 'dialogNewUser');"
+							 update="searchResultForm searchForm panel2" styleClass="button" icon="ui-icon ui-icon-disk"/>
+			<p:commandButton value="#{msg['clear']}" styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+				<p:ajax update="panel2" resetValues="true" listener="#{userController.cleanDialogForm()}"/>
+			</p:commandButton>
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogNewUser').hide();" styleClass="button" icon="ui-icon ui-icon-close">
+				<p:ajax update="panel2" resetValues="true" listener="#{userController.cleanDialogForm()}"/>
+			</p:commandButton>	
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

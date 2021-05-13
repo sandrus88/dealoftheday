@@ -18,7 +18,7 @@ public class Role {
 	}
 
 	public Role(int role1) {
-		// TODO Auto-generated constructor stub
+		
 	}
 
 	public Integer getId() {
