@@ -1,6 +1,9 @@
 package org.dealoftheday.bl.test;
 
 import static org.dealoftheday.bl.domain.Role.ROLE_ADMIN;
+import static org.dealoftheday.bl.domain.Role.ROLE_EDITOR;
+import static org.dealoftheday.bl.test.util.TestUtils.createUser;
+import static org.dealoftheday.bl.test.util.TestUtils.updateUser;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -10,12 +13,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.dealoftheday.bl.test.util.TestUtils.createUser;
-import static org.dealoftheday.bl.test.util.TestUtils.updateUser;
-
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
-import org.dealoftheday.bl.service.RoleService;
 import org.dealoftheday.bl.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +23,6 @@ public class UserServiceTest extends AbstractSpringTest {
 	
 	@Autowired
 	private  UserService  userService;
-	
-	@Autowired
-	private  RoleService  roleService;
 	
 	@Test
 	public void test_getUser_withoutRole() {
@@ -86,7 +82,7 @@ public class UserServiceTest extends AbstractSpringTest {
 
 		// Then
 		assertNotNull(users);
-		assertEquals(users.size(), 10);
+		assertEquals(users.size(), 5);
 
 		assertEquals(adminUser, dbAdminUser);
 		assertEquals(1, dbAdminUser.getRoles().size());  // verifico che abbia un solo ruolo.
@@ -111,10 +107,10 @@ public class UserServiceTest extends AbstractSpringTest {
 		User searchBean = new User();
 
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 
 		// Then
-		assertEquals(10, list.size());
+		assertEquals(5, users.size());
 	}
 
 	@Test
@@ -126,10 +122,10 @@ public class UserServiceTest extends AbstractSpringTest {
 		searchBean.setEmail("user2@hotmail.it");
 
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 
 		// Then
-		assertEquals(1, list.size());
+		assertEquals(1, users.size());
 	}
 	
 	@Test
@@ -141,10 +137,10 @@ public class UserServiceTest extends AbstractSpringTest {
 		searchBean.setEmail("uSer2@hotmail.it");
 
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 
 		// Then
-		assertEquals(1, list.size());
+		assertEquals(1, users.size());
 	}
 
 	@Test
@@ -154,10 +150,10 @@ public class UserServiceTest extends AbstractSpringTest {
 		searchBean.setName("User2Name");
 
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 
 		// Then
-		assertEquals(1, list.size());
+		assertEquals(1, users.size());
 	}
 	
 	@Test
@@ -167,10 +163,10 @@ public class UserServiceTest extends AbstractSpringTest {
 		searchBean.setSurname("User2Surname");
 
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 
 		// Then
-		assertEquals(1, list.size());
+		assertEquals(1, users.size());
 	}
 
 	@Test
@@ -179,9 +175,9 @@ public class UserServiceTest extends AbstractSpringTest {
 		User searchBean = new User();
 		searchBean.setEmail("user2@hotmail.it");
 		// When
-		List<User> list = userService.searchUser(searchBean);
+		List<User> users = userService.searchUser(searchBean);
 		// Then
-		assertEquals(1, list.size());
+		assertEquals(1, users.size());
 	}
 
 	@Test
@@ -232,52 +228,49 @@ public class UserServiceTest extends AbstractSpringTest {
 		assertEquals(updatedName, user.getName());
 	}
 	
-//	@Test
-//	public void test_updateRoles_forUsers() {
-//		// Given
-//		String username = "admin";
-//		int role1 = 7;
-//		Role role1Obj = new Role(role1);
-//		role1Obj = roleService.insert(role1Obj);
-//
-//		// When
-//		User user = userService.get(username);
-//		user.addRole(role1Obj);
-//		user = userService.update(user);
-//		User userDb = userService.get(user.getUserName());
-//
-//		// Then
-//		assertEquals(userDb, user);
-//		assertEquals(2, user.getRoles().size());
-//		assertEquals(new Integer(1), user.getRoles().get(0).getId());
-//	}
+	@Test
+	public void test_updateRoles_forUsers() {
+		// Given
+		final String username = "admin";
+		Role role1Obj = new Role(ROLE_EDITOR);
+
+		// When
+		User user = userService.get(username);
+		user.addRole(role1Obj);
+		user = userService.update(user);
+		User userDb = userService.get(user.getUserName());
+
+		// Then
+		assertEquals(userDb, user);
+		assertEquals(2, user.getRoles().size());
+		assertEquals(new Integer(ROLE_EDITOR), user.getRoles().get(1).getId());
+	}
 	
-//	@Test
-//	public void test_updateUser_removeRoles() {
-//		// Given
-//		String username = "admin";
-//		int role1 = 1;
-//		final Role role1Obj = roleService.get(role1);
-//
-//		// When
-//		User user = userService.get(username);
-//		user.removeRole(role1Obj);
-//		user = userService.update(user);
-//		User userDb = userService.get(username);
-//
-//		// Then
-//		assertEquals(userDb, user);
-//		assertTrue(userDb.getRoles().isEmpty());
-//	}
+	@Test
+	public void test_updateUser_removeRoles() {
+		// Given
+		final String username = "admin";
+		final Role roleAdmin = new Role(ROLE_ADMIN);
+
+		// When
+		User user = userService.get(username);
+		user.removeRole(roleAdmin);
+		user = userService.update(user);
+		User userDb = userService.get(username);
+
+		// Then
+		assertEquals(userDb, user);
+		assertEquals(0, userDb.getRoles().size());
+	}
 
 	@Test
 	public void test_deleteUser_withoutRoles() {
 		// Given
-		final String user_userName = "admin10";
+		final String userName = "user3";
 
 		// When
-		boolean deleting = userService.delete(user_userName);
-		User user = userService.get(user_userName);
+		boolean deleting = userService.delete(userName);
+		User user = userService.get(userName);
 
 		// Then
 		assertTrue(deleting);
@@ -287,9 +280,8 @@ public class UserServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_deleteUser_withRoles_shouldRemoveUserButNotRoles() {
 		// Given
-		String username = "admin";
-		int role1 = 1;
-		final Role role1Obj = roleService.get(role1);
+		final String username = "admin";
+		final Role roleAdmin = new Role(ROLE_ADMIN);
 
 		// When
 		boolean deleting = userService.delete(username);
@@ -298,16 +290,16 @@ public class UserServiceTest extends AbstractSpringTest {
 		// Then
 		assertTrue(deleting);
 		assertNull(user);
-		assertNotNull(role1Obj);
+		assertNotNull(roleAdmin);
 	}
 
 	@Test
 	public void test_deleteUser_notPresent() {
 		// Given
-		final String user_userName = "";
+		final String userName = "fakeUserNotPresent";
 
 		// When
-		boolean deleting = userService.delete(user_userName);
+		boolean deleting = userService.delete(userName);
 
 		// Then
 		assertFalse(deleting);

@@ -10,7 +10,6 @@ import javax.faces.bean.ViewScoped;
 
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
-import org.dealoftheday.bl.service.RoleService;
 import org.dealoftheday.bl.service.UserService;
 
 @ManagedBean
@@ -19,9 +18,6 @@ public class UserController {
 	
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
-	
-	@ManagedProperty(value = "#{roleService}")
-	private RoleService roleService;
 	
 	private String newUserName;
 	private String newName;
@@ -42,7 +38,7 @@ public class UserController {
 	
 	@PostConstruct
 	public void init() {
-		allRoles = roleService.getAll();
+//		allRoles = roleService.getAll();
 		selectedUser = new User();
 		searchUser();
 		cleanDialogForm();
@@ -234,10 +230,6 @@ public class UserController {
 
 	public void setUserService(UserService userService) {
 		this.userService = userService;
-	}
-
-	public void setRoleService(RoleService roleService) {
-		this.roleService = roleService;
 	}
 
 //	public boolean isChecked() {
