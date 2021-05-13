@@ -21,28 +21,22 @@ insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CI
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (3, 'Bar dietro l angolo', 'Piazza Puccini, 34', '06', '+39370', 'bar_dietro_angolo@hotmail.it', null, 'BAR_AND_DRINKS', 'RM');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (4, 'Viaggiando viaggiando di Lucrezia Rossi', 'Piazza Verdi, angolo Via del Rinascimento, 56', '011', '+39345', 'viaggiando_viaggiando@hotmail.it', 'www.viaggiando.com', 'VISIT_TOURS', 'TO');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (5, 'Cinema Manzoni di Show srl', 'Via del Melarancio, 78', '091', '+39393', 'cinema_manzoni@hotmail.it', null, 'CINEMA_THEATER_CONCERT', 'PA');
-insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (6, 'Caffè Pulcinella', 'Piazza SS.Annunziata, 67', '081', '+39327', 'caffe_pulcinella@hotmail.it', 'www.caffe_pulcinella.com', 'BAR_AND_DRINKS', 'NA');
+insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (6, 'Caffe Pulcinella', 'Piazza SS.Annunziata, 67', '081', '+39327', 'caffe_pulcinella@hotmail.it', 'www.caffe_pulcinella.com', 'BAR_AND_DRINKS', 'NA');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (7, 'Pausa Bellezza di Beatrice Verdi', 'Viale degli Abruzzi, 50', '051', '+39348', 'pausa_bellezza@hotmail.it', 'www.pausa_bellezza.it', 'BEAUTY_CARE', 'BO');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (8, 'Clinica dentistica dott. Lo Varco', 'Largo Alinari, 6', '080', '+39333', 'clinica_lovarco@hotmail.it', null, 'HEALTH_CARE', 'BA');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (9, 'Acquario Di Genova', 'Ponte Spinola', '010', '+39356', 'acquario_genova@hotmail.it', 'www.acquariogenova.it', 'ADVENTURE', 'GE');
 insert into partner (ID, NAME, ADDRESS, TEL, CELL, EMAIL, WEB_SITE, CATEGORY, CITY_ID) values (10, 'Ristorante La vie en rose', 'Via delle rose, 4', '055', '+39343', 'lavienrose@hotmail.it', 'www.lavieenrose.com', 'FOOD_AND_RESTAURANTS', 'FI');
 
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin', 'Admin', 'Admin', 'sandrus88@hotmail.it', 'admin', 1, 0, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin2', 'Admin2', 'Admin2', 'admin2@hotmail.it', 'admin2', 0, 1, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin3', 'Admin3', 'Admin3', 'admin3@gmail.com', 'admin3', 1, 1, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin4', 'Admin4', 'Admin4', 'admin4@hotmail.com', 'admin4', 0, 0, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin5', 'Admin5', 'Admin5', 'admin5@hotmail.it', 'admin5', 1, 0, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin6', 'Admin6', 'Admin6', 'admin6@gmail.it', 'admin6', 1, 0, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin7', 'Admin7', 'Admin7', 'admin7@hotmail.it', 'admin7', 0, 1, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin8', 'Admin8', 'Admin8', 'admin8@gmail.com', 'admin8', 1, 1, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin9', 'Admin9', 'Admin9', 'admin9@hotmail.com', 'admin9', 0, 0, 0);
-insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin10', 'Admin10', 'Admin10', 'admin10@hotmail.it', 'admin10', 1, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('admin', 'AdminName', 'AdminSurname', 'sandrus88@hotmail.it', 'admin', 1, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('user2', 'User2Name', 'User2Surname', 'user2@hotmail.it', 'user2', 0, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('user3', 'User3Name', 'User3Surname', 'user3@gmail.com', 'user3', 1, 1, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('user4', 'User4Name', 'User4Surname', 'user4@hotmail.com', 'user4', 0, 0, 0);
+insert into users (USERNAME, NAME, SURNAME, EMAIL, PWD, ENABLED, LOCKED, FAILED_LOGIN_COUNT) values ('user5', 'User5Name', 'User5Surname', 'user5@hotmail.it', 'user5', 1, 0, 0);
 
-insert into role (ID, NAME, DESCRIPTION) values (1, 'Administrator', 'Description of Administrator');
-insert into role (ID, NAME, DESCRIPTION) values (2, 'Editor', 'Description of Editor');
-insert into role (ID, NAME, DESCRIPTION) values (3, 'Subscriber', 'Description of Subscriber');
-insert into role (ID, NAME, DESCRIPTION) values (4, 'Contributor', 'Description of Contributor');
-insert into role (ID, NAME, DESCRIPTION) values (5, 'Viewer', 'Description of Viewer');
-insert into role (ID, NAME, DESCRIPTION) values (6, 'Support', 'Description of Support');
+insert into role (ID, NAME, DESCRIPTION) values (1, 'DataEntry', 'Role for inserting customers and contracts');
+insert into role (ID, NAME, DESCRIPTION) values (2, 'Editor', 'Role for editing the deal description and add pictures. Cannot publish');
+insert into role (ID, NAME, DESCRIPTION) values (3, 'Publisher', 'Role for handling the ');
+insert into role (ID, NAME, DESCRIPTION) values (4, 'Viewer', 'Role for only accessing to statistics');
+insert into role (ID, NAME, DESCRIPTION) values (5, 'Administrator', 'Full access and control');
 
-insert into user_role (USER_ID, ROLE_ID) values ('admin', 1);
+insert into user_role (USER_ID, ROLE_ID) values ('admin', 5);

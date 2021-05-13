@@ -6,7 +6,13 @@ import java.util.List;
 import org.dealoftheday.bl.entities.UserEntity;
 
 public class Role {
-	
+
+	public static final int ROLE_DATA_ENTRY = 1;
+	public static final int ROLE_EDITOR = 2;
+	public static final int ROLE_PUBLISHER = 3;
+	public static final int ROLE_READ_ONLY = 4;
+	public static final int ROLE_ADMIN = 5;
+
 	private Integer id;
 	private String name;
 	private String description;
@@ -17,11 +23,17 @@ public class Role {
 		users = new ArrayList<>();
 	}
 
-	public Role(int role1) {
-		
+	public Role(int id) {
+		this.id = id;
 	}
 
-	public Integer getId() {
+    public Role(int id, String name, String description) {
+		this.id = id;
+		this.name = name;
+		this.description = description;
+	}
+
+    public Integer getId() {
 		return id;
 	}
 
