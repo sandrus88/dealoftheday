@@ -1,5 +1,6 @@
 package org.dealoftheday.bl.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.dealoftheday.bl.entities.UserEntity;
@@ -10,17 +11,13 @@ public class Role {
 	private String name;
 	private String description;
 	
-	private List<UserEntity> users;
+	private List<User> users;
 	
 	public Role() {
-	
+		users = new ArrayList<>();
 	}
 
 	public Role(int role1) {
-		// TODO Auto-generated constructor stub
-	}
-	
-	public Role(int role1, String admin, String adminDesc) {
 		// TODO Auto-generated constructor stub
 	}
 
@@ -48,11 +45,11 @@ public class Role {
 		this.description = description;
 	}
 	
-	public List<UserEntity> getUsers() {
+	public List<User> getUsers() {
 		return users;
 	}
 
-	public void setUsers(List<UserEntity> users) {
+	public void setUsers(List<User> users) {
 		this.users = users;
 	}
 

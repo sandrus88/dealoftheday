@@ -35,7 +35,7 @@ public class UserEntity {
 	@Column(name = "FAILED_LOGIN_COUNT")
 	private int failedLoginCount;
 	
-	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+	@ManyToMany
 	@JoinTable(name = "USER_ROLE", 
 			joinColumns = @JoinColumn(name = "USER_ID"),
 	        inverseJoinColumns = @JoinColumn(name = "ROLE_ID"))

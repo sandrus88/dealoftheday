@@ -30,7 +30,10 @@ public class RoleEntity {
 	
 	@ManyToMany(mappedBy = "roles")
 	private List<UserEntity> users;
-
+	
+	public RoleEntity() {
+		users = new ArrayList<>();
+	}
 	public Integer getId() {
 		return id;
 	}
