@@ -43,7 +43,6 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 	public boolean delete(String id) {
 		UserEntity userEntity = get(id);
 		if (userEntity != null) {
-//			userEntity.setRoles(null);
 			entityManager.remove(userEntity);
 			return true;
 		}

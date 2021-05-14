@@ -4,9 +4,13 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.dealoftheday.bl.assembler.RoleAssembler;
 import org.dealoftheday.bl.assembler.UserAssembler;
+import org.dealoftheday.bl.dao.RoleDao;
 import org.dealoftheday.bl.dao.UserDao;
+import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
+import org.dealoftheday.bl.entities.RoleEntity;
 import org.dealoftheday.bl.entities.UserEntity;
 import org.dealoftheday.bl.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,11 +22,13 @@ import org.springframework.transaction.annotation.Transactional;
 public class UserServiceImpl implements UserService {
 
 	final private UserDao userDao;
+	final private RoleDao roleDao;
 	private static Logger logger = LogManager.getLogger(UserServiceImpl.class);
 
 	@Autowired
-	public UserServiceImpl(UserDao userDao) {
+	public UserServiceImpl(UserDao userDao, RoleDao roleDao) {
 		this.userDao = userDao;
+		this.roleDao = roleDao;
 	}
 
 	@Override
@@ -70,6 +76,13 @@ public class UserServiceImpl implements UserService {
 		List<UserEntity> listEntities = userDao.searchUser(searchDto);
 		List<User> list = UserAssembler.getDTOList(listEntities);
 		return list;
+	}
+
+	@Override
+	public List<Role> getAllRoles() {
+		List<RoleEntity> entityList = roleDao.getAll();
+		List<Role> dtoList = RoleAssembler.getDTOList(entityList);
+		return dtoList;
 	}
 
 }

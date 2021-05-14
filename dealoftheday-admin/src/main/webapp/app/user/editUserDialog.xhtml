@@ -58,8 +58,8 @@
 			</p:fieldset>
 		
 			<p:fieldset legend="#{msg['user.assRoles']}" styleClass="rightSight">
-            	<p:selectManyCheckbox id="nRoles" value="#{userController.selectedUser.roles}" layout="pageDirection">
-                	<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role.id}" itemLabel="#{role.name}"/>
+            	<p:selectManyCheckbox id="nRoles" value="#{userController.selectedUser.roles}" layout="pageDirection"  converter="roleConverter">
+                	<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role}" itemLabel="#{role.name}"/>
                 		<p:ajax event="blur" update="nRolesMsg"/>	
             	</p:selectManyCheckbox>
             	<p:message id="nRolesMsg" for="nRoles" display="icon"/>

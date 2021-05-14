@@ -92,13 +92,13 @@ public class TestUtils {
 		return date;
 	}
 
-	public static User createUser() {
+	public static User createUser(String username) {
 		User user = new User();
-		user.setUserName("newUserName");
-		user.setName("newName");
-		user.setSurname("newSurname");
-		user.setEmail("newName_newSurname@gmail.com");
-		user.setPwd("newPwd");
+		user.setUserName(username);
+		user.setName(username + "Name");
+		user.setSurname(username + "Surname");
+		user.setEmail(username + "@gmail.com");
+		user.setPwd(username);
 		user.setEnabled(true);
 		user.setLocked(false);
 		return user;

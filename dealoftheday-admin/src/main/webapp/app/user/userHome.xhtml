@@ -85,7 +85,7 @@
 				</p:column>
 
 				<p:column width="6%" styleClass="actions">
-					<p:commandLink oncomplete="PF('dialogEditUser').show()" update="userEditForm" id="linkEdit" onclick="#{userController.viewRoles(userController.selectedUser)}">
+					<p:commandLink oncomplete="PF('dialogEditUser').show()" update="userEditForm" id="linkEdit">
 						<i class="fa fa-fw fa-pencil"/>
 						<p:tooltip for="linkEdit" value="#{msg['action.edit']}" position="bottom"/>
 						<f:setPropertyActionListener value="#{item}" target="#{userController.selectedUser}" />

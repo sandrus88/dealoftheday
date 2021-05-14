@@ -2,6 +2,7 @@ package org.dealoftheday.bl.service;
 
 import java.util.List;
 
+import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
 
 public interface UserService {
@@ -17,5 +18,7 @@ public interface UserService {
     boolean delete(String id);
     
     List<User> searchUser(User searchDto);
+    
+    List<Role> getAllRoles();
 
 }

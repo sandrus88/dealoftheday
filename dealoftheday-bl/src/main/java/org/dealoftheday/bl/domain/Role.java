@@ -3,8 +3,6 @@ package org.dealoftheday.bl.domain;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dealoftheday.bl.entities.UserEntity;
-
 public class Role {
 
 	public static final int ROLE_DATA_ENTRY = 1;
@@ -16,7 +14,7 @@ public class Role {
 	private Integer id;
 	private String name;
 	private String description;
-	
+	//Todo rimuover elista
 	private List<User> users;
 	
 	public Role() {

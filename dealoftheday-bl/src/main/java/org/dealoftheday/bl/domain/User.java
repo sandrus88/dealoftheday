@@ -3,6 +3,10 @@ package org.dealoftheday.bl.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+
 public class User {
 
 	private String userName;
@@ -13,13 +17,13 @@ public class User {
 	private Boolean enabled;
 	private Boolean locked;
 	private int failedLoginCount;
-	
+
 	private List<Role> roles;
-	
+
 	public User() {
 		roles = new ArrayList<>();
 	}
-	
+
 	public User(String userName, String name, String surname, String email, String pwd, Boolean enabled, Boolean locked,
 			int failedLoginCount, List<Role> roles) {
 		this.userName = userName;
@@ -36,11 +40,11 @@ public class User {
 	public void addRole(Role role) {
 		roles.add(role);
 	}
-	
+
 	public void removeRole(Role role) {
 		roles.remove(role);
 	}
-	
+
 	public void removeAllRoles() {
 		roles.clear();
 	}
@@ -116,36 +120,31 @@ public class User {
 	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
-	
+
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof User)) {
 			return false;
 		}
 		User other = (User) o;
-		if (userName != null && !userName.equals(other.userName)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		if (surname != null && !surname.equals(other.surname)) {
-			return false;
-		}
-		if (email != null && !email.equals(other.email)) {
-			return false;
-		}
-		if (pwd != null && !pwd.equals(other.pwd)) {
-			return false;
-		}
-		return true;
+
+		return new EqualsBuilder()
+				.append(userName, other.userName)
+				.append(name, other.name)
+				.append(surname, other.surname)
+				.append(email, other.email)
+				.append(pwd, other.pwd)
+				.append(enabled, other.enabled)
+				.append(locked, other.locked)
+				.append(failedLoginCount, other.failedLoginCount)
+				.isEquals();
+
 	}
 	
 	@Override
 	public int hashCode() {
+//		HashCodeBuilder hb;
+//		hb.hashCode();
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
@@ -155,9 +154,11 @@ public class User {
 		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
 		return result;
 	}
-	
+
 	@Override
 	public String toString() {
+//		ToStringBuilder tsb;
+//		tsb.toString();
 		return this.getClass().getSimpleName() + " [Username: " + userName + ", name: " + name + ", surname: " + surname
 				+ ", email: " + email + ", password: " + pwd + ", roles: " + roles + "]";
 	}

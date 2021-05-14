@@ -15,10 +15,10 @@ import org.dealoftheday.bl.service.UserService;
 @ManagedBean
 @ViewScoped
 public class UserController {
-	
+
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
-	
+
 	private String newUserName;
 	private String newName;
 	private String newSurname;
@@ -26,25 +26,24 @@ public class UserController {
 	private String newPwd;
 	private Boolean newEnabled;
 	private Boolean newLocked;
-	
+
 	private String searchName;
 	private String searchSurname;
 	private String searchEmail;
-	
+
 	private List<Role> allRoles;
 	private List<User> userList = new ArrayList<>();
 	private User selectedUser;
-//	private boolean checked;
-	
+
 	@PostConstruct
 	public void init() {
-//		allRoles = roleService.getAll();
+		allRoles = userService.getAllRoles();
 		selectedUser = new User();
 		searchUser();
 		cleanDialogForm();
 		cleanSearchForm();
 	}
-	
+
 	public void searchUser() {
 		User searchDto = new User(null, searchName, searchSurname, searchEmail, null, null, null, -1, null);
 		userList = userService.searchUser(searchDto);
@@ -75,11 +74,11 @@ public class UserController {
 		user.setPwd(newPwd);
 		user.setEnabled(newEnabled);
 		user.setLocked(newLocked);
-		for (int i = 0; i < allRoles.size(); i++) {
-			final Role role = allRoles.get(i);
-//			if (isChecked()) {
-				user.addRole(role);
-//			}	
+//		//prendi l'id dei tuoli selezionati e per ogni id crea un ruolo con quel id
+//		new Role(IDPASSATODALWEB) // aggiungi all'utente questo ruolo
+		for (int i = 0; i < selectedUser.getRoles().size(); i++) {
+			Role role = selectedUser.getRoles().get(i);
+			user.addRole(role);
 		}
 		userService.insert(user);
 		cleanDialogForm();
@@ -93,34 +92,6 @@ public class UserController {
 
 	public void deleteUser(User user) {
 		userService.delete(user.getUserName());
-		searchUser();
-	}
-	
-	public void viewRoles(User user) {
-		selectedUser = user;
-		List<Role> selectedUserRoles = user.getRoles();
-
-		for (int i = 0; i < allRoles.size(); i++) {
-			Role role = allRoles.get(i);
-//			if (selectedUserRoles.contains(role)) {
-//				role.setChecked(true);
-//				role.isDisabled(selectedUser);
-//			}
-		}
-		searchUser();
-	}
-
-	public void updateUserRoles(User user) {
-		selectedUser = user;
-		for (int i = 0; i < allRoles.size(); i++) {
-			final Role role = allRoles.get(i);
-//			if (role.isChecked()) {
-//				selectedUser.addRole(role);
-//			} else {
-//				selectedUser.removeRole(role);
-//			}
-		}
-		selectedUser = userService.update(selectedUser);
 		searchUser();
 	}
 
@@ -231,12 +202,4 @@ public class UserController {
 	public void setUserService(UserService userService) {
 		this.userService = userService;
 	}
-
-//	public boolean isChecked() {
-//		return checked;
-//	}
-//
-//	public void setChecked(boolean checked) {
-//		this.checked = checked;
-//	}
 }

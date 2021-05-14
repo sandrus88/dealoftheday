@@ -183,7 +183,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_insertUser() {
 		// Given
-		User user = createUser();
+		User user = createUser("JunitUserNoRole");
 
 		// When
 		user = userService.insert(user);
@@ -196,7 +196,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_insertUserWithRoles() {
 		// Given
-		User user = createUser();
+		User user = createUser("JunitUserWithRole");
 		final Role roleAdmin = new Role(ROLE_ADMIN);
 		
 		// When
@@ -210,33 +210,30 @@ public class UserServiceTest extends AbstractSpringTest {
 		assertEquals(new Integer(ROLE_ADMIN), user.getRoles().get(0).getId());
 	}
 
-
 	@Test
 	public void test_updateUser() {
 		// Given
-		final String userName = "user3";
-		final String updatedName = "updatedName";
+		final String username = "user3";
 
 		// When
-		User user = userService.get(userName);
-		updateUser(user);
-		user = userService.update(user);
-		User userDb = userService.get(userName);
+		User userDb = userService.get(username);
+		User userUpdated = updateUser(userDb);
+		userUpdated = userService.update(userUpdated);
+		User userUpdatedDb = userService.get(username);
 
 		// Then
-		assertEquals(userDb, user);
-		assertEquals(updatedName, user.getName());
+		assertEquals(userUpdated, userUpdatedDb);
 	}
 	
 	@Test
 	public void test_updateRoles_forUsers() {
 		// Given
 		final String username = "admin";
-		Role role1Obj = new Role(ROLE_EDITOR);
+		Role roleEditor = new Role(ROLE_EDITOR);
 
 		// When
 		User user = userService.get(username);
-		user.addRole(role1Obj);
+		user.addRole(roleEditor);
 		user = userService.update(user);
 		User userDb = userService.get(user.getUserName());
 
@@ -286,6 +283,7 @@ public class UserServiceTest extends AbstractSpringTest {
 		// When
 		boolean deleting = userService.delete(username);
 		User user = userService.get(username);
+		//getroles from db e verifica che role admin e' presente
 
 		// Then
 		assertTrue(deleting);
@@ -308,7 +306,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_user_integrationTest_CRUD() {
 		// 1. insert a new user
-		User user = createUser();
+		User user = createUser("ITUser");
 		user = userService.insert(user);
 		assertNotNull(user.getUserName());
 
