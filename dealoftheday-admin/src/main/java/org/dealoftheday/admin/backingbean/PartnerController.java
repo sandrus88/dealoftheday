@@ -11,6 +11,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
@@ -26,6 +28,8 @@ public class PartnerController {
 	
 	@ManagedProperty(value = "#{cityService}")
 	private CityService cityService;
+	
+	private static Logger logger = LogManager.getLogger(PartnerController.class);
 	
 	private String newName;
 	private String newAddress;

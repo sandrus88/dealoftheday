@@ -8,6 +8,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.service.CityService;
@@ -18,6 +20,8 @@ public class CityController {
 	
 	@ManagedProperty(value = "#{cityService}")
 	private CityService cityService;
+	
+	private static Logger logger = LogManager.getLogger(CityController.class);
 
 	private String newId;
 	private String newName;

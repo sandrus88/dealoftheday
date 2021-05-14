@@ -8,9 +8,12 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
 import org.dealoftheday.bl.service.UserService;
+import org.dealoftheday.bl.service.impl.UserServiceImpl;
 
 @ManagedBean
 @ViewScoped
@@ -18,6 +21,8 @@ public class UserController {
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
+	
+	private static Logger logger = LogManager.getLogger(UserController.class);
 
 	private String newUserName;
 	private String newName;
@@ -77,9 +82,20 @@ public class UserController {
 //		//prendi l'id dei tuoli selezionati e per ogni id crea un ruolo con quel id
 //		new Role(IDPASSATODALWEB) // aggiungi all'utente questo ruolo
 		for (int i = 0; i < selectedUser.getRoles().size(); i++) {
+			List<Role> roles = selectedUser.getRoles();
+			logger.info("Lista ruoli selezionati: " + roles);
 			Role role = selectedUser.getRoles().get(i);
-			user.addRole(role);
+			logger.info("Ruolo: " + role);
+			Integer idRole = selectedUser.getRoles().get(i).getId();
+			logger.info("ID ruolo: " + idRole);
+//			Role role = new Role(idFromDb);
+			
+//			user.addRole(role);
 		}
+//		for (int i = 0; i < selectedUser.getRoles().size(); i++) {
+//		Role role = selectedUser.getRoles().get(i);
+//		user.addRole(role);
+//	}
 		userService.insert(user);
 		cleanDialogForm();
 		searchUser();

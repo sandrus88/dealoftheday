@@ -283,12 +283,12 @@ public class UserServiceTest extends AbstractSpringTest {
 		// When
 		boolean deleting = userService.delete(username);
 		User user = userService.get(username);
-		//getroles from db e verifica che role admin e' presente
+		List<Role> roles = userService.getAllRoles();
 
 		// Then
 		assertTrue(deleting);
 		assertNull(user);
-		assertNotNull(roleAdmin);
+		assertTrue(roles.contains(roleAdmin));
 	}
 
 	@Test
