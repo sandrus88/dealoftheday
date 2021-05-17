@@ -1,11 +1,14 @@
 package org.dealoftheday.bl.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.dealoftheday.bl.assembler.CustomerAssembler;
+import org.dealoftheday.bl.assembler.UserAssembler;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.dao.UserDao;
 import org.dealoftheday.bl.domain.User;
@@ -20,6 +23,7 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 
 	@Override
 	public UserEntity insert(UserEntity userEntity) {
+		userEntity.setLastUpdate(new Date());
 		entityManager.persist(userEntity);
 		return userEntity;
 	}
@@ -32,6 +36,7 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 
 	@Override
 	public UserEntity update(UserEntity userEntity) {
+		userEntity.setLastUpdate(new Date());
 		entityManager.merge(userEntity);
 		return userEntity;
 	}
@@ -71,14 +76,20 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		}
 		if (searchDto.getRoles() != null) {
 			sql.replace(27, 36, " join u.roles r where")
-			.append(" r.id in (:roleId)");
+			.append(" r.id = :roleId");
 			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
 		}
-		sql.append(" order by u.userName desc");
+		if(searchDto.getEnabled() != null) {
+			sql.append(" and u.enabled = :enabled");
+		}
+		if(searchDto.getLocked() != null) {
+			sql.append(" and u.locked = :locked");
+		}
+		sql.append(" order by u.lastUpdate desc");
 
 		logger.info("Sql query to be executed: " + sql);
 		Query query = entityManager.createQuery(sql.toString());
-
+		
 		if (!SGUtil.isEmpty(searchDto.getUserName())) {
 			query = query.setParameter("username", "%" + searchDto.getUserName() + "%");
 		}
@@ -95,6 +106,12 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 			for (int i = 0; i < searchDto.getRoles().size(); i++) {
 				query = query.setParameter("roleId", searchDto.getRoles().get(i).getId());
 			}
+		}
+		if (searchDto.getEnabled() != null) {
+			query = query.setParameter("enabled", UserAssembler.getIntFromBoolean(searchDto.getEnabled()));
+		}
+		if (searchDto.getLocked() != null) {
+			query = query.setParameter("locked", UserAssembler.getIntFromBoolean(searchDto.getLocked()));
 		}
 
 		@SuppressWarnings("unchecked")

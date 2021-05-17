@@ -2,6 +2,7 @@ package org.dealoftheday.bl.service;
 
 import java.util.List;
 
+import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
 
 public interface PartnerService {
@@ -17,4 +18,6 @@ public interface PartnerService {
     boolean delete(Integer id);
     
     List<Partner> searchPartner(Partner searchDto);
+    
+    List<City> getAllCities();
 }

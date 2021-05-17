@@ -1,5 +1,7 @@
 package org.dealoftheday.bl.entities;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -15,6 +17,8 @@ import org.dealoftheday.bl.domain.City;
 @Table(name = "CITY")
 public class CityEntity {
 	
+	@Column(name = "LMD")
+	private Date lastUpdate;
 	@Id
 	@Column(name = "ID")
 	private String id;
@@ -25,6 +29,12 @@ public class CityEntity {
 	@Column(name = "LNG")
 	private Double lng;
 	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
+	}
 	public String getId() {
 		return id;
 	}

@@ -2,6 +2,7 @@ package org.dealoftheday.bl.test;
 
 import static org.dealoftheday.bl.domain.Role.ROLE_ADMIN;
 import static org.dealoftheday.bl.domain.Role.ROLE_EDITOR;
+import static org.dealoftheday.bl.domain.Role.ROLE_PUBLISHER;
 import static org.dealoftheday.bl.test.util.TestUtils.createUser;
 import static org.dealoftheday.bl.test.util.TestUtils.updateUser;
 import static org.junit.Assert.assertEquals;
@@ -10,6 +11,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -32,19 +34,19 @@ public class UserServiceTest extends AbstractSpringTest {
 	@Test
 	public void test_getUser_withoutRole() {
 		// Given
-		final String username = "user2";
+		final String username = "user3";
 
 		// When
 		User user = userService.get(username);
 
 		// Then
 		assertNotNull(user);
-		assertEquals("user2", user.getUserName());
-		assertEquals("User2Name", user.getName());
-		assertEquals("User2Surname", user.getSurname());
-		assertEquals("user2@hotmail.it", user.getEmail());
-		assertEquals("user2", user.getPwd());
-		assertEquals(false, user.getEnabled());
+		assertEquals("user3", user.getUserName());
+		assertEquals("User3Name", user.getName());
+		assertEquals("User3Surname", user.getSurname());
+		assertEquals("user3@gmail.com", user.getEmail());
+		assertEquals("user3", user.getPwd());
+		assertEquals(true, user.getEnabled());
 		assertEquals(true, user.getLocked());
 		assertEquals(0, user.getFailedLoginCount());
 		assertEquals(0, user.getRoles().size());
@@ -67,7 +69,7 @@ public class UserServiceTest extends AbstractSpringTest {
 		assertEquals("sandrus88@hotmail.it", user.getEmail());
 		assertEquals("admin", user.getPwd());
 		assertEquals(true, user.getEnabled());
-		assertEquals(false, user.getLocked());
+		assertEquals(true, user.getLocked());
 		assertEquals(0, user.getFailedLoginCount());
 		assertEquals(1, user.getRoles().size());
 		assertEquals(adminRole, user.getRoles().get(0));
@@ -79,7 +81,7 @@ public class UserServiceTest extends AbstractSpringTest {
 		final Role adminRole = new Role(ROLE_ADMIN, "Administrator", "Full access and control");
 		final User adminUser = new User("admin", "AdminName", "AdminSurname"
 				, "sandrus88@hotmail.it", "admin"
-				, true, false, 0, Arrays.asList(adminRole));
+				, true, true, 0, Arrays.asList(adminRole));
 
 		// When
 		List<User> users = userService.getAll();
@@ -90,8 +92,8 @@ public class UserServiceTest extends AbstractSpringTest {
 		assertEquals(users.size(), 5);
 
 		assertEquals(adminUser, dbAdminUser);
-		assertEquals(1, dbAdminUser.getRoles().size());  // verifico che abbia un solo ruolo.
-		assertEquals(adminRole, dbAdminUser.getRoles().get(0)); //verifico che il ruolo assocciato sia ADMIN_ROLE
+		assertEquals(1, dbAdminUser.getRoles().size()); 
+		assertEquals(adminRole, dbAdminUser.getRoles().get(0)); 
 	}
 
 	@Test
@@ -122,15 +124,26 @@ public class UserServiceTest extends AbstractSpringTest {
 	public void test_searchUsers_fullMatch() {
 		// Given
 		User searchBean = new User();
-		searchBean.setName("User2Name");
-		searchBean.setSurname("User2Surname");
-		searchBean.setEmail("user2@hotmail.it");
-
+		searchBean.setUserName("userSandro");
+		searchBean.setName("Sandro");
+		searchBean.setSurname("Gargano");
+		searchBean.setEmail("sandro_gargano@hotmail.it");
+		searchBean.setPwd("sandro88");
+		searchBean.setEnabled(true);
+		searchBean.setLocked(true);
+		
 		// When
 		List<User> users = userService.searchUser(searchBean);
 
 		// Then
 		assertEquals(1, users.size());
+		assertEquals("userSandro", users.get(0).getUserName());
+		assertEquals("Sandro", users.get(0).getName());
+		assertEquals("Gargano", users.get(0).getSurname());
+		assertEquals("sandro_gargano@hotmail.it", users.get(0).getEmail());
+		assertEquals("sandro88", users.get(0).getPwd());
+		assertEquals(true, users.get(0).getEnabled());
+		assertEquals(true, users.get(0).getLocked());
 	}
 	
 	@Test
@@ -193,7 +206,22 @@ public class UserServiceTest extends AbstractSpringTest {
 		searchBean.setRoles(Arrays.asList(adminRole));
 		// When
 		List<User> users = userService.searchUser(searchBean);
-		logger.debug("Lista utenti con role admin: " + users);
+		// Then
+		assertEquals(1, users.size());
+	}
+	
+	@Test
+	public void test_searchUsers_byRoles() {
+		// Given
+		User searchBean = new User();
+		final Role adminRole = new Role(ROLE_ADMIN, "Administrator", "Full access and control");
+		final Role publisherRole = new Role(ROLE_PUBLISHER, "Publisher", "Role for handling the ");
+		List<Role> roleList = new ArrayList<>();
+		roleList.add(adminRole);
+		roleList.add(publisherRole);
+		searchBean.setRoles(roleList);
+		// When
+		List<User> users = userService.searchUser(searchBean);
 		// Then
 		assertEquals(2, users.size());
 	}

@@ -2,6 +2,7 @@ package org.dealoftheday.admin.backingbean;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -31,12 +32,14 @@ public class UserController {
 	private String newPwd;
 	private Boolean newEnabled;
 	private Boolean newLocked;
-
+	
 	private String searchUsername;
 	private String searchName;
 	private String searchSurname;
 	private String searchEmail;
-	private List<Role> searchRole;
+	private Role searchRole;
+	private Boolean searchEnabled;
+	private Boolean searchLocked;
 
 	private List<Role> allRoles;
 	private List<User> userList = new ArrayList<>();
@@ -52,8 +55,12 @@ public class UserController {
 	}
 
 	public void searchUser() {
-		User searchDto = new User(searchUsername, searchName, searchSurname, searchEmail, null, null, null, -1,
-				searchRole);
+		List<Role> rolesList = null;
+		if (searchRole != null) {
+			rolesList = Arrays.asList(searchRole);
+		}
+		User searchDto = new User(searchUsername, searchName, searchSurname, searchEmail, null, searchEnabled,
+				searchLocked, -1, rolesList);
 		userList = userService.searchUser(searchDto);
 	}
 
@@ -74,6 +81,8 @@ public class UserController {
 		searchSurname = null;
 		searchEmail = null;
 		searchRole = null;
+		searchEnabled = null;
+		searchLocked = null;
 	}
 
 	public void addUser() {
@@ -103,6 +112,14 @@ public class UserController {
 		userService.delete(user.getUserName());
 		searchUser();
 	}
+
+//	public void showRolesNames(List<Role> roleList) {
+//		String name = null;
+//		for (int i = 0; i < roleList.size(); i++) {
+//			name = roleList.get(i).getName();
+//		}
+//		SGUtil.getListAsString(Arrays.asList(name));
+//	}
 
 	public String getNewUserName() {
 		return newUserName;
@@ -192,12 +209,28 @@ public class UserController {
 		this.searchUsername = searchUsername;
 	}
 
-	public List<Role> getSearchRole() {
+	public Role getSearchRole() {
 		return searchRole;
 	}
 
-	public void setSearchRole(List<Role> searchRole) {
+	public void setSearchRole(Role searchRole) {
 		this.searchRole = searchRole;
+	}
+
+	public Boolean getSearchEnabled() {
+		return searchEnabled;
+	}
+
+	public void setSearchEnabled(Boolean searchEnabled) {
+		this.searchEnabled = searchEnabled;
+	}
+
+	public Boolean getSearchLocked() {
+		return searchLocked;
+	}
+
+	public void setSearchLocked(Boolean searchLocked) {
+		this.searchLocked = searchLocked;
 	}
 
 	public List<Role> getAllRoles() {

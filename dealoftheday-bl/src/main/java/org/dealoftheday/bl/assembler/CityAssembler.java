@@ -20,6 +20,7 @@ public class CityAssembler {
 		}
 
 		City dto = new City();
+		dto.setLastUpdate(entity.getLastUpdate());
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
 		dto.setLat(entity.getLat());
@@ -33,6 +34,7 @@ public class CityAssembler {
 		}
 		
 		CityEntity entity = new CityEntity();
+		entity.setLastUpdate(dto.getLastUpdate());
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
 		entity.setLat(dto.getLat());

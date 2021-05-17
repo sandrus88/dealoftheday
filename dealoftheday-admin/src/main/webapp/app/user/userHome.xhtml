@@ -13,7 +13,7 @@
 
 			<h:outputText value="#{msg['user.search']}" styleClass="searchTitle"/>
 
-			<h:panelGrid border="0" columns="3" width="50%" >
+			<h:panelGrid border="0" columns="4" width="50%" >
 				<h:panelGrid columns="2">
 					<p:outputLabel for="username" value="#{msg['user.username']}" styleClass="searchNoWrap"/>
 					<p:inputText id="username" value="#{userController.searchUsername}" maxlength="20" size="5"/>
@@ -27,9 +27,7 @@
 					<p:inputText id="name" value="#{userController.searchName}" maxlength="20" />
 					
 					<p:outputLabel for="email" value="#{msg['user.email']}" />
-					<p:inputText id="email" value="#{userController.searchEmail}" maxlength="20">
-						<f:validator validatorId="emailValidator" />
-					</p:inputText>
+					<p:inputText id="email" value="#{userController.searchEmail}" maxlength="20"/>
 				</h:panelGrid>
 				
 				<h:panelGrid columns="2">
@@ -42,11 +40,26 @@
 						<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role}" itemLabel="#{role.name}"/>
 					</p:selectOneMenu>
 				</h:panelGrid>
+				
+				<h:panelGrid columns="2" styleClass="right">
+					<p:outputLabel for="enabled" value="#{msg['user.enabled']}" />
+					<p:selectOneMenu id="enabled" value="#{userController.searchEnabled}" styleClass="dropDownYNWidth">
+						<f:selectItem itemLabel="" />
+						<f:selectItem itemLabel="#{msg['customer.label.yes']}" itemValue="#{true}"/>
+						<f:selectItem itemLabel="#{msg['customer.label.no']}" itemValue="#{false}"/>
+					</p:selectOneMenu>
+					<p:outputLabel for="locked" value="#{msg['user.locked']}" />
+					<p:selectOneMenu id="locked" value="#{userController.searchLocked}" styleClass="dropDownYNWidth">
+						<f:selectItem itemLabel="" />
+						<f:selectItem itemLabel="#{msg['customer.label.yes']}" itemValue="#{true}"/>
+						<f:selectItem itemLabel="#{msg['customer.label.no']}" itemValue="#{false}"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
 			</h:panelGrid>
 
 			<h:panelGrid border="0" columns="1" width="50%">
 				<h:panelGrid border="0" columns="3" styleClass="right">
-					<p:spacer width="465" height="20"/>
+					<p:spacer width="562" height="20"/>
 					<p:commandButton value="#{msg['search']}" actionListener="#{userController.searchUser()}" update="searchResultForm message"
 									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
 					<p:commandButton value="#{msg['clear']}" actionListener="#{userController.cleanSearchForm()}" update="searchForm"
@@ -72,15 +85,21 @@
 			<p:dataTable value="#{userController.userList}" var="item" id="usersTable" emptyMessage="#{msg['user.empty.table']}"
 						 paginator="true" rows="5" rowsPerPageTemplate="5,50,100"
 						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{userController.userList.size()}">
+				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
+					<h:outputText value="#{item.lastUpdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
+				</p:column>		 
+						 
 				<p:column width="10%" headerText="#{msg['user.username']}" sortBy="#{item.userName}" styleClass="data">
 					<h:outputText value="#{item.userName}" />
 				</p:column>
 
-				<p:column width="15%" headerText="#{msg['user.name']}" sortBy="#{item.name}" styleClass="data">
+				<p:column width="13%" headerText="#{msg['user.name']}" sortBy="#{item.name}" styleClass="data">
 					<h:outputText value="#{item.name}" />
 				</p:column>
 
-				<p:column width="15%" headerText="#{msg['user.surname']}" sortBy="#{item.surname}" styleClass="data">
+				<p:column width="13%" headerText="#{msg['user.surname']}" sortBy="#{item.surname}" styleClass="data">
 					<h:outputText value="#{item.surname}" />
 				</p:column>
 
@@ -96,9 +115,9 @@
 					<p:selectBooleanCheckbox value="#{item.locked}" disabled="true"/>
 				</p:column>
 				
-				<p:column width="25%" headerText="#{msg['user.assRoles']}" styleClass="data">
-					<ui:repeat var="role" value="#{item.roles}">
-             			<h:outputText value="#{[role.name]} " />
+				<p:column width="15%" headerText="#{msg['user.assRoles']}" styleClass="data">
+					<ui:repeat var="role" value="#{item.roles}" varStatus="loop">
+             			<h:outputText value="#{role.name}#{not loop.last ? ', ' : ''}" />
         			</ui:repeat>
 				</p:column>
 

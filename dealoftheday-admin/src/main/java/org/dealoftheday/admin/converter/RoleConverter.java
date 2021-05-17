@@ -10,16 +10,20 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.dealoftheday.admin.backingbean.UserController;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.service.UserService;
 
-@ManagedBean(name = "roleConverter")
-@ViewScoped
+@ManagedBean
 @FacesConverter("roleConverter")
 public class RoleConverter implements Converter {
 	
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
+	
+	private static Logger logger = LogManager.getLogger(RoleConverter.class);
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {

@@ -1,5 +1,6 @@
 package org.dealoftheday.bl.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -20,6 +21,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public CityEntity insert(CityEntity cityEntity) {
+		cityEntity.setLastUpdate(new Date());
 		entityManager.persist(cityEntity);
 		return cityEntity;
 	}
@@ -32,6 +34,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public CityEntity update(CityEntity cityEntity) {
+		cityEntity.setLastUpdate(new Date());
 		entityManager.merge(cityEntity);
 		return cityEntity;
 	}
@@ -64,7 +67,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 		if (!SGUtil.isEmpty(searchDto.getName())) {
 			sql.append(" and upper(c.name) like upper(:name)");
 		}
-		sql.append(" order by c.id desc");
+		sql.append(" order by c.lastUpdate desc");
 		
 		Query query = entityManager.createQuery(sql.toString());
 		

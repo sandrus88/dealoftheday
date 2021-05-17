@@ -1,5 +1,7 @@
 package org.dealoftheday.bl.domain;
 
+import java.util.Date;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
@@ -7,6 +9,7 @@ import org.apache.commons.lang.builder.ToStringStyle;
 
 public class City {
 	
+	private Date lastUpdate;
 	private String id;
 	private String name;
 	private Double lat;
@@ -21,6 +24,14 @@ public class City {
 		this.name = name;
 		this.lat = late;
 		this.lng = lng;
+	}
+	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	public String getId() {

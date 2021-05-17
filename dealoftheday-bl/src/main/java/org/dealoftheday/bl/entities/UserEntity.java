@@ -1,6 +1,7 @@
 package org.dealoftheday.bl.entities;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -23,6 +24,8 @@ import org.dealoftheday.bl.domain.User;
 @Table(name = "USERS")
 public class UserEntity {
 	
+	@Column(name = "LMD")
+	private Date lastUpdate;
 	@Id
 	@Column(name = "USERNAME")
 	private String userName;
@@ -61,6 +64,14 @@ public class UserEntity {
 	
 	public void removeAllRoles() {
 		roles.clear();
+	}
+
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	public String getUserName() {

@@ -23,6 +23,7 @@ public class UserAssembler {
 		}
 
 		User dto = new User();
+		dto.setLastUpdate(entity.getLastUpdate());
 		dto.setUserName(entity.getUserName());
 		dto.setName(entity.getName());
 		dto.setSurname(entity.getSurname());
@@ -45,6 +46,7 @@ public class UserAssembler {
 		}
 
 		UserEntity entity = new UserEntity();
+		entity.setLastUpdate(dto.getLastUpdate());
 		entity.setUserName(dto.getUserName());
 		entity.setName(dto.getName());
 		entity.setSurname(dto.getSurname());
