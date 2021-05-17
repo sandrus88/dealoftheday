@@ -59,6 +59,10 @@ html, body {
 	width: 183px !important;
 }
 
+.dropDownRole {
+	width: 154px !important;
+}
+
 .searchNoWrap {
 	white-space: nowrap;
 }

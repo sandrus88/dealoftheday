@@ -3,6 +3,11 @@ package org.dealoftheday.bl.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class Role {
 
 	public static final int ROLE_DATA_ENTRY = 1;
@@ -14,12 +19,6 @@ public class Role {
 	private Integer id;
 	private String name;
 	private String description;
-	//Todo rimuover elista
-	private List<User> users;
-	
-	public Role() {
-		users = new ArrayList<>();
-	}
 
 	public Role(int id) {
 		this.id = id;
@@ -31,7 +30,11 @@ public class Role {
 		this.description = description;
 	}
 
-    public Integer getId() {
+    public Role() {
+		
+	}
+
+	public Integer getId() {
 		return id;
 	}
 
@@ -55,47 +58,35 @@ public class Role {
 		this.description = description;
 	}
 	
-	public List<User> getUsers() {
-		return users;
-	}
-
-	public void setUsers(List<User> users) {
-		this.users = users;
-	}
-
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof Role)) {
 			return false;
 		}
 		Role other = (Role) o;
-		if (id != null && !id.equals(other.id)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		if (description != null && !description.equals(other.description)) {
-			return false;
-		}
-		return true;
+		return new EqualsBuilder()
+				.append(id, other.id)
+				.append(name, other.name)
+				.append(description, other.description)
+				.isEquals();
 	}
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((description == null) ? 0 : description.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(id)
+				.append(name)
+				.append(description)
+				.toHashCode();
 	}
 	
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [Id: " + id + ", name: " + name +", description: " + description + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(id)
+				.append(name)
+				.append(description)
+				.toString();
 	}
 }

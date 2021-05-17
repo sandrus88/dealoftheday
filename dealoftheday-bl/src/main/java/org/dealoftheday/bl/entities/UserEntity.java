@@ -13,6 +13,12 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+import org.dealoftheday.bl.domain.User;
+
 @Entity
 @Table(name = "USERS")
 public class UserEntity {
@@ -131,46 +137,48 @@ public class UserEntity {
 	
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof UserEntity)) {
 			return false;
 		}
 		UserEntity other = (UserEntity) o;
-		if (userName != null && !userName.equals(other.userName)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		if (surname != null && !surname.equals(other.surname)) {
-			return false;
-		}
-		if (email != null && !email.equals(other.email)) {
-			return false;
-		}
-		if (pwd != null && !pwd.equals(other.pwd)) {
-			return false;
-		}
-		return true;
+
+		return new EqualsBuilder()
+				.append(userName, other.userName)
+				.append(name, other.name)
+				.append(surname, other.surname)
+				.append(email, other.email)
+				.append(pwd, other.pwd)
+				.append(enabled, other.enabled)
+				.append(locked, other.locked)
+				.append(failedLoginCount, other.failedLoginCount)
+				.isEquals();
+
 	}
 	
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((pwd == null) ? 0 : pwd.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(userName)
+				.append(name)
+				.append(surname)
+				.append(email)
+				.append(pwd)
+				.append(enabled)
+				.append(locked)
+				.append(failedLoginCount)
+				.toHashCode();
 	}
-	
+
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [User Name: " + userName + ", name: " + name + ", surname: " + surname
-				+ ", email: " + email + ", password: " + pwd + ", roles: " + roles + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(userName)
+				.append(name)
+				.append(surname)
+				.append(email)
+				.append(pwd)
+				.append(roles)
+				.toString();
 	}
 }

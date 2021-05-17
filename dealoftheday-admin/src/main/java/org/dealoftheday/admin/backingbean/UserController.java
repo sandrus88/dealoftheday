@@ -1,6 +1,7 @@
 package org.dealoftheday.admin.backingbean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -13,7 +14,6 @@ import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
 import org.dealoftheday.bl.service.UserService;
-import org.dealoftheday.bl.service.impl.UserServiceImpl;
 
 @ManagedBean
 @ViewScoped
@@ -21,7 +21,7 @@ public class UserController {
 
 	@ManagedProperty(value = "#{userService}")
 	private UserService userService;
-	
+
 	private static Logger logger = LogManager.getLogger(UserController.class);
 
 	private String newUserName;
@@ -32,9 +32,11 @@ public class UserController {
 	private Boolean newEnabled;
 	private Boolean newLocked;
 
+	private String searchUsername;
 	private String searchName;
 	private String searchSurname;
 	private String searchEmail;
+	private List<Role> searchRole;
 
 	private List<Role> allRoles;
 	private List<User> userList = new ArrayList<>();
@@ -50,7 +52,8 @@ public class UserController {
 	}
 
 	public void searchUser() {
-		User searchDto = new User(null, searchName, searchSurname, searchEmail, null, null, null, -1, null);
+		User searchDto = new User(searchUsername, searchName, searchSurname, searchEmail, null, null, null, -1,
+				searchRole);
 		userList = userService.searchUser(searchDto);
 	}
 
@@ -62,12 +65,15 @@ public class UserController {
 		newPwd = null;
 		newEnabled = null;
 		newLocked = null;
+		selectedUser.setRoles(null);
 	}
 
 	public void cleanSearchForm() {
+		searchUsername = null;
 		searchName = null;
 		searchSurname = null;
 		searchEmail = null;
+		searchRole = null;
 	}
 
 	public void addUser() {
@@ -79,23 +85,10 @@ public class UserController {
 		user.setPwd(newPwd);
 		user.setEnabled(newEnabled);
 		user.setLocked(newLocked);
-//		//prendi l'id dei tuoli selezionati e per ogni id crea un ruolo con quel id
-//		new Role(IDPASSATODALWEB) // aggiungi all'utente questo ruolo
 		for (int i = 0; i < selectedUser.getRoles().size(); i++) {
-			List<Role> roles = selectedUser.getRoles();
-			logger.info("Lista ruoli selezionati: " + roles);
 			Role role = selectedUser.getRoles().get(i);
-			logger.info("Ruolo: " + role);
-			Integer idRole = selectedUser.getRoles().get(i).getId();
-			logger.info("ID ruolo: " + idRole);
-//			Role role = new Role(idFromDb);
-			
-//			user.addRole(role);
+			user.addRole(role);
 		}
-//		for (int i = 0; i < selectedUser.getRoles().size(); i++) {
-//		Role role = selectedUser.getRoles().get(i);
-//		user.addRole(role);
-//	}
 		userService.insert(user);
 		cleanDialogForm();
 		searchUser();
@@ -189,6 +182,22 @@ public class UserController {
 
 	public void setSearchEmail(String searchEmail) {
 		this.searchEmail = searchEmail;
+	}
+
+	public String getSearchUsername() {
+		return searchUsername;
+	}
+
+	public void setSearchUsername(String searchUsername) {
+		this.searchUsername = searchUsername;
+	}
+
+	public List<Role> getSearchRole() {
+		return searchRole;
+	}
+
+	public void setSearchRole(List<Role> searchRole) {
+		this.searchRole = searchRole;
 	}
 
 	public List<Role> getAllRoles() {

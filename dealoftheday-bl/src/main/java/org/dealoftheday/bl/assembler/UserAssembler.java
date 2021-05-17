@@ -3,15 +3,19 @@ package org.dealoftheday.bl.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
 import org.dealoftheday.bl.entities.RoleEntity;
 import org.dealoftheday.bl.entities.UserEntity;
+import org.dealoftheday.bl.service.impl.UserServiceImpl;
 
 public class UserAssembler {
 	
 	public static final int FINAL_1 = 1;
 	public static final int FINAL_0 = 0;
+	private static Logger logger = LogManager.getLogger(UserAssembler.class);
 
 	public static User getDTO(UserEntity entity) {
 		if (entity == null) {

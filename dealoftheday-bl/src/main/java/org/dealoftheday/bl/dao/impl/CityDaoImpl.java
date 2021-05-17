@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.dao.CityDao;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.domain.City;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CityDaoImpl extends GenericDao implements CityDao {
+	
+	private static Logger logger = LogManager.getLogger(CityDaoImpl.class);
 
 	@Override
 	public CityEntity insert(CityEntity cityEntity) {

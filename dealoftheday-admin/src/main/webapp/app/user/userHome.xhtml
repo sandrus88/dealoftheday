@@ -13,28 +13,40 @@
 
 			<h:outputText value="#{msg['user.search']}" styleClass="searchTitle"/>
 
-			<h:panelGrid border="0" columns="4" width="50%" >
+			<h:panelGrid border="0" columns="3" width="50%" >
 				<h:panelGrid columns="2">
-					<p:outputLabel for="name" value="#{msg['user.name']}" />
-					<p:inputText id="name" value="#{userController.searchName}" maxlength="20" />
+					<p:outputLabel for="username" value="#{msg['user.username']}" styleClass="searchNoWrap"/>
+					<p:inputText id="username" value="#{userController.searchUsername}" maxlength="20" size="5"/>
 					
 					<p:spacer width="1" height="20"/>
 					<p:spacer width="80" height="20"/>
 				</h:panelGrid>
 
 				<h:panelGrid columns="2">
-					<p:outputLabel for="surname" value="#{msg['user.surname']}" />
-					<p:inputText id="surname" value="#{userController.searchSurname}" maxlength="20" />
+					<p:outputLabel for="name" value="#{msg['user.name']}" />
+					<p:inputText id="name" value="#{userController.searchName}" maxlength="20" />
 					
 					<p:outputLabel for="email" value="#{msg['user.email']}" />
 					<p:inputText id="email" value="#{userController.searchEmail}" maxlength="20">
 						<f:validator validatorId="emailValidator" />
 					</p:inputText>
 				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:outputLabel for="surname" value="#{msg['user.surname']}" />
+					<p:inputText id="surname" value="#{userController.searchSurname}" maxlength="20" />
+					
+					<p:outputLabel for="roles" value="#{msg['user.roles']}" />
+					<p:selectOneMenu id="roles" value="#{userController.searchRole}" converter="#{roleConverter}" styleClass="dropDownRole">
+						<f:selectItem itemLabel="" />
+						<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role}" itemLabel="#{role.name}"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
 			</h:panelGrid>
 
 			<h:panelGrid border="0" columns="1" width="50%">
-				<h:panelGrid border="0" columns="2" styleClass="right">
+				<h:panelGrid border="0" columns="3" styleClass="right">
+					<p:spacer width="465" height="20"/>
 					<p:commandButton value="#{msg['search']}" actionListener="#{userController.searchUser()}" update="searchResultForm message"
 									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
 					<p:commandButton value="#{msg['clear']}" actionListener="#{userController.cleanSearchForm()}" update="searchForm"
@@ -72,16 +84,22 @@
 					<h:outputText value="#{item.surname}" />
 				</p:column>
 
-				<p:column width="29%" headerText="#{msg['user.email']}" styleClass="data">
+				<p:column width="18%" headerText="#{msg['user.email']}" styleClass="data">
 					<h:outputText value="#{item.email}" />
 				</p:column>
 
-				<p:column width="5%" headerText="#{msg['user.enabled']}" sortBy="#{item.enabled}" styleClass="data">
+				<p:column width="6%" headerText="#{msg['user.enabled']}" sortBy="#{item.enabled}" styleClass="data">
 					<p:selectBooleanCheckbox value="#{item.enabled}" disabled="true"/>
 				</p:column>
 
 				<p:column width="5%" headerText="#{msg['user.locked']}" sortBy="#{item.locked}" styleClass="data">
 					<p:selectBooleanCheckbox value="#{item.locked}" disabled="true"/>
+				</p:column>
+				
+				<p:column width="25%" headerText="#{msg['user.assRoles']}" styleClass="data">
+					<ui:repeat var="role" value="#{item.roles}">
+             			<h:outputText value="#{[role.name]} " />
+        			</ui:repeat>
 				</p:column>
 
 				<p:column width="6%" styleClass="actions">

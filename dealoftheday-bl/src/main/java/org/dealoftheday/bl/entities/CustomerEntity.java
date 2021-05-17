@@ -10,6 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 @Entity
 @Table(name = "CUSTOMER")
 public class CustomerEntity {
@@ -110,57 +115,48 @@ public class CustomerEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof CustomerEntity)) {
 			return false;
 		}
 		CustomerEntity other = (CustomerEntity) o;
-		if (id != null && !id.equals(other.id)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		if (surname != null && !surname.equals(other.surname)) {
-			return false;
-		}
-		if (birthDate != null && !birthDate.equals(other.birthDate)) {
-			return false;
-		}
-		if (email != null && !email.equals(other.email)) {
-			return false;
-		}
-		if (pwd != null && !pwd.equals(other.pwd)) {
-			return false;
-		}
-		if (tel != null && !tel.equals(other.tel)) {
-			return false;
-		}
-		if (sex != null && !sex.equals(other.sex)) {
-			return false;
-		}
-		return true;
+		return new EqualsBuilder()
+				.append(id, other.id)
+				.append(name, other.name)
+				.append(surname, other.surname)
+				.append(birthDate, other.birthDate)
+				.append(email, other.email)
+				.append(pwd, other.pwd)
+				.append(tel, other.tel)
+				.append(sex, other.sex)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id;
-		result = result + ((name == null) ? 0 : name.hashCode());
-		result = result + ((surname == null) ? 0 : surname.hashCode());
-		result = result + ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = result + ((email == null) ? 0 : email.hashCode());
-		result = result + ((pwd == null) ? 0 : pwd.hashCode());
-		result = result + ((tel == null) ? 0 : tel.hashCode());
-		result = result + ((sex == null) ? 0 : sex.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(id)
+				.append(name)
+				.append(surname)
+				.append(birthDate)
+				.append(email)
+				.append(pwd)
+				.append(tel)
+				.append(sex)
+				.toHashCode();
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", surname: " + surname
-				+ ", birthDate: " + birthDate + ", email: " + email + ", password: " + pwd + ", phone: " + tel 
-				+ ", sex: " + sex + ", active: " + active + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(id)
+				.append(name)
+				.append(surname)
+				.append(birthDate)
+				.append(email)
+				.append(pwd)
+				.append(tel)
+				.append(sex)
+				.toString();
 	}
 }

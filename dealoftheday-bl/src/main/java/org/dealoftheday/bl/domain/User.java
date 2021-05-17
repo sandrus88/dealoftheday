@@ -6,6 +6,7 @@ import java.util.List;
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
 
 public class User {
 
@@ -143,23 +144,28 @@ public class User {
 	
 	@Override
 	public int hashCode() {
-//		HashCodeBuilder hb;
-//		hb.hashCode();
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((pwd == null) ? 0 : pwd.hashCode());
-		result = prime * result + ((surname == null) ? 0 : surname.hashCode());
-		result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(userName)
+				.append(name)
+				.append(surname)
+				.append(email)
+				.append(pwd)
+				.append(enabled)
+				.append(locked)
+				.append(failedLoginCount)
+				.toHashCode();
 	}
 
 	@Override
 	public String toString() {
-//		ToStringBuilder tsb;
-//		tsb.toString();
-		return this.getClass().getSimpleName() + " [Username: " + userName + ", name: " + name + ", surname: " + surname
-				+ ", email: " + email + ", password: " + pwd + ", roles: " + roles + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(userName)
+				.append(name)
+				.append(surname)
+				.append(email)
+				.append(pwd)
+				.append(roles)
+				.toString();
 	}
 }

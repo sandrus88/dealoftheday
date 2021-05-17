@@ -3,10 +3,14 @@ package org.dealoftheday.bl.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.entities.RoleEntity;
 
 public class RoleAssembler {
+	
+	private static Logger logger = LogManager.getLogger(RoleAssembler.class);
 	
 	public static Role getDTO(RoleEntity entity) {
 		if (entity == null) {

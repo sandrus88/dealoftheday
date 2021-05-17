@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.dao.UserDao;
 import org.dealoftheday.bl.domain.User;
@@ -13,6 +15,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class UserDaoImpl extends GenericDao implements UserDao {
+
+	private static Logger logger = LogManager.getLogger(UserDaoImpl.class);
 
 	@Override
 	public UserEntity insert(UserEntity userEntity) {
@@ -34,8 +38,7 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 
 	@Override
 	public List<UserEntity> getAll() {
-		List<UserEntity> users = entityManager.createQuery("from UserEntity", UserEntity.class)
-				.getResultList();
+		List<UserEntity> users = entityManager.createQuery("from UserEntity", UserEntity.class).getResultList();
 		return users;
 	}
 
@@ -48,12 +51,15 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		}
 		return false;
 	}
-	
+
 	@Override
 	public List<UserEntity> searchUser(User searchDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select u from UserEntity u");
 		sql.append(" where 1=1");
+		if (!SGUtil.isEmpty(searchDto.getUserName())) {
+			sql.append(" and upper(u.userName) like upper(:username)");
+		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
 			sql.append(" and upper(u.name) like upper(:name)");
 		}
@@ -63,20 +69,34 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			sql.append(" and upper(u.email) like upper(:email)");
 		}
-		sql.append(" order by u.name desc");
-		
+		if (searchDto.getRoles() != null) {
+			sql.replace(27, 36, " join u.roles r where")
+			.append(" r.id in (:roleId)");
+			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
+		}
+		sql.append(" order by u.userName desc");
+
+		logger.info("Sql query to be executed: " + sql);
 		Query query = entityManager.createQuery(sql.toString());
-		
+
+		if (!SGUtil.isEmpty(searchDto.getUserName())) {
+			query = query.setParameter("username", "%" + searchDto.getUserName() + "%");
+		}
 		if (!SGUtil.isEmpty(searchDto.getName())) {
-			query = query.setParameter("name", "%"+searchDto.getName()+"%");
+			query = query.setParameter("name", "%" + searchDto.getName() + "%");
 		}
 		if (!SGUtil.isEmpty(searchDto.getSurname())) {
-			query = query.setParameter("surname", "%"+searchDto.getSurname()+"%");
+			query = query.setParameter("surname", "%" + searchDto.getSurname() + "%");
 		}
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
-			query = query.setParameter("email", "%"+searchDto.getEmail()+"%");
+			query = query.setParameter("email", "%" + searchDto.getEmail() + "%");
 		}
-		
+		if (searchDto.getRoles() != null) {
+			for (int i = 0; i < searchDto.getRoles().size(); i++) {
+				query = query.setParameter("roleId", searchDto.getRoles().get(i).getId());
+			}
+		}
+
 		@SuppressWarnings("unchecked")
 		List<UserEntity> users = query.getResultList();
 		return users;

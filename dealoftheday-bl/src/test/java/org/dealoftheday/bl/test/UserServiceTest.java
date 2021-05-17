@@ -13,6 +13,9 @@ import static org.junit.Assert.assertTrue;
 import java.util.Arrays;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+import org.dealoftheday.bl.dao.impl.RoleDaoImpl;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.domain.User;
 import org.dealoftheday.bl.service.UserService;
@@ -23,6 +26,8 @@ public class UserServiceTest extends AbstractSpringTest {
 	
 	@Autowired
 	private  UserService  userService;
+	
+	private static Logger logger = LogManager.getLogger(UserServiceTest.class);
 	
 	@Test
 	public void test_getUser_withoutRole() {
@@ -178,6 +183,19 @@ public class UserServiceTest extends AbstractSpringTest {
 		List<User> users = userService.searchUser(searchBean);
 		// Then
 		assertEquals(1, users.size());
+	}
+	
+	@Test
+	public void test_searchUsers_byRole() {
+		// Given
+		User searchBean = new User();
+		final Role adminRole = new Role(ROLE_ADMIN, "Administrator", "Full access and control");
+		searchBean.setRoles(Arrays.asList(adminRole));
+		// When
+		List<User> users = userService.searchUser(searchBean);
+		logger.debug("Lista utenti con role admin: " + users);
+		// Then
+		assertEquals(2, users.size());
 	}
 
 	@Test

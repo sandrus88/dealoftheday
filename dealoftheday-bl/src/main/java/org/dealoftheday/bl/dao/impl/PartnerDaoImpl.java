@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.assembler.CategoryAssembler;
 import org.dealoftheday.bl.assembler.CityAssembler;
 import org.dealoftheday.bl.dao.GenericDao;
@@ -15,6 +17,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class PartnerDaoImpl extends GenericDao implements PartnerDao {
+	
+	private static Logger logger = LogManager.getLogger(PartnerDaoImpl.class);
 
 	@Override
 	public PartnerEntity insert(PartnerEntity partnerEntity) {

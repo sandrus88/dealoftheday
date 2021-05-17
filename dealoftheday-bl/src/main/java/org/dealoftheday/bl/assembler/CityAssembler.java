@@ -3,12 +3,16 @@ package org.dealoftheday.bl.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.CityEntity;
 import org.dealoftheday.bl.entities.PartnerEntity;
 
 public class CityAssembler {
+	
+	private static Logger logger = LogManager.getLogger(CityAssembler.class);
 	
 	public static City getDTO(CityEntity entity) {
 		if (entity == null) {

@@ -10,6 +10,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Partner;
@@ -25,6 +27,8 @@ public class PartnerServiceTest extends AbstractSpringTest {
 
 	@Autowired
 	private CityService cityService;
+	
+	private static Logger logger = LogManager.getLogger(PartnerServiceTest.class);
 
 	@Test
 	public void test_getPartner() {

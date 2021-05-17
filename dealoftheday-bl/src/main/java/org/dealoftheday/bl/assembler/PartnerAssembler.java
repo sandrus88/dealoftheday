@@ -3,10 +3,14 @@ package org.dealoftheday.bl.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.PartnerEntity;
 
 public class PartnerAssembler {
+	
+	private static Logger logger = LogManager.getLogger(PartnerAssembler.class);
 
 	public static Partner getDTO(PartnerEntity entity) {
 		if (entity == null) {

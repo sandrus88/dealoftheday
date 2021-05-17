@@ -40,3 +40,6 @@ insert into role (ID, NAME, DESCRIPTION) values (4, 'Viewer', 'Role for only acc
 insert into role (ID, NAME, DESCRIPTION) values (5, 'Administrator', 'Full access and control');
 
 insert into user_role (USER_ID, ROLE_ID) values ('admin', 5);
+insert into user_role (USER_ID, ROLE_ID) values ('user2', 5);
+insert into user_role (USER_ID, ROLE_ID) values ('user2', 1);
+

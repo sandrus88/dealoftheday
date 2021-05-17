@@ -11,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 import java.text.ParseException;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.service.CustomerService;
 import org.dealoftheday.bl.test.util.TestUtils;
@@ -21,6 +23,8 @@ public class CustomerServiceTest extends AbstractSpringTest {
 
 	@Autowired
 	private CustomerService customerService;
+	
+	private static Logger logger = LogManager.getLogger(CustomerServiceTest.class);
 
 	@Test
 	public void test_getCustomer() throws ParseException {
