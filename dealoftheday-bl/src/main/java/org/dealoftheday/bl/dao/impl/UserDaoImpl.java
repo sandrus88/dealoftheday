@@ -61,6 +61,16 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 	public List<UserEntity> searchUser(User searchDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select u from UserEntity u");
+		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
+			sql.append(" join u.roles r")
+			.append(" where r.id = :roleId0");
+			String str = "";
+			for(int i = 1; i < searchDto.getRoles().size(); i++) {
+				str = str + " or r.id = :roleId" + i;
+			}
+			sql.append(str);
+			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
+		}
 		sql.append(" where 1=1");
 		if (!SGUtil.isEmpty(searchDto.getUserName())) {
 			sql.append(" and upper(u.userName) like upper(:username)");
@@ -73,11 +83,6 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		}
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			sql.append(" and upper(u.email) like upper(:email)");
-		}
-		if (searchDto.getRoles() != null) {
-			sql.replace(27, 36, " join u.roles r where")
-			.append(" r.id = :roleId");
-			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
 		}
 		if(searchDto.getEnabled() != null) {
 			sql.append(" and u.enabled = :enabled");
@@ -102,10 +107,8 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			query = query.setParameter("email", "%" + searchDto.getEmail() + "%");
 		}
-		if (searchDto.getRoles() != null) {
-			for (int i = 0; i < searchDto.getRoles().size(); i++) {
-				query = query.setParameter("roleId", searchDto.getRoles().get(i).getId());
-			}
+		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
+				query = query.setParameter("roleId0, " + "roleId1, " + "roleId2, " + "roleId3, " + "roleId4", searchDto.getRoles().get(0).getId());
 		}
 		if (searchDto.getEnabled() != null) {
 			query = query.setParameter("enabled", UserAssembler.getIntFromBoolean(searchDto.getEnabled()));

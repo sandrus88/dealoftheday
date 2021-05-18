@@ -24,8 +24,6 @@ import org.dealoftheday.bl.domain.User;
 @Table(name = "USERS")
 public class UserEntity {
 	
-	@Column(name = "LMD")
-	private Date lastUpdate;
 	@Id
 	@Column(name = "USERNAME")
 	private String userName;
@@ -43,6 +41,8 @@ public class UserEntity {
 	private int locked;
 	@Column(name = "FAILED_LOGIN_COUNT")
 	private int failedLoginCount;
+	@Column(name = "LAST_UPDATE")
+	private Date lastUpdate;
 	
 	@ManyToMany
 	@JoinTable(name = "USER_ROLE", 

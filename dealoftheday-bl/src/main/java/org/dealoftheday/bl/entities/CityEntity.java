@@ -1,5 +1,6 @@
 package org.dealoftheday.bl.entities;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,17 +18,17 @@ import org.dealoftheday.bl.domain.City;
 @Table(name = "CITY")
 public class CityEntity {
 	
-	@Column(name = "LMD")
-	private Date lastUpdate;
 	@Id
 	@Column(name = "ID")
 	private String id;
 	@Column(name = "NAME")
 	private String name;
 	@Column(name = "LAT")
-	private Double lat;
+	private Float lat;
 	@Column(name = "LNG")
-	private Double lng;
+	private Float lng;
+	@Column(name = "LAST_UPDATE")
+	private Date lastUpdate;
 	
 	public Date getLastUpdate() {
 		return lastUpdate;
@@ -47,19 +48,19 @@ public class CityEntity {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Double getLat() {
+
+	public Float getLat() {
 		return lat;
 	}
-	public void setLat(Double late) {
-		this.lat = late;
+	public void setLat(Float lat) {
+		this.lat = lat;
 	}
-	public Double getLng() {
+	public Float getLng() {
 		return lng;
 	}
-	public void setLng(Double lng) {
+	public void setLng(Float lng) {
 		this.lng = lng;
 	}
-
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof CityEntity)) {

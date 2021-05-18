@@ -16,8 +16,9 @@ create table customer (
 create table city (	
     ID varchar2(2 byte), 
     NAME varchar2(100 byte), 
-    LAT double,
-    LNG double,
+    LAT float,
+    LNG float,
+    LAST_UPDATE date,
         
     PRIMARY KEY (ID)
 );
@@ -46,12 +47,14 @@ create table users (
     ENABLED number(1),
     LOCKED	number(1),
     FAILED_LOGIN_COUNT number,
+    LAST_UPDATE date,
         
     PRIMARY KEY (USERNAME)
 );
 
 create table role (	
-    ID varchar2(100 byte), 
+    ID number,
+    NAME varchar2(100 byte),
     DESCRIPTION varchar2(100 byte), 
         
     PRIMARY KEY (ID)
@@ -59,7 +62,7 @@ create table role (
 
 create table user_role (
 	USER_ID varchar2(100 byte),
-    ROLE_ID varchar2(100 byte),  
+    ROLE_ID number,  
         
     PRIMARY KEY (USER_ID, ROLE_ID),
     CONSTRAINT users_to_role_fk FOREIGN KEY (USER_ID) REFERENCES users(USERNAME),

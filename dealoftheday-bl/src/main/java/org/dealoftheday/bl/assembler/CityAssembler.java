@@ -1,5 +1,7 @@
 package org.dealoftheday.bl.assembler;
 
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,8 +25,8 @@ public class CityAssembler {
 		dto.setLastUpdate(entity.getLastUpdate());
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setLat(entity.getLat());
-		dto.setLng(entity.getLng());
+		dto.setLat(new Double(entity.getLat()));
+		dto.setLng(new Double(entity.getLng()));
 		return dto;
 	}
 
@@ -37,8 +39,8 @@ public class CityAssembler {
 		entity.setLastUpdate(dto.getLastUpdate());
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setLat(dto.getLat());
-		entity.setLng(dto.getLng());
+		entity.setLat(new Float(dto.getLat()));
+		entity.setLng(new Float(dto.getLng()));
 		return entity;
 	}
 

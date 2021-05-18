@@ -165,7 +165,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	public void test_searchUsers_byName() {
 		// Given
 		User searchBean = new User();
-		searchBean.setName("User2Name");
+		searchBean.setName("Sandro");
 
 		// When
 		List<User> users = userService.searchUser(searchBean);
@@ -178,7 +178,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	public void test_searchUsers_bySurname() {
 		// Given
 		User searchBean = new User();
-		searchBean.setSurname("User2Surname");
+		searchBean.setSurname("Gargano");
 
 		// When
 		List<User> users = userService.searchUser(searchBean);
@@ -191,7 +191,7 @@ public class UserServiceTest extends AbstractSpringTest {
 	public void test_searchUsers_byEmail() {
 		// Given
 		User searchBean = new User();
-		searchBean.setEmail("user2@hotmail.it");
+		searchBean.setEmail("sandro_gargano@hotmail.it");
 		// When
 		List<User> users = userService.searchUser(searchBean);
 		// Then

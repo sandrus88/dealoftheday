@@ -54,12 +54,6 @@
 			<p:dataTable value="#{cityController.cityList}" var="item" id="citiesTable" emptyMessage="#{msg['city.empty.table']}"
 				paginator="true" rows="5" rowsPerPageTemplate="5,50,100"
 				paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{cityController.cityList.size()}">
-				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
-					<h:outputText value="#{item.lastUpdate}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
-					</h:outputText>	
-				</p:column>
-				
 				<p:column width="4%" headerText="#{msg['city.id']}" sortBy="#{item.id}" styleClass="data">
 					<h:outputText value="#{item.id}" />
 				</p:column>
@@ -69,11 +63,21 @@
 				</p:column>
 
 				<p:column width="28%" headerText="#{msg['city.latitude']}" styleClass="data">
-					<h:outputText value="#{item.lat}" />
+					<h:outputText value="#{item.lat}">
+						<f:convertNumber pattern="#0.00000"/>
+					</h:outputText>	
 				</p:column>
 
 				<p:column width="28%" headerText="#{msg['city.longitude']}" styleClass="data">
-					<h:outputText value="#{item.lng}" />
+					<h:outputText value="#{item.lng}">
+						<f:convertNumber pattern="#0.00000"/>
+					</h:outputText>	
+				</p:column>
+				
+				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
+					<h:outputText value="#{item.lastUpdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
 				</p:column>
 
 				<p:column width="6%" styleClass="actions">

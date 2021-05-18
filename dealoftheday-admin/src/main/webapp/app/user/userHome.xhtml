@@ -84,13 +84,7 @@
 
 			<p:dataTable value="#{userController.userList}" var="item" id="usersTable" emptyMessage="#{msg['user.empty.table']}"
 						 paginator="true" rows="5" rowsPerPageTemplate="5,50,100"
-						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{userController.userList.size()}">
-				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
-					<h:outputText value="#{item.lastUpdate}">
-						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
-					</h:outputText>	
-				</p:column>		 
-						 
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{userController.userList.size()}">		 		 
 				<p:column width="10%" headerText="#{msg['user.username']}" sortBy="#{item.userName}" styleClass="data">
 					<h:outputText value="#{item.userName}" />
 				</p:column>
@@ -119,6 +113,12 @@
 					<ui:repeat var="role" value="#{item.roles}" varStatus="loop">
              			<h:outputText value="#{role.name}#{not loop.last ? ', ' : ''}" />
         			</ui:repeat>
+				</p:column>
+				
+				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
+					<h:outputText value="#{item.lastUpdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
 				</p:column>
 
 				<p:column width="6%" styleClass="actions">
