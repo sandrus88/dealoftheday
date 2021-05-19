@@ -25,8 +25,8 @@ public class CityAssembler {
 		dto.setLastUpdate(entity.getLastUpdate());
 		dto.setId(entity.getId());
 		dto.setName(entity.getName());
-		dto.setLat(new Double(entity.getLat()));
-		dto.setLng(new Double(entity.getLng()));
+		dto.setLat(entity.getLat());
+		dto.setLng(entity.getLng());
 		return dto;
 	}
 
@@ -39,8 +39,8 @@ public class CityAssembler {
 		entity.setLastUpdate(dto.getLastUpdate());
 		entity.setId(dto.getId());
 		entity.setName(dto.getName());
-		entity.setLat(new Float(dto.getLat()));
-		entity.setLng(new Float(dto.getLng()));
+		entity.setLat(dto.getLat());
+		entity.setLng(dto.getLng());
 		return entity;
 	}
 

@@ -12,14 +12,14 @@ public class City {
 	private Date lastUpdate;
 	private String id;
 	private String name;
-	private Double lat;
-	private Double lng;
+	private Float lat;
+	private Float lng;
 		
 	public City() {
 		
 	}
 
-	public City(String id, String name, Double late, Double lng) {
+	public City(String id, String name, Float late, Float lng) {
 		this.id = id;
 		this.name = name;
 		this.lat = late;
@@ -50,19 +50,19 @@ public class City {
 		this.name = name;
 	}
 
-	public Double getLat() {
+	public Float getLat() {
 		return lat;
 	}
 
-	public void setLat(Double late) {
-		this.lat = late;
+	public void setLat(Float lat) {
+		this.lat = lat;
 	}
 
-	public Double getLng() {
+	public Float getLng() {
 		return lng;
 	}
 
-	public void setLng(Double lng) {
+	public void setLng(Float lng) {
 		this.lng = lng;
 	}
 

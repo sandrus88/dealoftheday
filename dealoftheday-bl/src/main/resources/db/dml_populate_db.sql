@@ -41,3 +41,4 @@ insert into role (ID, NAME, DESCRIPTION) values (5, 'Administrator', 'Full acces
 
 insert into user_role (USER_ID, ROLE_ID) values ('admin', 5);
 insert into user_role (USER_ID, ROLE_ID) values ('admin', 3);
+insert into user_role (USER_ID, ROLE_ID) values ('userSandro', 4);

@@ -25,8 +25,8 @@ public class CityController {
 
 	private String newId;
 	private String newName;
-	private Double newLat;
-	private Double newLng;
+	private Float newLat;
+	private Float newLng;
 	
 	private String searchId;
 	private String searchName;
@@ -96,19 +96,19 @@ public class CityController {
 		this.newName = newName;
 	}
 
-	public Double getNewLat() {
+	public Float getNewLat() {
 		return newLat;
 	}
 
-	public void setNewLat(Double newLat) {
+	public void setNewLat(Float newLat) {
 		this.newLat = newLat;
 	}
 
-	public Double getNewLng() {
+	public Float getNewLng() {
 		return newLng;
 	}
 
-	public void setNewLng(Double newLng) {
+	public void setNewLng(Float newLng) {
 		this.newLng = newLng;
 	}
 

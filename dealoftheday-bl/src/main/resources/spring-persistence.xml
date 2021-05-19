@@ -10,7 +10,7 @@
 			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd"
 >
 	<!--H2-->
-	 <bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
+	<bean id="dataSource" destroy-method="close" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="driverClassName" value="org.h2.Driver" />
 		<property name="url" value="jdbc:h2:mem:alm;MODE=Oracle;DB_CLOSE_DELAY=-1;" />
 		<property name="username" value="sa" />

@@ -42,8 +42,8 @@ public class TestUtils {
 		City city = new City();
 		city.setId("FI");
 		city.setName("New City");
-		city.setLat(0.1);
-		city.setLng(0.1);
+		city.setLat(0.1f);
+		city.setLng(0.1f);
 		return city;
 	}
 
@@ -57,8 +57,8 @@ public class TestUtils {
 	public static City updateCity(City city) {
 		city.setId("MI");
 		city.setName("Updated City");
-		city.setLat(1.1);
-		city.setLng(1.1);
+		city.setLat(1.1f);
+		city.setLng(1.1f);
 		return city;
 	}
 

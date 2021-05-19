@@ -1,5 +1,6 @@
 package org.dealoftheday.bl.dao.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -60,16 +61,10 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 	@Override
 	public List<UserEntity> searchUser(User searchDto) {
 		StringBuilder sql = new StringBuilder();
-		sql.append("select u from UserEntity u");
+		sql.append("select distinct u");
+		sql.append(" from UserEntity u");
 		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
-			sql.append(" join u.roles r")
-			.append(" where r.id = :roleId0");
-			String str = "";
-			for(int i = 1; i < searchDto.getRoles().size(); i++) {
-				str = str + " or r.id = :roleId" + i;
-			}
-			sql.append(str);
-			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
+			sql.append(" join u.roles r");
 		}
 		sql.append(" where 1=1");
 		if (!SGUtil.isEmpty(searchDto.getUserName())) {
@@ -84,17 +79,26 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			sql.append(" and upper(u.email) like upper(:email)");
 		}
-		if(searchDto.getEnabled() != null) {
+		if (searchDto.getEnabled() != null) {
 			sql.append(" and u.enabled = :enabled");
 		}
-		if(searchDto.getLocked() != null) {
+		if (searchDto.getLocked() != null) {
 			sql.append(" and u.locked = :locked");
+		}
+		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
+			sql.append(" and r.id = :roleId0");
+			String str = "";
+			for (int i = 1; i < searchDto.getRoles().size(); i++) {
+				str = str + " or r.id = :roleId" + i;
+			}
+			sql.append(str);
+			logger.debug("Roles to filter by in the query: " + searchDto.getRoles());
 		}
 		sql.append(" order by u.lastUpdate desc");
 
 		logger.info("Sql query to be executed: " + sql);
 		Query query = entityManager.createQuery(sql.toString());
-		
+
 		if (!SGUtil.isEmpty(searchDto.getUserName())) {
 			query = query.setParameter("username", "%" + searchDto.getUserName() + "%");
 		}
@@ -107,19 +111,20 @@ public class UserDaoImpl extends GenericDao implements UserDao {
 		if (!SGUtil.isEmpty(searchDto.getEmail())) {
 			query = query.setParameter("email", "%" + searchDto.getEmail() + "%");
 		}
-		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
-				query = query.setParameter("roleId0, " + "roleId1, " + "roleId2, " + "roleId3, " + "roleId4", searchDto.getRoles().get(0).getId());
-		}
 		if (searchDto.getEnabled() != null) {
 			query = query.setParameter("enabled", UserAssembler.getIntFromBoolean(searchDto.getEnabled()));
 		}
 		if (searchDto.getLocked() != null) {
 			query = query.setParameter("locked", UserAssembler.getIntFromBoolean(searchDto.getLocked()));
 		}
+		if (searchDto.getRoles() != null && !searchDto.getRoles().isEmpty()) {
+			for (int i = 0; i < searchDto.getRoles().size(); i++) {
+				query = query.setParameter("roleId" + i, searchDto.getRoles().get(i).getId());
+			}
+		}
 
 		@SuppressWarnings("unchecked")
 		List<UserEntity> users = query.getResultList();
 		return users;
 	}
-
 }
