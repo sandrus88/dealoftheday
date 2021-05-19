@@ -103,5 +103,9 @@ a:link {
 	white-space: nowrap !important;
 }
 
+.ui-selectmanycheckbox.searchCheck {
+	white-space: nowrap !important; 
+}
+
 /*END primefaces re-write properties*/
 

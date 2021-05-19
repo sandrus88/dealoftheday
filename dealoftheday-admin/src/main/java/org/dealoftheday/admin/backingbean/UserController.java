@@ -37,7 +37,7 @@ public class UserController {
 	private String searchName;
 	private String searchSurname;
 	private String searchEmail;
-	private Role searchRole;
+	private List<Role> searchRoles;
 	private Boolean searchEnabled;
 	private Boolean searchLocked;
 
@@ -55,12 +55,8 @@ public class UserController {
 	}
 
 	public void searchUser() {
-		List<Role> rolesList = null;
-		if (searchRole != null) {
-			rolesList = Arrays.asList(searchRole);
-		}
 		User searchDto = new User(searchUsername, searchName, searchSurname, searchEmail, null, searchEnabled,
-				searchLocked, -1, rolesList);
+				searchLocked, -1, searchRoles);
 		userList = userService.searchUser(searchDto);
 	}
 
@@ -80,7 +76,7 @@ public class UserController {
 		searchName = null;
 		searchSurname = null;
 		searchEmail = null;
-		searchRole = null;
+		searchRoles = null;
 		searchEnabled = null;
 		searchLocked = null;
 	}
@@ -112,14 +108,6 @@ public class UserController {
 		userService.delete(user.getUserName());
 		searchUser();
 	}
-
-//	public void showRolesNames(List<Role> roleList) {
-//		String name = null;
-//		for (int i = 0; i < roleList.size(); i++) {
-//			name = roleList.get(i).getName();
-//		}
-//		SGUtil.getListAsString(Arrays.asList(name));
-//	}
 
 	public String getNewUserName() {
 		return newUserName;
@@ -209,12 +197,12 @@ public class UserController {
 		this.searchUsername = searchUsername;
 	}
 
-	public Role getSearchRole() {
-		return searchRole;
+	public List<Role> getSearchRoles() {
+		return searchRoles;
 	}
 
-	public void setSearchRole(Role searchRole) {
-		this.searchRole = searchRole;
+	public void setSearchRoles(List<Role> searchRoles) {
+		this.searchRoles = searchRoles;
 	}
 
 	public Boolean getSearchEnabled() {

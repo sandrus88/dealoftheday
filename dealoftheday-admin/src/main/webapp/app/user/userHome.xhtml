@@ -18,27 +18,16 @@
 					<p:outputLabel for="username" value="#{msg['user.username']}" styleClass="searchNoWrap"/>
 					<p:inputText id="username" value="#{userController.searchUsername}" maxlength="20" size="5"/>
 					
-					<p:spacer width="1" height="20"/>
-					<p:spacer width="80" height="20"/>
-				</h:panelGrid>
-
-				<h:panelGrid columns="2">
 					<p:outputLabel for="name" value="#{msg['user.name']}" />
 					<p:inputText id="name" value="#{userController.searchName}" maxlength="20" />
-					
-					<p:outputLabel for="email" value="#{msg['user.email']}" />
-					<p:inputText id="email" value="#{userController.searchEmail}" maxlength="20"/>
 				</h:panelGrid>
-				
+
 				<h:panelGrid columns="2">
 					<p:outputLabel for="surname" value="#{msg['user.surname']}" />
 					<p:inputText id="surname" value="#{userController.searchSurname}" maxlength="20" />
 					
-					<p:outputLabel for="roles" value="#{msg['user.roles']}" />
-					<p:selectOneMenu id="roles" value="#{userController.searchRole}" converter="#{roleConverter}" styleClass="dropDownRole">
-						<f:selectItem itemLabel="" />
-						<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role}" itemLabel="#{role.name}"/>
-					</p:selectOneMenu>
+					<p:outputLabel for="email" value="#{msg['user.email']}" />
+					<p:inputText id="email" value="#{userController.searchEmail}" maxlength="20"/>
 				</h:panelGrid>
 				
 				<h:panelGrid columns="2" styleClass="right">
@@ -55,11 +44,21 @@
 						<f:selectItem itemLabel="#{msg['customer.label.no']}" itemValue="#{false}"/>
 					</p:selectOneMenu>
 				</h:panelGrid>
+				
+				<h:panelGrid columns="2">
+					<p:spacer width="1" height="20"/>
+					<p:spacer width="80" height="20"/>
+					
+					<p:outputLabel for="roles" value="#{msg['user.roles']}" />
+					<p:selectManyCheckbox id="roles" value="#{userController.searchRoles}" converter="#{roleConverter}" styleClass="searchCheck">
+						<f:selectItems value="#{userController.allRoles}" var="role" itemValue="#{role}" itemLabel="#{role.name}"/>
+					</p:selectManyCheckbox>
+				</h:panelGrid>
 			</h:panelGrid>
 
 			<h:panelGrid border="0" columns="1" width="50%">
 				<h:panelGrid border="0" columns="3" styleClass="right">
-					<p:spacer width="562" height="20"/>
+					<p:spacer width="965" height="20"/>
 					<p:commandButton value="#{msg['search']}" actionListener="#{userController.searchUser()}" update="searchResultForm message"
 									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
 					<p:commandButton value="#{msg['clear']}" actionListener="#{userController.cleanSearchForm()}" update="searchForm"
