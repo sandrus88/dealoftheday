@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.assembler.CustomerAssembler;
 import org.dealoftheday.bl.dao.CustomerDao;
 import org.dealoftheday.bl.dao.GenericDao;
@@ -14,6 +16,8 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CustomerDaoImpl extends GenericDao implements CustomerDao {
+	
+	private static Logger logger = LogManager.getLogger(CustomerDaoImpl.class);
 
 	@Override
 	public CustomerEntity insert(CustomerEntity customerEntity) {

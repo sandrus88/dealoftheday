@@ -3,6 +3,8 @@ package org.dealoftheday.bl.assembler;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.entities.CustomerEntity;
 
@@ -10,6 +12,8 @@ public class CustomerAssembler {
 
 	public static final int ENABLE_1 = 1;
 	public static final int ENABLE_0 = 0;
+	
+	private static Logger logger = LogManager.getLogger(CustomerAssembler.class);
 
 	public static Customer getDTO(CustomerEntity entity) {
 		if (entity == null) {

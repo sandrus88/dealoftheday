@@ -9,6 +9,8 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.ViewScoped;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.service.CustomerService;
 
@@ -18,6 +20,8 @@ public class CustomerController {
 
 	@ManagedProperty(value = "#{customerService}")
 	private CustomerService customerService;
+	
+	private static Logger logger = LogManager.getLogger(CustomerController.class);
 
 	private String newName;
 	private String newSurname;

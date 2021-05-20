@@ -62,12 +62,22 @@
 					<h:outputText value="#{item.name}" />
 				</p:column>
 
-				<p:column width="35%" headerText="#{msg['city.latitude']}" styleClass="data">
-					<h:outputText value="#{item.lat}" />
+				<p:column width="28%" headerText="#{msg['city.latitude']}" styleClass="data">
+					<h:outputText value="#{item.lat}">
+						<f:convertNumber pattern="#0.00000"/>
+					</h:outputText>	
 				</p:column>
 
-				<p:column width="35%" headerText="#{msg['city.longitude']}" styleClass="data">
-					<h:outputText value="#{item.lng}" />
+				<p:column width="28%" headerText="#{msg['city.longitude']}" styleClass="data">
+					<h:outputText value="#{item.lng}">
+						<f:convertNumber pattern="#0.00000"/>
+					</h:outputText>	
+				</p:column>
+				
+				<p:column width="14%" headerText="#{msg['user.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
+					<h:outputText value="#{item.lastUpdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
 				</p:column>
 
 				<p:column width="6%" styleClass="actions">

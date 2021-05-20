@@ -8,6 +8,8 @@ import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.domain.Partner;
+import org.dealoftheday.bl.domain.Role;
+import org.dealoftheday.bl.domain.User;
 
 public class TestUtils {
 
@@ -40,11 +42,11 @@ public class TestUtils {
 		City city = new City();
 		city.setId("FI");
 		city.setName("New City");
-		city.setLat(0.1);
-		city.setLng(0.1);
+		city.setLat(0.1f);
+		city.setLng(0.1f);
 		return city;
 	}
-	
+
 	public static City getDefaultCity() {
 		City city = new City();
 		city.setId("FI");
@@ -55,8 +57,8 @@ public class TestUtils {
 	public static City updateCity(City city) {
 		city.setId("MI");
 		city.setName("Updated City");
-		city.setLat(1.1);
-		city.setLng(1.1);
+		city.setLat(1.1f);
+		city.setLng(1.1f);
 		return city;
 	}
 
@@ -83,10 +85,38 @@ public class TestUtils {
 		partner.setCategory(Category.BAR_AND_DRINKS);
 		return partner;
 	}
-	
+
 	public static Date formatDate(String str) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = sdf.parse(str);
 		return date;
 	}
+
+	public static User createUser(String username) {
+		User user = new User();
+		user.setUserName(username);
+		user.setName(username + "Name");
+		user.setSurname(username + "Surname");
+		user.setEmail(username + "@gmail.com");
+		user.setPwd(username);
+		user.setEnabled(true);
+		user.setLocked(false);
+		return user;
+	}
+
+	public static User updateUser(User user) {
+		user.setName("updatedName");
+		user.setSurname("updatedSurname");
+		user.setEmail("updatedName_updatedSurname@gmail.com");
+		user.setPwd("updatedPwd");
+		user.setEnabled(false);
+		user.setLocked(true);
+		return user;
+	}
+
+//	public static Role createRole() {
+//		Role role = new Role();
+//		role.setId(roleName);
+//		return role;
+//	}
 }

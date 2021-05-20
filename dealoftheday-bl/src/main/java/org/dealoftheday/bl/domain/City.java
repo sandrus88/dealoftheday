@@ -1,21 +1,37 @@
 package org.dealoftheday.bl.domain;
 
+import java.util.Date;
+
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 public class City {
 	
+	private Date lastUpdate;
 	private String id;
 	private String name;
-	private Double lat;
-	private Double lng;
+	private Float lat;
+	private Float lng;
 		
 	public City() {
 		
 	}
 
-	public City(String id, String name, Double late, Double lng) {
+	public City(String id, String name, Float late, Float lng) {
 		this.id = id;
 		this.name = name;
 		this.lat = late;
 		this.lng = lng;
+	}
+	
+	public Date getLastUpdate() {
+		return lastUpdate;
+	}
+
+	public void setLastUpdate(Date lastUpdate) {
+		this.lastUpdate = lastUpdate;
 	}
 
 	public String getId() {
@@ -34,52 +50,54 @@ public class City {
 		this.name = name;
 	}
 
-	public Double getLat() {
+	public Float getLat() {
 		return lat;
 	}
 
-	public void setLat(Double late) {
-		this.lat = late;
+	public void setLat(Float lat) {
+		this.lat = lat;
 	}
 
-	public Double getLng() {
+	public Float getLng() {
 		return lng;
 	}
 
-	public void setLng(Double lng) {
+	public void setLng(Float lng) {
 		this.lng = lng;
 	}
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof City)) {
 			return false;
 		}
 		City other = (City) o;
-		if (id != null && !id.equals(other.id)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		return true;
+		return new EqualsBuilder()
+				.append(id, other.id)
+				.append(name, other.name)
+				.append(lat, other.lat)
+				.append(lng, other.lng)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((id == null) ? 0 : id.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(id)
+				.append(name)
+				.append(lat)
+				.append(lng)
+				.toHashCode();
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", latitude: " + lat
-				+ ", longitude: " + lng + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(id)
+				.append(name)
+				.append(lat)
+				.append(lng)
+				.toString();
 	}
 }

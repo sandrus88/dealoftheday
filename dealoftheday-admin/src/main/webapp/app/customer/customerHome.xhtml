@@ -33,9 +33,7 @@
 
 				<h:panelGrid columns="2">
 					<p:outputLabel for="email" value="#{msg['customer.email']}" />
-					<p:inputText id="email" value="#{customerController.searchEmail}" maxlength="20">
-						<f:validator validatorId="emailValidator" />
-					</p:inputText>
+					<p:inputText id="email" value="#{customerController.searchEmail}" maxlength="20"/>
 					<p:outputLabel for="tel" value="#{msg['customer.tel']}" />
 					<p:inputText id="tel" value="#{customerController.searchTel}" />
 				</h:panelGrid>
@@ -98,7 +96,7 @@
 
 				<p:column width="8%" headerText="#{msg['customer.birthdate']}" styleClass="data">
 					<h:outputText value="#{item.birthDate}">
-						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET"/>
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
 					</h:outputText>
 				</p:column>
 

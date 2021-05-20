@@ -11,6 +11,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
+import org.apache.commons.lang.builder.EqualsBuilder;
+import org.apache.commons.lang.builder.HashCodeBuilder;
+import org.apache.commons.lang.builder.ToStringBuilder;
+import org.apache.commons.lang.builder.ToStringStyle;
+
 @Entity
 @Table(name = "PARTNER")
 public class PartnerEntity {
@@ -113,60 +118,49 @@ public class PartnerEntity {
 
 	@Override
 	public boolean equals(Object o) {
-		if (o == null) {
-			return false;
-		}
 		if (!(o instanceof PartnerEntity)) {
 			return false;
 		}
 		PartnerEntity other = (PartnerEntity) o;
-		if (id != null && !id.equals(other.id)) {
-			return false;
-		}
-		if (name != null && !name.equals(other.name)) {
-			return false;
-		}
-		if (address != null && !address.equals(other.address)) {
-			return false;
-		}
-		if (tel != null && !tel.equals(other.tel)) {
-			return false;
-		}
-		if (cell != null && !cell.equals(other.cell)) {
-			return false;
-		}
-		if (email != null && !email.equals(other.email)) {
-			return false;
-		}
-		if (webSite != null && !webSite.equals(other.webSite)) {
-			return false;
-		}
-		if (category != null && !category.equals(other.category)) {
-			return false;
-		}
-		if (cityEntity != null && !cityEntity.equals(other.cityEntity)) {
-			return false;
-		}
-		return true;
+		return new EqualsBuilder()
+				.append(id, other.id)
+				.append(name, other.name)
+				.append(address, other.address)
+				.append(tel, other.tel)
+				.append(cell, other.cell)
+				.append(email, other.email)
+				.append(webSite, other.webSite)
+				.append(category, other.category)
+				.append(cityEntity, other.cityEntity)
+				.isEquals();
 	}
 
 	@Override
 	public int hashCode() {
-		int result = id;
-		result = result + ((name == null) ? 0 : name.hashCode());
-		result = result + ((address == null) ? 0 : address.hashCode());
-		result = result + ((tel == null) ? 0 : tel.hashCode());
-		result = result + ((cell == null) ? 0 : cell.hashCode());
-		result = result + ((email == null) ? 0 : email.hashCode());
-		result = result + ((webSite == null) ? 0 : webSite.hashCode());
-		result = result + ((category == null) ? 0 : category.hashCode());
-		result = result + ((cityEntity == null) ? 0 : cityEntity.hashCode());
-		return result;
+		return new HashCodeBuilder()
+				.append(name)
+				.append(address)
+				.append(tel)
+				.append(cell)
+				.append(email)
+				.append(webSite)
+				.append(category)
+				.append(cityEntity)
+				.toHashCode();
 	}
 
 	@Override
 	public String toString() {
-		return this.getClass().getSimpleName() + " [id: " + id + ", name: " + name + ", address: " + address + ", tel: "
-				+ tel + ", cell: " + cell + ", email: " + email + ", webSite: " + webSite + ", category: " + category + ", city: " + cityEntity.getName() + "]";
+		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
+				.appendSuper(super.toString())
+				.append(name)
+				.append(address)
+				.append(tel)
+				.append(cell)
+				.append(email)
+				.append(webSite)
+				.append(category)
+				.append(cityEntity)
+				.toString();
 	}
 }

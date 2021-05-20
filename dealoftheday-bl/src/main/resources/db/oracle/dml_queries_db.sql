@@ -137,6 +137,34 @@ where description is not null;
 select * from topic
 where id between 301 and 304;
 
+select *
+from users u 
+left outer join user_role ur on ur.user_id = u.username
+left outer join role r on ur.role_id = r.id
+where 1=1
+--and r.id = 5
+--and u.name like '%Ad%'
+--and u.surname like '%3S%'
+--and u.email like '%use%'
+--and r.id in (1, 2, 3)
+and (r.id = 1 or r.id = 2 or r.id = 3)
+;
+
+insert into  user_role values ('admin', 2);
+
+--select u.username, u.name, u.surname, u.email, u.pwd, u.enabled, u.locked, u.failed_login_count, u.last_update, COUNT(*) nrRoles
+--select distinct u.username, u.name, u.surname, u.email, u.pwd, u.enabled, u.locked, u.failed_login_count, u.last_update
+select distinct u.*
+from USERS u
+    inner join USER_ROLE ur 
+        on u.USERNAME=ur.USER_ID 
+    inner join ROLE r 
+        on ur.ROLE_ID=r.ID 
+where 1=1 
+and r.ID=3 or r.ID=3 or r.ID=5
+--group by u.username, u.name, u.surname, u.email, u.pwd, u.enabled, u.locked, u.failed_login_count, u.last_update
+order by u.LAST_UPDATE desc
+
 
 
 

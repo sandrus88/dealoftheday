@@ -59,7 +59,7 @@
 			<p:message id="categoryMsg" for="category" display="icon" />
 
 			<p:outputLabel for="city" value="#{msg['partner.city']}" />
-			<p:selectOneMenu id="city" value="#{partnerController.newCity}" converter="partnerCityConverter" required="true">
+			<p:selectOneMenu id="city" value="#{partnerController.newCity}" converter="#{partnerCityConverter}" required="true">
 				<f:selectItem itemLabel="" />
 				<f:selectItems value="#{partnerController.allCities}" var="city" itemValue="#{city}" itemLabel="#{city.id} - #{city.name}" />
 			</p:selectOneMenu>

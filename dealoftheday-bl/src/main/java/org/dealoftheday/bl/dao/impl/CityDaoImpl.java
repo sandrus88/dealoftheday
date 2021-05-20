@@ -1,9 +1,12 @@
 package org.dealoftheday.bl.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.dealoftheday.bl.dao.CityDao;
 import org.dealoftheday.bl.dao.GenericDao;
 import org.dealoftheday.bl.domain.City;
@@ -13,9 +16,12 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public class CityDaoImpl extends GenericDao implements CityDao {
+	
+	private static Logger logger = LogManager.getLogger(CityDaoImpl.class);
 
 	@Override
 	public CityEntity insert(CityEntity cityEntity) {
+		cityEntity.setLastUpdate(new Date());
 		entityManager.persist(cityEntity);
 		return cityEntity;
 	}
@@ -28,6 +34,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 
 	@Override
 	public CityEntity update(CityEntity cityEntity) {
+		cityEntity.setLastUpdate(new Date());
 		entityManager.merge(cityEntity);
 		return cityEntity;
 	}
@@ -60,7 +67,7 @@ public class CityDaoImpl extends GenericDao implements CityDao {
 		if (!SGUtil.isEmpty(searchDto.getName())) {
 			sql.append(" and upper(c.name) like upper(:name)");
 		}
-		sql.append(" order by c.id desc");
+		sql.append(" order by c.lastUpdate desc");
 		
 		Query query = entityManager.createQuery(sql.toString());
 		
