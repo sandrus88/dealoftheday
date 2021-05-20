@@ -1,0 +1,59 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<h:form id="contractEditForm">
+	<p:dialog widgetVar="dialogEditContract" showEffect="fade" modal="true" width="590" height="390" resizable="true" position="center" draggable="true">
+		<p:ajax event="close" update="panel" resetValues="true"/>
+		
+		<f:facet name="header">
+			<h:outputText
+				value="#{msg['contract.edit.title']} #{contractController.selectedContract.title}"/>
+		</f:facet>
+
+		<h:panelGrid columns="3" border="0" width="100%" id="panel">
+			<p:outputLabel for="title" value="#{msg['contract.title']}" />
+			<p:inputText id="title" value="#{contractController.selectedContract.title}" maxlength="30">
+				<p:ajax event="blur" update="titleMsg title"/>
+			</p:inputText>
+			<p:message id="titleMsg" for="title" display="icon" />
+
+			<p:outputLabel for="description" value="#{msg['contract.description']}" />
+			<p:inputTextarea id="description" value="#{contractController.selectedContract.description}" autoResize="false" style="width: 400px; height: 200px;">
+				<p:ajax event="blur" update="descriptionMsg description" />
+			</p:inputTextarea>
+			<p:message id="descriptionMsg" for="description" display="icon" />
+			
+			<p:outputLabel for="price" value="#{msg['contract.price']}" />
+			<p:inputText id="price" value="#{contractController.selectedContract.price}" required="true" maxlength="30">
+				<f:convertNumber pattern="#0.00"/>
+				<p:ajax event="blur" update="priceMsg price" />
+			</p:inputText>
+			<p:message id="priceMsg" for="price" display="icon" />
+
+			<p:outputLabel for="dayOfSignature" value="#{msg['contract.dayofsignature']}" styleClass="searchNoWrap"/>
+			<p:datePicker id="dayOfSignature" value="#{contractController.selectedContract.dayOfSignature}" showIcon="true"
+				pattern="dd/MM/yyyy" timeZone="CET" required="true"/>
+			<p:message id="dayOfSignatureMsg" for="dayOfSignature" display="icon"/>
+
+			<p:outputLabel for="partner" value="#{msg['contract.partners']}" />
+			<p:selectOneMenu id="partner" value="#{contractController.selectedContract.partner}" converter="#{contractPartnerConverter}" required="true">
+				<f:selectItem />
+				<f:selectItems value="#{contractController.allPartners}" var="partner" itemValue="#{partner}" itemLabel="#{partner.name}"/>
+			</p:selectOneMenu>
+			<p:message id="partnerMsg" for="partner" display="icon"/>
+		</h:panelGrid>	
+
+		<h:panelGrid border="0" columns="2" styleClass="center paddDiv5_10">
+			<p:commandButton value="#{msg['save']}" actionListener="#{contractController.updateSelectedContract(contractController.selectedContract)}" oncomplete="handleSaveRequest(args, 'dialogEditContract');" update="searchResultForm searchForm panel" styleClass="button">			
+				<p:ajax listener="#{contractController.updateSelectedContract(contractController.selectedContract)}"/>
+			</p:commandButton>	
+			<p:commandButton value="#{msg['close']}" onclick="PF('dialogEditContract').hide()" styleClass="button">
+				<p:ajax update="panel" resetValues="true"/>
+			</p:commandButton>	
+		</h:panelGrid>
+	</p:dialog>
+</h:form>
+</html>

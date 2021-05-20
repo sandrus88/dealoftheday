@@ -42,3 +42,10 @@ insert into role (ID, NAME, DESCRIPTION) values (5, 'Administrator', 'Full acces
 insert into user_role (USER_ID, ROLE_ID) values ('admin', 5);
 insert into user_role (USER_ID, ROLE_ID) values ('admin', 3);
 insert into user_role (USER_ID, ROLE_ID) values ('userSandro', 4);
+
+insert into contract (ID, TITLE, DESCRIPTION, PRICE, DAY_OF_SIGNATURE, PARTNER_ID, INSERTION_DATE, LAST_UPDATE) values (1, 'Contract n 1', 'Description of Contract n 1', 49, TO_DATE('30/05/2020', 'DD/MM/YYYY'), 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+insert into contract (ID, TITLE, DESCRIPTION, PRICE, DAY_OF_SIGNATURE, PARTNER_ID, INSERTION_DATE, LAST_UPDATE) values (2, 'Contract n 2', 'Description of Contract n 2', 99.45, TO_DATE('12/01/2020', 'DD/MM/YYYY'), 1, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+insert into contract (ID, TITLE, DESCRIPTION, PRICE, DAY_OF_SIGNATURE, PARTNER_ID, INSERTION_DATE, LAST_UPDATE) values (3, 'Contract n 3', 'Description of Contract n 3', 22.49, TO_DATE('29/03/2020', 'DD/MM/YYYY'), 2, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+insert into contract (ID, TITLE, DESCRIPTION, PRICE, DAY_OF_SIGNATURE, PARTNER_ID, INSERTION_DATE, LAST_UPDATE) values (4, 'Contract n 4', 'Description of Contract n 4', 33, TO_DATE('10/06/2020', 'DD/MM/YYYY'), 3, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+insert into contract (ID, TITLE, DESCRIPTION, PRICE, DAY_OF_SIGNATURE, PARTNER_ID, INSERTION_DATE, LAST_UPDATE) values (5, 'Contract n 5', 'Description of Contract n 5', 120.79, TO_DATE('20/10/2020', 'DD/MM/YYYY'), 4, CURRENT_TIMESTAMP, CURRENT_TIMESTAMP);
+

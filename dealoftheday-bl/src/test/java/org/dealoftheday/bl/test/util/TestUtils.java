@@ -1,11 +1,14 @@
 package org.dealoftheday.bl.test.util;
 
+import static org.junit.Assert.assertEquals;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
+import org.dealoftheday.bl.domain.Contract;
 import org.dealoftheday.bl.domain.Customer;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.domain.Role;
@@ -51,6 +54,8 @@ public class TestUtils {
 		City city = new City();
 		city.setId("FI");
 		city.setName("Firenze");
+		city.setLat(new Float(43.77925));
+		city.setLng(new Float(11.24626));
 		return city;
 	}
 
@@ -85,6 +90,20 @@ public class TestUtils {
 		partner.setCategory(Category.BAR_AND_DRINKS);
 		return partner;
 	}
+	
+	public static Partner getDefaultPartner() {
+		Partner partner = new Partner();
+		partner.setId(1);
+		partner.setName("Ristorante la Padellaccia");
+		partner.setAddress("Via San Antonino 19/r");
+		partner.setTel("055");
+		partner.setCell("+39329");
+		partner.setEmail("padellaccia@hotmail.it");
+		partner.setWebSite("www.lapadellaccia.com");
+		partner.setCategory(Category.FOOD_AND_RESTAURANTS);
+		partner.setCity(getDefaultCity());
+		return partner;
+	}
 
 	public static Date formatDate(String str) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -113,10 +132,23 @@ public class TestUtils {
 		user.setLocked(true);
 		return user;
 	}
+	
+	public static Contract createContract() throws ParseException {
+		Contract contract = new Contract();
+		contract.setTitle("New Contract");
+		contract.setDescription("Description New Contract");
+		contract.setPrice(new Float(9.99));
+		contract.setDayOfSignature(formatDate("31/12/2020"));
+		contract.setPartner(getDefaultPartner());
+		return contract;
+	}
 
-//	public static Role createRole() {
-//		Role role = new Role();
-//		role.setId(roleName);
-//		return role;
-//	}
+	public static Contract updateContract(Contract contract) throws ParseException {
+		contract.setTitle("Updated Contract");
+		contract.setDescription("Description Updated Contract");
+		contract.setPrice(new Float(19.99));
+		contract.setDayOfSignature(formatDate("01/12/2020"));
+		contract.setPartner(getDefaultPartner());
+		return contract;
+	}
 }
