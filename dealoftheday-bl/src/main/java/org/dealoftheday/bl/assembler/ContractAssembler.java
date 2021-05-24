@@ -6,7 +6,9 @@ import java.util.List;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Contract;
+import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.entities.ContractEntity;
+import org.dealoftheday.bl.entities.RoleEntity;
 
 public class ContractAssembler {
 	
@@ -19,13 +21,17 @@ public class ContractAssembler {
 
 		Contract dto = new Contract();
 		dto.setId(entity.getId());
-		dto.setTitle(entity.getTitle());
-		dto.setDescription(entity.getDescription());
-		dto.setPrice(entity.getPrice());
-		dto.setDayOfSignature(entity.getDayOfSignature());
-		dto.setInsertionDate(entity.getInsertionDate());
-		dto.setLastUpdate(entity.getLastUpdate());
+		dto.setClientFullName(entity.getClientFullName());
+		dto.setClientCell(entity.getClientCell());
+		dto.setBrokerFullName(entity.getBrokerFullName());
+		dto.setBrokerCell(entity.getBrokerCell());
+		dto.setSignedDate(entity.getSignedDate());
+		dto.setStartDate(entity.getStartDate());
+		dto.setEndDate(entity.getEndDate());
+		dto.setIban(entity.getIban());
+		dto.setContractComment(entity.getContractComment());
 		dto.setPartner(PartnerAssembler.getDTO(entity.getPartnerEntity()));
+		dto.setDeal(DealAssembler.getDTO(entity.getDealEntity()));
 		return dto;
 	}
 
@@ -36,13 +42,17 @@ public class ContractAssembler {
 
 		ContractEntity entity = new ContractEntity();
 		entity.setId(dto.getId());
-		entity.setTitle(dto.getTitle());
-		entity.setDescription(dto.getDescription());
-		entity.setPrice(dto.getPrice());
-		entity.setDayOfSignature(dto.getDayOfSignature());
-		entity.setInsertionDate(dto.getInsertionDate());
-		entity.setLastUpdate(dto.getLastUpdate());
+		entity.setClientFullName(dto.getClientFullName());
+		entity.setClientCell(dto.getClientCell());
+		entity.setBrokerFullName(dto.getBrokerFullName());
+		entity.setBrokerCell(dto.getBrokerCell());
+		entity.setSignedDate(dto.getSignedDate());
+		entity.setStartDate(dto.getStartDate());
+		entity.setEndDate(dto.getEndDate());
+		entity.setIban(dto.getIban());
+		entity.setContractComment(dto.getContractComment());
 		entity.setPartnerEntity(PartnerAssembler.getEntity(dto.getPartner()));
+		entity.setDealEntity(DealAssembler.getEntity(dto.getDeal()));
 		return entity;
 	}
 

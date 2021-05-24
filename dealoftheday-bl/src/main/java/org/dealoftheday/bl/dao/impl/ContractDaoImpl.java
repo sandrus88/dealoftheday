@@ -1,17 +1,16 @@
 package org.dealoftheday.bl.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Query;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.dealoftheday.bl.assembler.ContractAssembler;
+import org.dealoftheday.bl.assembler.DealAssembler;
 import org.dealoftheday.bl.assembler.PartnerAssembler;
 import org.dealoftheday.bl.dao.ContractDao;
 import org.dealoftheday.bl.dao.GenericDao;
-import org.dealoftheday.bl.domain.Contract;
+import org.dealoftheday.bl.domain.ContractSearchBean;
 import org.dealoftheday.bl.entities.ContractEntity;
 import org.dealoftheday.bl.util.SGUtil;
 import org.springframework.stereotype.Repository;
@@ -23,7 +22,6 @@ public class ContractDaoImpl extends GenericDao implements ContractDao {
 
 	@Override
 	public ContractEntity insert(ContractEntity contractEntity) {
-		contractEntity.setInsertionDate(new Date());
 		entityManager.persist(contractEntity);
 		return contractEntity;
 	}
@@ -36,7 +34,6 @@ public class ContractDaoImpl extends GenericDao implements ContractDao {
 
 	@Override
 	public ContractEntity update(ContractEntity contractEntity) {
-		contractEntity.setLastUpdate(new Date());
 		entityManager.merge(contractEntity);
 		return contractEntity;
 	}
@@ -58,37 +55,50 @@ public class ContractDaoImpl extends GenericDao implements ContractDao {
 	}
 
 	@Override
-	public List<ContractEntity> searchContract(Contract searchDto) {
+	public List<ContractEntity> searchContract(ContractSearchBean searchDto) {
 		StringBuilder sql = new StringBuilder();
 		sql.append("select c from ContractEntity c");
 		sql.append(" where 1=1");
-		if (searchDto.getId() != null) {
+		if (searchDto.getIdSearch() != null) {
 			sql.append(" and c.id = :id");
 		}
-		if (!SGUtil.isEmpty(searchDto.getTitle())) {
-			sql.append(" and upper(c.title) like upper(:title)");
+		if (!SGUtil.isEmpty(searchDto.getClientFullNameSearch())) {
+			sql.append(" and upper(c.clientFullName) like upper(:clientFullName)");
 		}
-		if (searchDto.getDayOfSignature() != null) {
-			sql.append(" and c.dayOfSignature = :dayOfSignature");
+		if (!SGUtil.isEmpty(searchDto.getBrokerFullNameSearch())) {
+			sql.append(" and upper(c.brokerFullName) like upper(:brokerFullName)");
 		}
-		if (searchDto.getPartner() != null) {
+		if (searchDto.getSignedDateFrom() != null && searchDto.getSignedDateTo() != null) {
+			sql.append(" and c.signedDate between :signedDateFrom and :signedDateTo");
+		}
+		if (searchDto.getPartnerSearch() != null) {
 			sql.append(" and c.partnerEntity = :partner_id");
 		}
-		sql.append(" order by c.lastUpdate desc");
+		if (searchDto.getDealSearch() != null) {
+			sql.append(" and c.dealEntity = :deal_id");
+		}
+		sql.append(" order by c.id desc");
 		
+		logger.info("Sql query to be executed: " + sql);
 		Query query = entityManager.createQuery(sql.toString());
 		
-		if (searchDto.getId() != null) {
-			query = query.setParameter("id", searchDto.getId());
+		if (searchDto.getIdSearch() != null) {
+			query = query.setParameter("id", searchDto.getIdSearch());
 		}
-		if (!SGUtil.isEmpty(searchDto.getTitle())) {
-			query = query.setParameter("title", "%"+searchDto.getTitle()+"%");
+		if (!SGUtil.isEmpty(searchDto.getClientFullNameSearch())) {
+			query = query.setParameter("clientFullName", "%"+searchDto.getClientFullNameSearch()+"%");
 		}
-		if (searchDto.getDayOfSignature() != null) {
-			query = query.setParameter("dayOfSignature", searchDto.getDayOfSignature());
+		if (!SGUtil.isEmpty(searchDto.getBrokerFullNameSearch())) {
+			query = query.setParameter("brokerFullName", "%"+searchDto.getBrokerFullNameSearch()+"%");
 		}
-		if (searchDto.getPartner() != null) {
-			query = query.setParameter("partner_id", PartnerAssembler.getEntity(searchDto.getPartner()));
+		if (searchDto.getSignedDateFrom() != null && searchDto.getSignedDateTo() != null) {
+			query = query.setParameter("signedDateFrom", searchDto.getSignedDateFrom()).setParameter("signedDateTo", searchDto.getSignedDateTo());
+		}
+		if (searchDto.getPartnerSearch() != null) {
+			query = query.setParameter("partner_id", PartnerAssembler.getEntity(searchDto.getPartnerSearch()));
+		}
+		if (searchDto.getDealSearch() != null) {
+			query = query.setParameter("deal_id", DealAssembler.getEntity(searchDto.getDealSearch()));
 		}
 		
 		@SuppressWarnings("unchecked")

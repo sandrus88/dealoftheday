@@ -13,19 +13,20 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.service.ContractService;
+import org.dealoftheday.bl.service.PartnerService;
 
 @ManagedBean
 @FacesConverter("contractPartnerConverter")
 public class ContractPartnerConverter implements Converter {
 	
-	@ManagedProperty(value = "#{contractService}")
-	private ContractService contractService;
+	@ManagedProperty(value = "#{partnerService}")
+	private PartnerService partnerService;
 	
 	private static Logger logger = LogManager.getLogger(ContractPartnerConverter.class);
 
 	@Override
 	public Object getAsObject(FacesContext context, UIComponent component, String value) {
-		List<Partner> partners = contractService.getAllPartners();
+		List<Partner> partners = partnerService.getAll();
         for (Partner partner : partners) {
             if (partner.getId().equals(Integer.parseInt(value))) {
                 return partner;
@@ -42,7 +43,7 @@ public class ContractPartnerConverter implements Converter {
 		return String.valueOf(((Partner) value).getId());
 	}
 
-	public void setContractService(ContractService contractService) {
-		this.contractService = contractService;
+	public void setPartnerService(PartnerService partnerService) {
+		this.partnerService = partnerService;
 	}
 }

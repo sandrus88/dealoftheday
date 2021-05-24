@@ -9,6 +9,7 @@ import org.dealoftheday.bl.assembler.PartnerAssembler;
 import org.dealoftheday.bl.dao.ContractDao;
 import org.dealoftheday.bl.dao.PartnerDao;
 import org.dealoftheday.bl.domain.Contract;
+import org.dealoftheday.bl.domain.ContractSearchBean;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.ContractEntity;
 import org.dealoftheday.bl.entities.PartnerEntity;
@@ -21,13 +22,11 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class ContractServiceImpl implements ContractService {
 	
-	final private PartnerDao partnerDao;
 	final private ContractDao contractDao;
 	private static Logger logger = LogManager.getLogger(ContractServiceImpl.class);
 
 	@Autowired
-	public ContractServiceImpl(PartnerDao partnerDao, ContractDao contractDao) {
-		this.partnerDao = partnerDao;
+	public ContractServiceImpl(ContractDao contractDao) {
 		this.contractDao = contractDao;
 	}
 
@@ -67,16 +66,9 @@ public class ContractServiceImpl implements ContractService {
 	}
 
 	@Override
-	public List<Contract> searchContract(Contract searchDto) {
-		List<ContractEntity> listEntities = contractDao.searchContract(searchDto);
+	public List<Contract> searchContract(ContractSearchBean searchBean) {
+		List<ContractEntity> listEntities = contractDao.searchContract(searchBean);
 		List<Contract> list = ContractAssembler.getDTOList(listEntities);
 		return list;
-	}
-
-	@Override
-	public List<Partner> getAllPartners() {
-		List<PartnerEntity> entityList = partnerDao.getAll();
-		List<Partner> dtoList = PartnerAssembler.getDTOList(entityList);
-		return dtoList;
 	}
 }

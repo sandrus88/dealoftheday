@@ -14,6 +14,7 @@ import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.Contract;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.service.ContractService;
+import org.dealoftheday.bl.service.PartnerService;
 
 @ManagedBean
 @ViewScoped
@@ -21,6 +22,9 @@ public class ContractController {
 	
 	@ManagedProperty(value = "#{contractService}")
 	private ContractService contractService;
+	
+	@ManagedProperty(value = "#{partnerService}")
+	private PartnerService partnerService;
 	
 	private static Logger logger = LogManager.getLogger(ContractController.class);
 	
@@ -41,17 +45,17 @@ public class ContractController {
 	
 	@PostConstruct
 	public void init() {
-		allPartners = contractService.getAllPartners();
+		allPartners = partnerService.getAll();
 		selectedContract = new Contract();
-		searchContract();
+//		searchContract();
 		cleanDialogForm();
 		cleanSearchForm();
 	}
-
-	public void searchContract() {
-		Contract searchDto = new Contract(searchId, searchTitle, null, null, searchDayOfSignature, null, null, searchPartner);
-		contractList = contractService.searchContract(searchDto);
-	}
+//
+//	public void searchContract() {
+//		Contract searchDto = new Contract(searchId, searchTitle, null, null, searchDayOfSignature, null, null, searchPartner);
+//		contractList = contractService.searchContract(searchDto);
+//	}
 
 	public void cleanDialogForm() {
 		newTitle = null;
@@ -68,26 +72,26 @@ public class ContractController {
 		searchPartner = null;
 	}
 
-	public void addContract() {
-		Contract contract = new Contract();
-		contract.setTitle(newTitle);
-		contract.setDescription(newDescription);
-		contract.setPrice(newPrice);
-		contract.setDayOfSignature(newDayOfSignature);
-		contract.setPartner(newPartner);
-		contractService.insert(contract);
-		cleanDialogForm();
-		searchContract();
-	}
+//	public void addContract() {
+//		Contract contract = new Contract();
+//		contract.setTitle(newTitle);
+//		contract.setDescription(newDescription);
+//		contract.setPrice(newPrice);
+//		contract.setDayOfSignature(newDayOfSignature);
+//		contract.setPartner(newPartner);
+//		contractService.insert(contract);
+//		cleanDialogForm();
+//		searchContract();
+//	}
 
 	public void updateSelectedContract(Contract contract) {
 		contractService.update(contract);
-		searchContract();
+//		searchContract();
 	}
 
 	public void deleteContract(Contract contract) {
 		contractService.delete(contract.getId());
-		searchContract();
+//		searchContract();
 	}
 
 	public String getNewTitle() {
@@ -188,5 +192,9 @@ public class ContractController {
 
 	public void setContractService(ContractService contractService) {
 		this.contractService = contractService;
+	}
+
+	public void setPartnerService(PartnerService partnerService) {
+		this.partnerService = partnerService;
 	}
 }

@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -27,23 +28,32 @@ public class ContractEntity {
 	@SequenceGenerator(name = "seqContract", sequenceName = "SEQ_CONTRACT", initialValue = 200, allocationSize = 1)
 	@Column(name = "ID")
 	private Integer id;
-	@Column(name = "TITLE")
-	private String title;
-	@Column(name = "DESCRIPTION")
-	private String description;
-	@Column(name = "PRICE")
-	private Float price;
-	@Column(name = "DAY_OF_SIGNATURE")
-	private Date dayOfSignature;
-	@Column(name = "INSERTION_DATE")
-	private Date insertionDate;
-	@Column(name = "LAST_UPDATE")
-	private Date lastUpdate;
+	@Column(name = "CLIENT_FULLNAME")
+	private String clientFullName;
+	@Column(name = "CLIENT_CELL")
+	private String clientCell;
+	@Column(name = "BROKER_FULLNAME")
+	private String brokerFullName;
+	@Column(name = "BROKER_CELL")
+	private String brokerCell;
+	@Column(name = "SIGNED_DATE")
+	private Date signedDate;
+	@Column(name = "START_DATE")
+	private Date startDate;
+	@Column(name = "END_DATE")
+	private Date endDate;
+	@Column(name = "IBAN")
+	private String iban;
+	@Column(name = "CONTRACT_COMMENT")
+	private String contractComment;
 	
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "PARTNER_ID")
 	private PartnerEntity partnerEntity;
-
+	
+	@OneToOne(mappedBy = "contractEntity", fetch = FetchType.EAGER)
+	private DealEntity dealEntity;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -52,52 +62,76 @@ public class ContractEntity {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getClientFullName() {
+		return clientFullName;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setClientFullName(String clientFullName) {
+		this.clientFullName = clientFullName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getClientCell() {
+		return clientCell;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setClientCell(String clientCel) {
+		this.clientCell = clientCel;
 	}
 
-	public Float getPrice() {
-		return price;
+	public String getBrokerFullName() {
+		return brokerFullName;
 	}
 
-	public void setPrice(Float price) {
-		this.price = price;
+	public void setBrokerFullName(String brokerFullName) {
+		this.brokerFullName = brokerFullName;
 	}
 
-	public Date getDayOfSignature() {
-		return dayOfSignature;
+	public String getBrokerCell() {
+		return brokerCell;
 	}
 
-	public void setDayOfSignature(Date dayOfSignature) {
-		this.dayOfSignature = dayOfSignature;
+	public void setBrokerCell(String brokerCel) {
+		this.brokerCell = brokerCel;
 	}
 
-	public Date getInsertionDate() {
-		return insertionDate;
+	public Date getStartDate() {
+		return startDate;
 	}
 
-	public void setInsertionDate(Date insertionDate) {
-		this.insertionDate = insertionDate;
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
 	}
 
-	public Date getLastUpdate() {
-		return lastUpdate;
+	public Date getEndDate() {
+		return endDate;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public Date getSignedDate() {
+		return signedDate;
+	}
+
+	public void setSignedDate(Date signedDate) {
+		this.signedDate = signedDate;
+	}
+
+	public String getIban() {
+		return iban;
+	}
+
+	public void setIban(String iban) {
+		this.iban = iban;
+	}
+
+	public String getContractComment() {
+		return contractComment;
+	}
+
+	public void setContractComment(String contractComment) {
+		this.contractComment = contractComment;
 	}
 
 	public PartnerEntity getPartnerEntity() {
@@ -107,7 +141,15 @@ public class ContractEntity {
 	public void setPartnerEntity(PartnerEntity partnerEntity) {
 		this.partnerEntity = partnerEntity;
 	}
-	
+
+	public DealEntity getDealEntity() {
+		return dealEntity;
+	}
+
+	public void setDealEntity(DealEntity dealEntity) {
+		this.dealEntity = dealEntity;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof ContractEntity)) {
@@ -116,10 +158,17 @@ public class ContractEntity {
 		ContractEntity other = (ContractEntity) o;
 		return new EqualsBuilder()
 				.append(id, other.id)
-				.append(title, other.title)
-				.append(description, other.description)
-				.append(price, other.price)
-				.append(dayOfSignature, other.dayOfSignature)
+				.append(clientFullName, other.clientFullName)
+				.append(clientCell, other.clientCell)
+				.append(brokerFullName, other.brokerFullName)
+				.append(brokerCell, other.brokerCell)
+				.append(signedDate, other.signedDate)
+				.append(startDate, other.startDate)
+				.append(endDate, other.endDate)
+				.append(iban, other.iban)
+				.append(contractComment, other.contractComment)
+				.append(partnerEntity, other.partnerEntity)
+				.append(dealEntity, other.dealEntity)
 				.isEquals();
 	}
 
@@ -127,10 +176,17 @@ public class ContractEntity {
 	public int hashCode() {
 		return new HashCodeBuilder()
 				.append(id)
-				.append(title)
-				.append(description)
-				.append(price)
-				.append(dayOfSignature)
+				.append(clientFullName)
+				.append(clientCell)
+				.append(brokerFullName)
+				.append(brokerCell)
+				.append(signedDate)
+				.append(startDate)
+				.append(endDate)
+				.append(iban)
+				.append(contractComment)
+				.append(partnerEntity)
+				.append(dealEntity)
 				.toHashCode();
 	}
 
@@ -139,11 +195,17 @@ public class ContractEntity {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.appendSuper(super.toString())
 				.append(id)
-				.append(title)
-				.append(description)
-				.append(price)
-				.append(dayOfSignature)
-				.append(partnerEntity.getName())
+				.append(clientFullName)
+				.append(clientCell)
+				.append(brokerFullName)
+				.append(brokerCell)
+				.append(signedDate)
+				.append(startDate)
+				.append(endDate)
+				.append(iban)
+				.append(contractComment)
+				.append(partnerEntity)
+				.append(dealEntity)
 				.toString();
 	}
 }

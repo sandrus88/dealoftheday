@@ -1,16 +1,12 @@
 package org.dealoftheday.bl.assembler;
 
-import java.math.BigDecimal;
-import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.dealoftheday.bl.domain.City;
-import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.entities.CityEntity;
-import org.dealoftheday.bl.entities.PartnerEntity;
 
 public class CityAssembler {
 	

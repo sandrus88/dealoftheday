@@ -133,22 +133,22 @@ public class TestUtils {
 		return user;
 	}
 	
-	public static Contract createContract() throws ParseException {
-		Contract contract = new Contract();
-		contract.setTitle("New Contract");
-		contract.setDescription("Description New Contract");
-		contract.setPrice(new Float(9.99));
-		contract.setDayOfSignature(formatDate("31/12/2020"));
-		contract.setPartner(getDefaultPartner());
-		return contract;
-	}
-
-	public static Contract updateContract(Contract contract) throws ParseException {
-		contract.setTitle("Updated Contract");
-		contract.setDescription("Description Updated Contract");
-		contract.setPrice(new Float(19.99));
-		contract.setDayOfSignature(formatDate("01/12/2020"));
-		contract.setPartner(getDefaultPartner());
-		return contract;
-	}
+//	public static Contract createContract() throws ParseException {
+//		Contract contract = new Contract();
+//		contract.setTitle("New Contract");
+//		contract.setDescription("Description New Contract");
+//		contract.setPrice(new Float(9.99));
+//		contract.setDayOfSignature(formatDate("31/12/2020"));
+//		contract.setPartner(getDefaultPartner());
+//		return contract;
+//	}
+//
+//	public static Contract updateContract(Contract contract) throws ParseException {
+//		contract.setTitle("Updated Contract");
+//		contract.setDescription("Description Updated Contract");
+//		contract.setPrice(new Float(19.99));
+//		contract.setDayOfSignature(formatDate("01/12/2020"));
+//		contract.setPartner(getDefaultPartner());
+//		return contract;
+//	}
 }

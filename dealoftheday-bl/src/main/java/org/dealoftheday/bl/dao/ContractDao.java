@@ -3,6 +3,7 @@ package org.dealoftheday.bl.dao;
 import java.util.List;
 
 import org.dealoftheday.bl.domain.Contract;
+import org.dealoftheday.bl.domain.ContractSearchBean;
 import org.dealoftheday.bl.entities.ContractEntity;
 
 public interface ContractDao {
@@ -17,6 +18,6 @@ public interface ContractDao {
 
     boolean delete(Integer id);
 
-	List<ContractEntity> searchContract(Contract searchDto);
+	List<ContractEntity> searchContract(ContractSearchBean searchBean);
 
 }

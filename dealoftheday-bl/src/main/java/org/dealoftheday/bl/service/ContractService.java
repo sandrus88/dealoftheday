@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.domain.Contract;
+import org.dealoftheday.bl.domain.ContractSearchBean;
 
 public interface ContractService {
 	
@@ -17,8 +18,5 @@ public interface ContractService {
 
     boolean delete(Integer id);
     
-    List<Contract> searchContract(Contract searchDto);
-    
-    List<Partner> getAllPartners();
-
+    List<Contract> searchContract(ContractSearchBean searchBean);
 }

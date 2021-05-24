@@ -163,8 +163,16 @@ from USERS u
 where 1=1 
 and r.ID=3 or r.ID=3 or r.ID=5
 --group by u.username, u.name, u.surname, u.email, u.pwd, u.enabled, u.locked, u.failed_login_count, u.last_update
-order by u.LAST_UPDATE desc
+order by u.LAST_UPDATE desc;
 
+select c.* 
+from CONTRACT c 
+where 1=1 
+and (c.SIGNED_DATE between TO_DATE('01/01/2020', 'DD/MM/YYYY') and TO_DATE('03/01/2020', 'DD/MM/YYYY')) 
+order by c.ID desc;
 
-
-
+insert into contract (ID, CLIENT_FULLNAME, CLIENT_CELL, BROKER_FULLNAME, BROKER_CELL, SIGNED_DATE, START_DATE, END_DATE, IBAN, CONTRACT_COMMENT, PARTNER_ID) values (1, 'Client1', 'Cell Client1', 'Broker1', 'Cell Broker1', TO_DATE('01/01/2020', 'DD/MM/YYYY'), TO_DATE('01/02/2020', 'DD/MM/YYYY'), TO_DATE('01/03/2020', 'DD/MM/YYYY'), 'IT0001', 'Comment about Contract1', 1);
+insert into contract (ID, CLIENT_FULLNAME, CLIENT_CELL, BROKER_FULLNAME, BROKER_CELL, SIGNED_DATE, START_DATE, END_DATE, IBAN, CONTRACT_COMMENT, PARTNER_ID) values (2, 'Client2', 'Cell Client2', 'Broker2', 'Cell Broker2', TO_DATE('02/01/2020', 'DD/MM/YYYY'), TO_DATE('02/02/2020', 'DD/MM/YYYY'), TO_DATE('02/03/2020', 'DD/MM/YYYY'), 'IT0002', 'Comment about Contract2', 1);
+insert into contract (ID, CLIENT_FULLNAME, CLIENT_CELL, BROKER_FULLNAME, BROKER_CELL, SIGNED_DATE, START_DATE, END_DATE, IBAN, CONTRACT_COMMENT, PARTNER_ID) values (3, 'Client3', 'Cell Client3', 'Broker3', 'Cell Broker3', TO_DATE('03/01/2020', 'DD/MM/YYYY'), TO_DATE('03/02/2020', 'DD/MM/YYYY'), TO_DATE('03/03/2020', 'DD/MM/YYYY'), 'IT0003', 'Comment about Contract3', 2);
+insert into contract (ID, CLIENT_FULLNAME, CLIENT_CELL, BROKER_FULLNAME, BROKER_CELL, SIGNED_DATE, START_DATE, END_DATE, IBAN, CONTRACT_COMMENT, PARTNER_ID) values (4, 'Client4', 'Cell Client4', 'Broker4', 'Cell Broker4', TO_DATE('04/01/2020', 'DD/MM/YYYY'), TO_DATE('04/02/2020', 'DD/MM/YYYY'), TO_DATE('04/03/2020', 'DD/MM/YYYY'), 'IT0004', 'Comment about Contract4', 3);
+insert into contract (ID, CLIENT_FULLNAME, CLIENT_CELL, BROKER_FULLNAME, BROKER_CELL, SIGNED_DATE, START_DATE, END_DATE, IBAN, CONTRACT_COMMENT, PARTNER_ID) values (5, 'Client5', 'Cell Client5', 'Broker5', 'Cell Broker5', TO_DATE('05/01/2020', 'DD/MM/YYYY'), TO_DATE('05/02/2020', 'DD/MM/YYYY'), TO_DATE('05/03/2020', 'DD/MM/YYYY'), 'IT0005', 'Comment about Contract5', 4);

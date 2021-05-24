@@ -6,34 +6,41 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.dealoftheday.bl.entities.PartnerEntity;
 
-public class Contract {
+public class Contract { 
 	
 	private Integer id;
-	private String title;
-	private String description;
-	private Float price;
-	private Date dayOfSignature;
-	private Date insertionDate;
-	private Date lastUpdate;
+	private String clientFullName;
+	private String clientCell;
+	private String brokerFullName;
+	private String brokerCell;
+	private Date signedDate;
+	private Date startDate;
+	private Date endDate;
+	private String contractComment;
+	private String iban;
 	private Partner partner;
+	private Deal deal;
 	
 	public Contract() {
-
+		
 	}
-
-	public Contract(Integer id, String title, String description, Float price, Date dayOfSignature, Date insertionDate,
-			Date lastUpdate, Partner partner) {
-		super();
+	
+	public Contract(Integer id, String clientFullName, String clientCell, String brokerFullName, String brokerCell,
+			Date signedDate, Date startDate, Date endDate, String contractComment, String iban, Partner partner,
+			Deal deal) {
 		this.id = id;
-		this.title = title;
-		this.description = description;
-		this.price = price;
-		this.dayOfSignature = dayOfSignature;
-		this.insertionDate = insertionDate;
-		this.lastUpdate = lastUpdate;
+		this.clientFullName = clientFullName;
+		this.clientCell = clientCell;
+		this.brokerFullName = brokerFullName;
+		this.brokerCell = brokerCell;
+		this.signedDate = signedDate;
+		this.startDate = startDate;
+		this.endDate = endDate;
+		this.contractComment = contractComment;
+		this.iban = iban;
 		this.partner = partner;
+		this.deal = deal;
 	}
 
 	public Integer getId() {
@@ -44,60 +51,92 @@ public class Contract {
 		this.id = id;
 	}
 
-	public String getTitle() {
-		return title;
+	public String getClientFullName() {
+		return clientFullName;
 	}
 
-	public void setTitle(String title) {
-		this.title = title;
+	public void setClientFullName(String clientFullName) {
+		this.clientFullName = clientFullName;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getClientCell() {
+		return clientCell;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setClientCell(String clientCel) {
+		this.clientCell = clientCel;
 	}
 
-	public Float getPrice() {
-		return price;
+	public String getBrokerFullName() {
+		return brokerFullName;
 	}
 
-	public void setPrice(Float price) {
-		this.price = price;
+	public void setBrokerFullName(String brokerFullName) {
+		this.brokerFullName = brokerFullName;
 	}
 
-	public Date getDayOfSignature() {
-		return dayOfSignature;
+	public String getBrokerCell() {
+		return brokerCell;
 	}
 
-	public void setDayOfSignature(Date dayOfSignature) {
-		this.dayOfSignature = dayOfSignature;
+	public void setBrokerCell(String brokerCel) {
+		this.brokerCell = brokerCel;
 	}
 
-	public Date getInsertionDate() {
-		return insertionDate;
+	public Date getSignedDate() {
+		return signedDate;
 	}
 
-	public void setInsertionDate(Date insertionDate) {
-		this.insertionDate = insertionDate;
+	public void setSignedDate(Date signedDate) {
+		this.signedDate = signedDate;
 	}
 
-	public Date getLastUpdate() {
-		return lastUpdate;
+	public String getIban() {
+		return iban;
 	}
 
-	public void setLastUpdate(Date lastUpdate) {
-		this.lastUpdate = lastUpdate;
+	public void setIban(String iban) {
+		this.iban = iban;
 	}
-	
+
+	public Date getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(Date startDate) {
+		this.startDate = startDate;
+	}
+
+	public Date getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(Date endDate) {
+		this.endDate = endDate;
+	}
+
+	public String getContractComment() {
+		return contractComment;
+	}
+
+	public void setContractComment(String contractComment) {
+		this.contractComment = contractComment;
+	}
+
 	public Partner getPartner() {
 		return partner;
 	}
 
 	public void setPartner(Partner partner) {
 		this.partner = partner;
+	}
+
+	public Deal getDeal() {
+		return deal;
+	}
+
+	public void setDeal(Deal deal) {
+		this.deal = deal;
 	}
 
 	@Override
@@ -108,10 +147,17 @@ public class Contract {
 		Contract other = (Contract) o;
 		return new EqualsBuilder()
 				.append(id, other.id)
-				.append(title, other.title)
-				.append(description, other.description)
-				.append(price, other.price)
-				.append(dayOfSignature, other.dayOfSignature)
+				.append(clientFullName, other.clientFullName)
+				.append(clientCell, other.clientCell)
+				.append(brokerFullName, other.brokerFullName)
+				.append(brokerCell, other.brokerCell)
+				.append(signedDate, other.signedDate)
+				.append(startDate, other.startDate)
+				.append(endDate, other.endDate)
+				.append(iban, other.iban)
+				.append(contractComment, other.contractComment)
+				.append(partner, other.partner)
+				.append(deal, other.deal)
 				.isEquals();
 	}
 
@@ -119,10 +165,17 @@ public class Contract {
 	public int hashCode() {
 		return new HashCodeBuilder()
 				.append(id)
-				.append(title)
-				.append(description)
-				.append(price)
-				.append(dayOfSignature)
+				.append(clientFullName)
+				.append(clientCell)
+				.append(brokerFullName)
+				.append(brokerCell)
+				.append(signedDate)
+				.append(startDate)
+				.append(endDate)
+				.append(iban)
+				.append(contractComment)
+				.append(partner)
+				.append(deal)
 				.toHashCode();
 	}
 
@@ -131,12 +184,17 @@ public class Contract {
 		return new ToStringBuilder(this, ToStringStyle.SHORT_PREFIX_STYLE)
 				.appendSuper(super.toString())
 				.append(id)
-				.append(title)
-				.append(description)
-				.append(price)
-				.append(dayOfSignature)
-				.append(partner.getName())
+				.append(clientFullName)
+				.append(clientCell)
+				.append(brokerFullName)
+				.append(brokerCell)
+				.append(signedDate)
+				.append(startDate)
+				.append(endDate)
+				.append(iban)
+				.append(contractComment)
+				.append(partner)
+				.append(deal)
 				.toString();
 	}
-
 }
