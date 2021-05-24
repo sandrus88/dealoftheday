@@ -24,7 +24,6 @@ public class Deal {
 	private Date lastUpdate;
 	private Date lastUpdateUser;
 	private Date approvedDate;
-	private Partner partner;
 	private Contract contract;
 	private List<DealItem> dealItems; 
 	
@@ -34,7 +33,7 @@ public class Deal {
 	
 	public Deal(Integer id, String title, String titleNewsletter, String mainImgName, String synthesis,
 			String conditions, String description, Status status, String contractComment, Date lastUpdate,
-			Date lastUpdateUser, Date approvedDate, Partner partner, Contract contract, List<DealItem> dealItems) {
+			Date lastUpdateUser, Date approvedDate, Contract contract, List<DealItem> dealItems) {
 		this.id = id;
 		this.title = title;
 		this.titleNewsletter = titleNewsletter;
@@ -47,7 +46,6 @@ public class Deal {
 		this.lastUpdate = lastUpdate;
 		this.lastUpdateUser = lastUpdateUser;
 		this.approvedDate = approvedDate;
-		this.partner = partner;
 		this.contract = contract;
 		this.dealItems = dealItems;
 	}
@@ -155,14 +153,6 @@ public class Deal {
 	public void setLastUpdateUser(Date lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
 	}
-
-	public Partner getPartner() {
-		return partner;
-	}
-
-	public void setPartner(Partner partner) {
-		this.partner = partner;
-	}
 	
 	public Status getStatus() {
 		return status;
@@ -207,7 +197,6 @@ public class Deal {
 				.append(contractComment, other.contractComment)
 				.append(lastUpdate, other.lastUpdate)
 				.append(lastUpdateUser, other.lastUpdateUser)
-				.append(partner, other.partner)
 				.append(contract, other.contract)
 				.isEquals();
 	}
@@ -228,7 +217,6 @@ public class Deal {
 				.append(contractComment)
 				.append(lastUpdate)
 				.append(lastUpdateUser)
-				.append(partner)
 				.append(dealItems)
 				.toHashCode();
 	}
@@ -249,7 +237,6 @@ public class Deal {
 				.append(contractComment)
 				.append(lastUpdate)
 				.append(lastUpdateUser)
-				.append(partner)
 				.append(contract)
 				.append(dealItems)
 				.toString();

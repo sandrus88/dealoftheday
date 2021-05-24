@@ -1,10 +1,12 @@
 package org.dealoftheday.bl.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.apache.commons.lang.builder.ToStringStyle;
-import org.dealoftheday.bl.entities.PartnerEntity;
 
 public class Partner {
 
@@ -17,13 +19,14 @@ public class Partner {
 	private String webSite;
 	private Category category;
 	private City city;
+	private List<Contract> contracts;
 	
 	public Partner() {
-
+		contracts = new ArrayList<>();
 	}
 
 	public Partner(Integer id, String name, String address, String tel, String cell, String email, String webSite, Category category,
-			City city) {
+			City city, List<Contract> contracts) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -33,6 +36,23 @@ public class Partner {
 		this.webSite = webSite;
 		this.category = category;
 		this.city = city;
+		this.contracts = contracts;
+	}
+	
+	public void addContract(Contract contract) {
+		contracts.add(contract);
+	}
+	
+	public void removeContract(Contract contract) {
+		for (int i = 0; i < contracts.size(); i++) {
+			if (contracts.get(i).getId().equals(contract.getId())) {
+				contracts.remove(i);
+			}
+		}
+	}
+	
+	public void removeAllContracts() {
+		contracts.clear();
 	}
 
 	public Integer getId() {
@@ -107,6 +127,14 @@ public class Partner {
 		this.city = city;
 	}
 
+	public List<Contract> getContracts() {
+		return contracts;
+	}
+
+	public void setContracts(List<Contract> contracts) {
+		this.contracts = contracts;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof Partner)) {
@@ -137,6 +165,7 @@ public class Partner {
 				.append(webSite)
 				.append(category)
 				.append(city)
+				.append(contracts)
 				.toHashCode();
 	}
 
@@ -152,6 +181,7 @@ public class Partner {
 				.append(webSite)
 				.append(category)
 				.append(city)
+				.append(contracts)
 				.toString();
 	}
 }

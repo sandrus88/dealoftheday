@@ -34,7 +34,6 @@ public class DealAssembler {
 		dto.setContractComment(entity.getContractComment());
 		dto.setLastUpdate(entity.getLastUpdate());
 		dto.setLastUpdateUser(entity.getLastUpdateUser());
-		dto.setPartner(PartnerAssembler.getDTO(entity.getPartnerEntity()));
 		dto.setContract(ContractAssembler.getDTO(entity.getContractEntity()));
 	
 		for (DealItemEntity dealItemEntity : entity.getDealItems()) {
@@ -62,7 +61,6 @@ public class DealAssembler {
 		entity.setContractComment(dto.getContractComment());
 		entity.setLastUpdate(dto.getLastUpdate());
 		entity.setLastUpdateUser(dto.getLastUpdateUser());
-		entity.setPartnerEntity(PartnerAssembler.getEntity(dto.getPartner()));
 		entity.setContractEntity(ContractAssembler.getEntity(dto.getContract()));
 		
 		 for (DealItem dealItem : dto.getDealItems()) {

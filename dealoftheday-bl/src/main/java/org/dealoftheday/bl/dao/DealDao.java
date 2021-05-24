@@ -2,6 +2,7 @@ package org.dealoftheday.bl.dao;
 
 import java.util.List;
 
+import org.dealoftheday.bl.domain.DealSearchBean;
 import org.dealoftheday.bl.entities.DealEntity;
 
 public interface DealDao {
@@ -15,5 +16,6 @@ public interface DealDao {
     List<DealEntity> getAll();
 
     boolean delete(Integer id);
-
+    
+    List<DealEntity> searchDeal(DealSearchBean searchBean);
 }

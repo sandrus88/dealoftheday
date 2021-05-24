@@ -15,7 +15,6 @@ public class ContractSearchBean {
 //	private Date startDate;
 //	private Date endDate;
 	private Partner partnerSearch;
-	private Deal dealSearch;
 	private Date signedDateFrom;
 	private Date signedDateTo;
 	
@@ -24,13 +23,12 @@ public class ContractSearchBean {
 	}
 
 	public ContractSearchBean(Integer idSearch, String clientFullNameSearch, String brokerFullNameSearch,
-			Partner partnerSearch, Deal dealSearch, Date signedDateFrom, Date signedDateTo) {
+			Partner partnerSearch, Date signedDateFrom, Date signedDateTo) {
 		super();
 		this.idSearch = idSearch;
 		this.clientFullNameSearch = clientFullNameSearch;
 		this.brokerFullNameSearch = brokerFullNameSearch;
 		this.partnerSearch = partnerSearch;
-		this.dealSearch = dealSearch;
 		this.signedDateFrom = signedDateFrom;
 		this.signedDateTo = signedDateTo;
 	}
@@ -67,14 +65,6 @@ public class ContractSearchBean {
 		this.partnerSearch = partnerSearch;
 	}
 
-	public Deal getDealSearch() {
-		return dealSearch;
-	}
-
-	public void setDealSearch(Deal dealSearch) {
-		this.dealSearch = dealSearch;
-	}
-
 	public Date getSignedDateFrom() {
 		return signedDateFrom;
 	}
@@ -102,7 +92,6 @@ public class ContractSearchBean {
 				.append(clientFullNameSearch, other.clientFullNameSearch)
 				.append(brokerFullNameSearch, other.brokerFullNameSearch)
 				.append(partnerSearch, other.partnerSearch)
-				.append(dealSearch, other.dealSearch)
 				.append(signedDateFrom, other.signedDateFrom)
 				.append(signedDateTo, other.signedDateTo)
 				.isEquals();
@@ -115,7 +104,6 @@ public class ContractSearchBean {
 				.append(clientFullNameSearch)
 				.append(brokerFullNameSearch)
 				.append(partnerSearch)
-				.append(dealSearch)
 				.append(signedDateFrom)
 				.append(signedDateTo)
 				.toHashCode();
@@ -129,7 +117,6 @@ public class ContractSearchBean {
 				.append(clientFullNameSearch)
 				.append(brokerFullNameSearch)
 				.append(partnerSearch)
-				.append(dealSearch)
 				.append(signedDateFrom)
 				.append(signedDateTo)
 				.toString();

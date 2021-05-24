@@ -46,13 +46,8 @@ public class ContractEntity {
 	private String iban;
 	@Column(name = "CONTRACT_COMMENT")
 	private String contractComment;
-	
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARTNER_ID")
-	private PartnerEntity partnerEntity;
-	
-	@OneToOne(mappedBy = "contractEntity", fetch = FetchType.EAGER)
-	private DealEntity dealEntity;
+	@Column(name = "PARTNER_ID")
+	private Integer partnerId;
 	
 	public Integer getId() {
 		return id;
@@ -134,20 +129,12 @@ public class ContractEntity {
 		this.contractComment = contractComment;
 	}
 
-	public PartnerEntity getPartnerEntity() {
-		return partnerEntity;
+	public Integer getPartnerId() {
+		return partnerId;
 	}
 
-	public void setPartnerEntity(PartnerEntity partnerEntity) {
-		this.partnerEntity = partnerEntity;
-	}
-
-	public DealEntity getDealEntity() {
-		return dealEntity;
-	}
-
-	public void setDealEntity(DealEntity dealEntity) {
-		this.dealEntity = dealEntity;
+	public void setPartnerId(Integer partnerId) {
+		this.partnerId = partnerId;
 	}
 
 	@Override
@@ -167,8 +154,7 @@ public class ContractEntity {
 				.append(endDate, other.endDate)
 				.append(iban, other.iban)
 				.append(contractComment, other.contractComment)
-				.append(partnerEntity, other.partnerEntity)
-				.append(dealEntity, other.dealEntity)
+				.append(partnerId, other.partnerId)
 				.isEquals();
 	}
 
@@ -185,8 +171,7 @@ public class ContractEntity {
 				.append(endDate)
 				.append(iban)
 				.append(contractComment)
-				.append(partnerEntity)
-				.append(dealEntity)
+				.append(partnerId)
 				.toHashCode();
 	}
 
@@ -204,8 +189,7 @@ public class ContractEntity {
 				.append(endDate)
 				.append(iban)
 				.append(contractComment)
-				.append(partnerEntity)
-				.append(dealEntity)
+				.append(partnerId)
 				.toString();
 	}
 }

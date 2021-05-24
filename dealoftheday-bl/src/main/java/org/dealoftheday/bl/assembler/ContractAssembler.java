@@ -30,8 +30,7 @@ public class ContractAssembler {
 		dto.setEndDate(entity.getEndDate());
 		dto.setIban(entity.getIban());
 		dto.setContractComment(entity.getContractComment());
-		dto.setPartner(PartnerAssembler.getDTO(entity.getPartnerEntity()));
-		dto.setDeal(DealAssembler.getDTO(entity.getDealEntity()));
+		dto.setPartnerId(entity.getPartnerId());
 		return dto;
 	}
 
@@ -51,8 +50,7 @@ public class ContractAssembler {
 		entity.setEndDate(dto.getEndDate());
 		entity.setIban(dto.getIban());
 		entity.setContractComment(dto.getContractComment());
-		entity.setPartnerEntity(PartnerAssembler.getEntity(dto.getPartner()));
-		entity.setDealEntity(DealAssembler.getEntity(dto.getDeal()));
+		entity.setPartnerId(dto.getPartnerId());
 		return entity;
 	}
 

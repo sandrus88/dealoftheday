@@ -74,9 +74,6 @@ public class ContractDaoImpl extends GenericDao implements ContractDao {
 		if (searchDto.getPartnerSearch() != null) {
 			sql.append(" and c.partnerEntity = :partner_id");
 		}
-		if (searchDto.getDealSearch() != null) {
-			sql.append(" and c.dealEntity = :deal_id");
-		}
 		sql.append(" order by c.id desc");
 		
 		logger.info("Sql query to be executed: " + sql);
@@ -93,12 +90,6 @@ public class ContractDaoImpl extends GenericDao implements ContractDao {
 		}
 		if (searchDto.getSignedDateFrom() != null && searchDto.getSignedDateTo() != null) {
 			query = query.setParameter("signedDateFrom", searchDto.getSignedDateFrom()).setParameter("signedDateTo", searchDto.getSignedDateTo());
-		}
-		if (searchDto.getPartnerSearch() != null) {
-			query = query.setParameter("partner_id", PartnerAssembler.getEntity(searchDto.getPartnerSearch()));
-		}
-		if (searchDto.getDealSearch() != null) {
-			query = query.setParameter("deal_id", DealAssembler.getEntity(searchDto.getDealSearch()));
 		}
 		
 		@SuppressWarnings("unchecked")

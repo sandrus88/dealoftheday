@@ -55,10 +55,6 @@ public class DealEntity {
 	private Date approvedDate;
 	
 	@OneToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "PARTNER_ID")
-	private PartnerEntity partnerEntity;
-	
-	@OneToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CONTRACT_ID")
 	private ContractEntity contractEntity;
 	
@@ -177,14 +173,6 @@ public class DealEntity {
 	public void setLastUpdateUser(Date lastUpdateUser) {
 		this.lastUpdateUser = lastUpdateUser;
 	}
-
-	public PartnerEntity getPartnerEntity() {
-		return partnerEntity;
-	}
-
-	public void setPartnerEntity(PartnerEntity partnerEntity) {
-		this.partnerEntity = partnerEntity;
-	}
 	
 	public ContractEntity getContractEntity() {
 		return contractEntity;
@@ -221,7 +209,6 @@ public class DealEntity {
 				.append(contractComment, other.contractComment)
 				.append(lastUpdate, other.lastUpdate)
 				.append(lastUpdateUser, other.lastUpdateUser)
-				.append(partnerEntity, other.partnerEntity)
 				.append(contractEntity, other.contractEntity)
 				.isEquals();
 	}
@@ -242,7 +229,6 @@ public class DealEntity {
 				.append(contractComment)
 				.append(lastUpdate)
 				.append(lastUpdateUser)
-				.append(partnerEntity)
 				.append(dealItems)
 				.toHashCode();
 	}
@@ -263,7 +249,6 @@ public class DealEntity {
 				.append(contractComment)
 				.append(lastUpdate)
 				.append(lastUpdateUser)
-				.append(partnerEntity)
 				.append(contractEntity)
 				.append(dealItems)
 				.toString();

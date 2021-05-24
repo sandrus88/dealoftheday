@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.dealoftheday.bl.domain.Deal;
 import org.dealoftheday.bl.domain.DealItem;
+import org.dealoftheday.bl.domain.DealSearchBean;
 
 public interface DealService {
 	
@@ -16,6 +17,8 @@ public interface DealService {
     List<Deal> getAll();
 
     boolean delete(Integer id);
+    
+    List<Deal> searchDeal(DealSearchBean searchBean);
     
     
     DealItem insertDealItem(DealItem dealItem);

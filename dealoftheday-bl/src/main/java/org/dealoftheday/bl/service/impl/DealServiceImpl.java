@@ -4,12 +4,16 @@ import java.util.List;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
+import org.dealoftheday.bl.assembler.ContractAssembler;
 import org.dealoftheday.bl.assembler.DealAssembler;
 import org.dealoftheday.bl.assembler.DealItemAssembler;
 import org.dealoftheday.bl.dao.DealDao;
 import org.dealoftheday.bl.dao.DealItemDao;
+import org.dealoftheday.bl.domain.Contract;
 import org.dealoftheday.bl.domain.Deal;
 import org.dealoftheday.bl.domain.DealItem;
+import org.dealoftheday.bl.domain.DealSearchBean;
+import org.dealoftheday.bl.entities.ContractEntity;
 import org.dealoftheday.bl.entities.DealEntity;
 import org.dealoftheday.bl.entities.DealItemEntity;
 import org.dealoftheday.bl.service.DealService;
@@ -92,5 +96,12 @@ public class DealServiceImpl implements DealService {
 	@Override
 	public boolean deleteDealItem(Integer id) {
 		return dealItemDao.delete(id);
+	}
+
+	@Override
+	public List<Deal> searchDeal(DealSearchBean searchBean) {
+		List<DealEntity> listEntities = dealDao.searchDeal(searchBean);
+		List<Deal> list = DealAssembler.getDTOList(listEntities);
+		return list;
 	}
 }

@@ -10,8 +10,10 @@ import org.dealoftheday.bl.domain.Category;
 import org.dealoftheday.bl.domain.City;
 import org.dealoftheday.bl.domain.Contract;
 import org.dealoftheday.bl.domain.Customer;
+import org.dealoftheday.bl.domain.Deal;
 import org.dealoftheday.bl.domain.Partner;
 import org.dealoftheday.bl.domain.Role;
+import org.dealoftheday.bl.domain.Status;
 import org.dealoftheday.bl.domain.User;
 
 public class TestUtils {
@@ -91,19 +93,19 @@ public class TestUtils {
 		return partner;
 	}
 	
-	public static Partner getDefaultPartner() {
-		Partner partner = new Partner();
-		partner.setId(1);
-		partner.setName("Ristorante la Padellaccia");
-		partner.setAddress("Via San Antonino 19/r");
-		partner.setTel("055");
-		partner.setCell("+39329");
-		partner.setEmail("padellaccia@hotmail.it");
-		partner.setWebSite("www.lapadellaccia.com");
-		partner.setCategory(Category.FOOD_AND_RESTAURANTS);
-		partner.setCity(getDefaultCity());
-		return partner;
-	}
+//	public static Partner getDefaultPartner() {
+//		Partner partner = new Partner();
+//		partner.setId(1);
+//		partner.setName("Ristorante la Padellaccia");
+//		partner.setAddress("Via San Antonino 19/r");
+//		partner.setTel("055");
+//		partner.setCell("+39329");
+//		partner.setEmail("padellaccia@hotmail.it");
+//		partner.setWebSite("www.lapadellaccia.com");
+//		partner.setCategory(Category.FOOD_AND_RESTAURANTS);
+//		partner.setCity(getDefaultCity());
+//		return partner;
+//	}
 
 	public static Date formatDate(String str) throws ParseException {
 		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
@@ -133,22 +135,61 @@ public class TestUtils {
 		return user;
 	}
 	
-//	public static Contract createContract() throws ParseException {
-//		Contract contract = new Contract();
-//		contract.setTitle("New Contract");
-//		contract.setDescription("Description New Contract");
-//		contract.setPrice(new Float(9.99));
-//		contract.setDayOfSignature(formatDate("31/12/2020"));
-//		contract.setPartner(getDefaultPartner());
-//		return contract;
-//	}
-//
-//	public static Contract updateContract(Contract contract) throws ParseException {
-//		contract.setTitle("Updated Contract");
-//		contract.setDescription("Description Updated Contract");
-//		contract.setPrice(new Float(19.99));
-//		contract.setDayOfSignature(formatDate("01/12/2020"));
-//		contract.setPartner(getDefaultPartner());
-//		return contract;
-//	}
+	public static Contract createContract() throws ParseException {
+		Contract contract = new Contract();
+		contract.setClientFullName("New Client");
+		contract.setClientCell("Cell New Client");
+		contract.setBrokerFullName("New Broker");
+		contract.setBrokerCell("Cell New Broker");
+		contract.setSignedDate(formatDate("01/06/2020"));
+		contract.setStartDate(formatDate("01/01/2020"));
+		contract.setEndDate(formatDate("31/12/2020"));
+		contract.setIban("IT0123456789");
+		contract.setContractComment("Comment New Contract");
+		contract.setPartnerId(new Integer(2));
+		return contract;
+	}
+
+	public static Contract updateContract(Contract contract) throws ParseException {
+		contract.setClientFullName("Update Client");
+		contract.setClientCell("Cell Update Client");
+		contract.setBrokerFullName("Update Broker");
+		contract.setBrokerCell("Cell Update Broker");
+		contract.setSignedDate(formatDate("01/06/2020"));
+		contract.setStartDate(formatDate("01/01/2020"));
+		contract.setEndDate(formatDate("31/12/2020"));
+		contract.setIban("IT9876543210");
+		contract.setContractComment("Comment Update Contract");
+		contract.setPartnerId(new Integer(2));
+		return contract;
+	}
+	
+	public static Deal createDeal() throws ParseException {
+		Deal deal = new Deal();
+		deal.setTitle("New Deal");
+		deal.setTitleNewsletter("Newsletter New Deal");
+		deal.setSynthesis("Synthesis New Deal");
+		deal.setConditions("Conditions New Deal");
+		deal.setDescription("Description New Deal");
+		deal.setMainImgName("MainImgName New Deal");
+		deal.setApprovedDate(formatDate("01/01/2000"));
+		deal.setContractComment("Comment New Deal");
+		deal.setStatus(Status.CONTRACT_INSERTED);
+		deal.setContract(new Contract(5, "Client5", "Cell Client5", "Broker5", "Cell Broker5", formatDate("05/01/2020"), formatDate("05/02/2020"), formatDate("05/03/2020"), "IT0005", "Comment about Contract5", 2));
+		return deal;
+	}
+
+	public static Deal updateDeal(Deal deal) throws ParseException {
+		deal.setTitle("Update Deal");
+		deal.setTitleNewsletter("Newsletter Update Deal");
+		deal.setSynthesis("Synthesis Update Deal");
+		deal.setConditions("Conditions Update Deal");
+		deal.setDescription("Description Update Deal");
+		deal.setMainImgName("MainImgName Update Deal");
+		deal.setApprovedDate(formatDate("31/12/2000"));
+		deal.setContractComment("Comment Update Deal");
+		deal.setStatus(Status.DEAL_PUBLISHED);
+		deal.setContract(new Contract(5, "Client5", "Cell Client5", "Broker5", "Cell Broker5", formatDate("05/01/2020"), formatDate("05/02/2020"), formatDate("05/03/2020"), "IT0005", "Comment about Contract5", 2));
+		return deal;
+	}
 }

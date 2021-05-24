@@ -19,16 +19,14 @@ public class Contract {
 	private Date endDate;
 	private String contractComment;
 	private String iban;
-	private Partner partner;
-	private Deal deal;
+	private Integer partnerId;
 	
 	public Contract() {
 		
 	}
 	
 	public Contract(Integer id, String clientFullName, String clientCell, String brokerFullName, String brokerCell,
-			Date signedDate, Date startDate, Date endDate, String contractComment, String iban, Partner partner,
-			Deal deal) {
+			Date signedDate, Date startDate, Date endDate, String contractComment, String iban, Integer partnerId) {
 		this.id = id;
 		this.clientFullName = clientFullName;
 		this.clientCell = clientCell;
@@ -39,8 +37,7 @@ public class Contract {
 		this.endDate = endDate;
 		this.contractComment = contractComment;
 		this.iban = iban;
-		this.partner = partner;
-		this.deal = deal;
+		this.partnerId = partnerId;
 	}
 
 	public Integer getId() {
@@ -123,20 +120,12 @@ public class Contract {
 		this.contractComment = contractComment;
 	}
 
-	public Partner getPartner() {
-		return partner;
+	public Integer getPartnerId() {
+		return partnerId;
 	}
 
-	public void setPartner(Partner partner) {
-		this.partner = partner;
-	}
-
-	public Deal getDeal() {
-		return deal;
-	}
-
-	public void setDeal(Deal deal) {
-		this.deal = deal;
+	public void setPartnerId(Integer partnerId) {
+		this.partnerId = partnerId;
 	}
 
 	@Override
@@ -156,8 +145,7 @@ public class Contract {
 				.append(endDate, other.endDate)
 				.append(iban, other.iban)
 				.append(contractComment, other.contractComment)
-				.append(partner, other.partner)
-				.append(deal, other.deal)
+				.append(partnerId, other.partnerId)
 				.isEquals();
 	}
 
@@ -174,8 +162,7 @@ public class Contract {
 				.append(endDate)
 				.append(iban)
 				.append(contractComment)
-				.append(partner)
-				.append(deal)
+				.append(partnerId)
 				.toHashCode();
 	}
 
@@ -193,8 +180,7 @@ public class Contract {
 				.append(endDate)
 				.append(iban)
 				.append(contractComment)
-				.append(partner)
-				.append(deal)
+				.append(partnerId)
 				.toString();
 	}
 }
