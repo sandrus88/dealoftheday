@@ -1,0 +1,131 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+	  xmlns:h="http://java.sun.com/jsf/html"
+	  xmlns:f="http://java.sun.com/jsf/core"
+	  xmlns:ui="http://java.sun.com/jsf/facelets"
+	  xmlns:p="http://primefaces.org/ui">
+
+<ui:composition template="/template/pageLayout.xhtml">
+	<ui:define name="content">
+		<h:outputScript library="javascript" name="customer.js"/>
+
+		<h:form id="searchForm">
+			<p:growl id="message" showDetail="true"/>
+
+			<h:outputText value="#{msg['contract.search']}" styleClass="searchTitle"/>
+
+			<h:panelGrid border="0" columns="4" width="50%" >
+				<h:panelGrid columns="2">
+					<p:outputLabel for="id" value="#{msg['contract.id']}" />
+					<p:inputText id="id" value="#{contractController.searchId}" maxlength="7" size="3">
+						<f:convertNumber />
+						<p:ajax event="blur" update="id"/>
+					</p:inputText>
+					<p:outputLabel for="title" value="#{msg['contract.title']}" />
+					<p:inputText id="title" value="#{contractController.searchTitle}" maxlength="30" />
+				</h:panelGrid>
+
+				<h:panelGrid columns="2">
+					<p:outputLabel for="dayOfSignature" value="#{msg['contract.dayofsignature']}" styleClass="searchNoWrap"/>
+					<p:datePicker id="dayOfSignature" value="#{contractController.searchDayOfSignature}" showIcon="true" pattern="dd/MM/yyyy" timeZone="CET"/>
+					<p:outputLabel for="partner" value="#{msg['contract.partners']}" />
+					<p:selectOneMenu id="partner" value="#{contractController.searchPartner}" converter="#{contractPartnerConverter}">
+						<f:selectItem itemLabel="" />
+						<f:selectItems value="#{contractController.allPartners}" var="partner" itemValue="#{partner}" itemLabel="#{partner.name}"/>
+					</p:selectOneMenu>
+				</h:panelGrid>
+			</h:panelGrid>
+
+			<h:panelGrid border="0" columns="1" width="50%">
+				<h:panelGrid border="0" columns="3" styleClass="right">
+					<p:spacer width="425" height="20"/>
+					<p:commandButton value="#{msg['search']}" actionListener="#{contractController.searchContract()}" update="searchResultForm message"
+									 styleClass="button ui-button-outlined ui-button-secondary" icon="ui-icon ui-icon-search"/>
+					<p:commandButton value="#{msg['clear']}" actionListener="#{contractController.cleanSearchForm()}" update="searchForm"
+									 styleClass="button" icon="ui-icon ui-icon-arrowrefresh-1-w">
+						<p:ajax update="searchForm" resetValues="true"/>
+					</p:commandButton>
+				</h:panelGrid>
+			</h:panelGrid>
+		</h:form>
+
+		<h:form id="searchResultForm">
+			<h:panelGrid border="0" columns="3" >
+				<h:outputText value="#{msg['contract.home.table']}" styleClass="searchTitle"/>
+
+				<p:commandLink oncomplete="PF('dialogNewContract').show()" id="linkAddContract" >
+					<i class="fa fa-fw fa-plus bigIcon"/>
+					<p:tooltip for="linkAddContract" value="#{msg['add']}" position="bottom"/>
+				</p:commandLink>
+
+				<ui:include src="../ajaxStatus.xhtml" />
+			</h:panelGrid>
+
+			<p:dataTable value="#{contractController.contractList}" var="item" id="contractsTable" emptyMessage="#{msg['contract.empty.table']}"
+						 paginator="true" rows="5" rowsPerPageTemplate="5,50,100"
+						 paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown} Nr. Rows: #{contractController.contractList.size()}">
+				<p:column width="5%" headerText="#{msg['contract.id']}" sortBy="#{item.id}" styleClass="data">
+					<h:outputText value="#{item.id}" />
+				</p:column>
+
+				<p:column width="15%" headerText="#{msg['contract.title']}" sortBy="#{item.title}" styleClass="data">
+					<h:outputText value="#{item.title}" />
+				</p:column>
+				
+				<p:column width="15%" headerText="#{msg['contract.price']}" sortBy="#{item.price}" styleClass="data">
+					<h:outputText value="#{item.price} €">
+						<f:convertNumber pattern="#0.00"/>
+					</h:outputText>	
+				</p:column>
+
+				<p:column width="16%" headerText="#{msg['contract.dayofsignature']}" sortBy="#{item.dayOfSignature}" styleClass="data">
+					<h:outputText value="#{item.dayOfSignature}">
+						<f:convertDateTime pattern="dd/MM/yyyy" timeZone="CET" />
+					</h:outputText>
+				</p:column>
+
+				<p:column width="24%" headerText="#{msg['contract.partner']}" sortBy="#{item.partner}" styleClass="data">
+					<h:outputText value="#{item.partner.name}" />
+				</p:column>
+
+				<p:column width="14%" headerText="#{msg['contract.insertiondate']}" sortBy="#{item.insertionDate}" styleClass="data">
+					<h:outputText value="#{item.insertionDate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
+				</p:column>
+
+				<p:column width="15%" headerText="#{msg['contract.lastupdate']}" sortBy="#{item.lastUpdate}" styleClass="data">
+					<h:outputText value="#{item.lastUpdate}">
+						<f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" timeZone="CET" />
+					</h:outputText>	
+				</p:column>
+
+				<p:column width="6%" styleClass="actions">
+					<p:commandLink oncomplete="PF('dialogEditContract').show()" update="contractEditForm" id="linkEdit">
+						<i class="fa fa-fw fa-pencil"/>
+						<p:tooltip for="linkEdit" value="#{msg['action.edit']}" position="bottom"/>
+						<f:setPropertyActionListener value="#{item}" target="#{contractController.selectedContract}" />
+					</p:commandLink>
+					<p:commandLink oncomplete="PF('dialog').show()" id="linkRemove">
+						<i class="fa fa-fw fa-remove"/>
+						<p:tooltip for="linkRemove" value="#{msg['action.delete']}" position="bottom"/>
+						<f:setPropertyActionListener value="#{item}" target="#{contractController.selectedContract}" />
+					</p:commandLink>
+				</p:column>
+			</p:dataTable>
+
+			<p:dialog widgetVar="dialog" showEffect="fade" hideEffect="fade" modal="true" width="350" resizable="false"
+					  header="#{msg['popup.confirm']}" position="center" draggable="false">
+				<h:outputText value="#{msg['popup.message.delete']}"/>
+				<h:panelGrid columns="2" border="0" styleClass="center paddDiv5_10">
+					<p:commandButton value="#{msg['popup.delete.yes']}" actionListener="#{contractController.deleteContract(contractController.selectedContract)}"
+									 update="searchResultForm" oncomplete="PF('dialog').hide()" styleClass="button"/>
+					<p:commandButton value="#{msg['popup.delete.no']}" styleClass="button" onclick="PF('dialog').hide()"/>
+				</h:panelGrid>
+			</p:dialog>
+		</h:form>
+
+		<ui:include src="editContractDialog.xhtml" />
+		<ui:include src="newContractDialog.xhtml" />
+	</ui:define>
+</ui:composition>
+</html>

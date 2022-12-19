@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
@@ -12,7 +11,6 @@ import javax.faces.convert.FacesConverter;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.dealoftheday.admin.backingbean.UserController;
 import org.dealoftheday.bl.domain.Role;
 import org.dealoftheday.bl.service.UserService;
 

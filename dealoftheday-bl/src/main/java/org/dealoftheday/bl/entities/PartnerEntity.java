@@ -1,5 +1,8 @@
 package org.dealoftheday.bl.entities;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -8,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
@@ -43,7 +47,27 @@ public class PartnerEntity {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "CITY_ID")
 	private CityEntity cityEntity;
- 	
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name = "PARTNER_ID")
+	private List<ContractEntity> contracts;
+	
+	public PartnerEntity() {
+		contracts = new ArrayList<>();
+	}
+	
+	public void addContract(ContractEntity contractEntity) {
+		contracts.add(contractEntity);
+	}
+	
+	public void removeContract(ContractEntity contractEntity) {
+		contracts.remove(contractEntity);
+	}
+	
+	public void removeAllContracts() {
+		contracts.clear();
+	}
+
 	public Integer getId() {
 		return id;
 	}
@@ -116,6 +140,14 @@ public class PartnerEntity {
 		this.cityEntity = cityEntity;
 	}
 
+	public List<ContractEntity> getContracts() {
+		return contracts;
+	}
+
+	public void setContracts(List<ContractEntity> contracts) {
+		this.contracts = contracts;
+	}
+
 	@Override
 	public boolean equals(Object o) {
 		if (!(o instanceof PartnerEntity)) {
@@ -146,6 +178,7 @@ public class PartnerEntity {
 				.append(webSite)
 				.append(category)
 				.append(cityEntity)
+				.append(contracts)
 				.toHashCode();
 	}
 
@@ -161,6 +194,7 @@ public class PartnerEntity {
 				.append(webSite)
 				.append(category)
 				.append(cityEntity)
+				.append(contracts)
 				.toString();
 	}
 }

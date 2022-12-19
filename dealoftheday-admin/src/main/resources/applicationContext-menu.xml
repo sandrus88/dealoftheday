@@ -28,6 +28,12 @@
 		p:id="userMenu"
 		p:label="Users" 
 		p:link="app/user/userHome.xhtml" />
+		
+	<bean id="contractMenu"
+		class="org.dealoftheday.admin.menu.MenuItem" 
+		p:id="contractMenu"
+		p:label="Contracts" 
+		p:link="app/contract/contractHome.xhtml" />
 
 	<bean id="menu" class="org.dealoftheday.admin.menu.MenuItem"
 		p:id="root">
@@ -42,6 +48,15 @@
 							<ref bean="cityMenu" />
 							<ref bean="partnerMenu" />
 							<ref bean="userMenu" />
+						</list>
+					</property>
+				</bean>
+				<bean id="dealsTopMenu"
+					class="org.dealoftheday.admin.menu.MenuItem"
+					p:id="dealsTopMenu" p:label="Deals" p:roles="ROLE_ADMIN">
+					<property name="children">
+						<list>
+							<ref bean="contractMenu" />
 						</list>
 					</property>
 				</bean>
