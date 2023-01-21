@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>org.dealoftheday</groupId>
-        <artifactId>dealoftheday</artifactId>
+        <artifactId>dealoftheday-sandro</artifactId>
         <version>0.0.1-SNAPSHOT</version>
     </parent>
     <artifactId>dealoftheday-admin</artifactId>

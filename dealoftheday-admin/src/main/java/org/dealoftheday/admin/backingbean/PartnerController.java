@@ -61,7 +61,7 @@ public class PartnerController {
 	}
 
 	public void searchPartner() {
-		Partner searchDto = new Partner(searchId, searchName, null, null, searchCell, searchEmail, null, searchCategory, searchCity);
+		Partner searchDto = new Partner(searchId, searchName, null, null, searchCell, searchEmail, null, searchCategory, searchCity, null);
 		partnerList = partnerService.searchPartner(searchDto);
 	}
 
